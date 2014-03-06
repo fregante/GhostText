@@ -40,18 +40,18 @@ class OnMessage(AbstractOnMessage):
 
 
 class OnClose(AbstractOnClose):
-    def __init__(self, web_socket_server, current_view):
+    def __init__(self, web_socket_server):
         self._web_socket_server = web_socket_server
 
     def on_close(self):
         self._web_socket_server.on_message(OnConnect(self._web_socket_server))
         Thread(target=web_socket_server_thread).start()
 
-web_socket_server = Server('localhost', 1338)
+web_socket_server = Server('localhost', 2000)
 OnSelectionModifiedListener.set_web_socket_server(web_socket_server)
 
 web_socket_server.on_message(OnConnect(web_socket_server))
-web_socket_server.on_close(OnConnect(web_socket_server))
+web_socket_server.on_close(OnClose(web_socket_server))
 
 
 def web_socket_server_thread():
