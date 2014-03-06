@@ -1,0 +1,27 @@
+{
+  "name": "SublimeTextArea",
+  "icons": {
+    "16": "icon/16.png",
+    "32": "icon/32.png"
+  },
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Connects a textare with your SublimeText editor.",
+  "content_scripts": [{
+        "matches": ["http://*/*", "https://*/*"],
+        "js": ["vendor/jquery.min.js", "scripts/lib.js", "scripts/content.js"],
+        "run_at": "document_end"
+  }],
+  "background": {
+    "scripts": ["scripts/background.js"]
+  },
+  "permissions": [
+    "tabs","<all_urls>"
+    ],
+  "options_page": "options.html",
+  "browser_action": {
+    "default_title": "SublimeTextArea",
+    "default_popup": "popup.html",
+    "default_icon":  "icon/32.png"
+  }
+}
