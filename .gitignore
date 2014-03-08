@@ -35,4 +35,5 @@ nosetests.xml
 .project
 .pydevproject
 
+.idea
 .SublimeText3Plugin/.idea
