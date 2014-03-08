@@ -4,6 +4,9 @@ from .Handshake import Handshake
 
 
 class Server:
+    """
+    A simple, single threaded, web socket server.
+    """
     def __init__(self, host='localhost', port=1337):
         self._handshake = Handshake()
         self._frame = Frame()
@@ -21,6 +24,9 @@ class Server:
         self._received_payload = ''
 
     def start(self):
+        """
+        Starts the server,
+        """
         print('Start')
         self._socket.listen(1)
         self._conn, self._address = self._socket.accept()
@@ -29,8 +35,7 @@ class Server:
         data = self._conn.recv(1024)
         self._conn.sendall(self._handshake.perform(data).encode("utf-8"))
 
-        run = True
-        while run:
+        while self._running:
             header = self._conn.recv(24)  # Max web socket header length
 
             if len(data) > 0:
@@ -39,11 +44,11 @@ class Server:
                 try:
                     self._frame.parse(header)
                 except IndexError:
-                    run = False
+                    self._running = False
                     continue
 
                 if self._frame.terminate:
-                    run = False
+                    self._running = False
                     continue
 
                 data = bytearray()
@@ -56,6 +61,7 @@ class Server:
                     self._received_payload += request.lstrip('\x00')
 
                 if self._frame.utf8 and self._frame.fin:
+                    print('Triggering on_message')
                     self._on_message_handler.on_message(self._received_payload)
                     self._received_payload = ''
 
@@ -63,6 +69,9 @@ class Server:
         self.stop()
 
     def send_message(self, txt):
+        """
+        Sends a message if the server is in running state.
+        """
         if not self._running:
             return
 
@@ -71,18 +80,28 @@ class Server:
         self._conn.send(raw_data)
 
     def stop(self):
-        print('Stop')
+        """
+        Stops the server by sending the fin package to the client and closing the socket.
+        """
+        self._running = False
         self._conn.send(self._frame.close())
         self._conn.close()
-
         if self._on_close_handler:
             print('Triggering on_close')
             self._on_close_handler.on_close()
 
-    def on_message(self, callback):
-        print("Setting on message handler")
-        self._on_message_handler = callback
+    def on_message(self, handler):
+        """
+        Sets the on message handler.
+        """
+        print('Setting on message handler')
+        self._on_message_handler = handler
+        self._on_message_handler.set_web_socket_server(self)
 
-    def on_close(self, callback):
-        print("Setting on close handler")
-        self._on_close_handler = callback
+    def on_close(self, handler):
+        """
+        Sets the on connection closed handler.
+        """
+        print('Setting on close handler')
+        self._on_close_handler = handler
+        self._on_close_handler.set_web_socket_server(self)

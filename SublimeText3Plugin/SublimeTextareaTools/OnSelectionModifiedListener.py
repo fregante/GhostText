@@ -5,6 +5,9 @@ import sys
 
 
 class OnSelectionModifiedListener(EventListener):
+    """
+    Handles content changes, each changes gets send with the given web socket server to the client.
+    """
     _web_socket_server = None
     _view_name = None
 
@@ -35,6 +38,9 @@ class OnSelectionModifiedListener(EventListener):
 
     @staticmethod
     def _get_max_selection(view):
+        """
+        Returns the min and max values of all selections from the given view.
+        """
         _max = 0
         _min = sys.maxsize
 

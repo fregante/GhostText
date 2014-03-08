@@ -81,7 +81,6 @@ class Frame:
         Creates a closing frame.
 
         """
-
         return bytearray([136, 0])
 
     def get_payload(self, data):
@@ -100,6 +99,10 @@ class Frame:
         return data[self._payload_start:]
 
     def get_payload_offset(self):
+        """
+        Retuns the payload offset length.
+
+        """
         return self._payload_len - self._payload_start
 
     def _parse_first_byte(self, byte):

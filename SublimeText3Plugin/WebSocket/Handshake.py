@@ -6,7 +6,6 @@ class Handshake:
     """
     Handles the WebSocket handshake.
     """
-
     def perform(self, data):
         """
         Parses the given request data and returns a matching response header.
