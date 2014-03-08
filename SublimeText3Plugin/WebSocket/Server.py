@@ -61,7 +61,6 @@ class Server:
                     self._received_payload += request.lstrip('\x00')
 
                 if self._frame.utf8 and self._frame.fin:
-                    print('Triggering on_message')
                     self._on_message_handler.on_message(self._received_payload)
                     self._received_payload = ''
 

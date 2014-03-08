@@ -40,7 +40,6 @@ class OnMessage(AbstractOnMessage):
         self._current_view = current_view
 
     def on_message(self, text):
-        print(text)
         try:
             request = json.loads(text)
             self._current_view.run_command('replace_content', {'txt': request['text']})
