@@ -83,7 +83,11 @@ class Server:
         Stops the server by sending the fin package to the client and closing the socket.
         """
         self._running = False
-        self._conn.send(self._frame.close())
+        try:
+            self._conn.send(self._frame.close())
+        except BrokenPipeError:
+            print('Ignored BrokenPipeError')
+
         self._conn.close()
         if self._on_close_handler:
             print('Triggering on_close')
