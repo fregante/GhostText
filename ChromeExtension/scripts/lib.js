@@ -21,6 +21,7 @@ var SublimeTextArea = {
 
     connectTextarea: function (textarea, title) {
         var that = this;
+        var textareaDom = $(textarea).get(0);
 
         var webSocket = new WebSocket('ws://localhost:' + SublimeTextArea.serverPort());
 
@@ -29,13 +30,15 @@ var SublimeTextArea = {
         };
 
         webSocket.onmessage = function (event) {
-            console.log(event.data);
             var response = JSON.parse(event.data);
             textarea.val(response.text);
+
+            textareaDom.selectionStart = response.cursor.min;
+            textareaDom.selectionEnd = response.cursor.max;
+            textareaDom.focus();
         };
 
-        textarea.bind('input propertychange', function() {
-            console.log(textarea.val());
+        textarea.bind('input propertychange onmouseup', function() {
             webSocket.send(that.textChange(title, textarea));
         });
     },
@@ -51,5 +54,5 @@ var SublimeTextArea = {
                     end: textareaDom.selectionEnd
                 },
             });
-    }
+    },
 };
