@@ -37,3 +37,5 @@ nosetests.xml
 
 .idea
 SublimeText3Plugin/.idea
+
+ChromeExtension.pem
