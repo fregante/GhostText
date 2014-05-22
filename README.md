@@ -9,4 +9,6 @@ You can find a video at [YouTube](http://www.youtube.com/watch?v=zffEqq2J-mM&fea
 
 A small description about this project can be found at [my blog](http://cacodaemon.de/index.php?id=59).
 
+For installing the Chrome extension, download and drag ChromeExtension.crx into Chrome/Chromium.
+
 SublimeTextArea can be found at Package Control under: [**ChromeTextArea**](https://sublime.wbond.net/packages/ChromeTextArea).
