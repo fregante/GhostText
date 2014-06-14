@@ -3,7 +3,7 @@ from .Frame import Frame
 from .Handshake import Handshake
 
 
-class Server:
+class WebSocketServer:
     """
     A simple, single threaded, web socket server.
     """
@@ -28,11 +28,12 @@ class Server:
         """
         Starts the server,
         """
+        print('Start')
         self._socket.listen(1)
         self._port = self._socket.getsockname()[1]
-        print('WebSocket started, listening on port: {}'.format())
-        self._conn, self._address = self._socket.accept()
+        print('Listening on: {}'.format(self._port))
         self._running = True
+        self._conn, self._address = self._socket.accept()
 
         data = self._conn.recv(1024)
         self._conn.sendall(self._handshake.perform(data).encode("utf-8"))
@@ -110,3 +111,15 @@ class Server:
         print('Setting on close handler')
         self._on_close_handler = handler
         self._on_close_handler.set_web_socket_server(self)
+
+    def get_running(self):
+        """
+        Returns the running state.
+        """
+        return self._running
+
+    def get_port(self):
+        """
+        Gets the port the server is listening/running on.
+        """
+        return self._port

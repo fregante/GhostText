@@ -7,11 +7,56 @@ import sublime
 from sublime_plugin import TextCommand
 from threading import Thread
 import json
-from .WebSocket.Server import Server
+from time import sleep
+from .WebSocket.WebSocketServer import WebSocketServer
 from .WebSocket.AbstractOnClose import AbstractOnClose
 from .WebSocket.AbstractOnMessage import AbstractOnMessage
 from .SublimeTextareaTools.OnSelectionModifiedListener import OnSelectionModifiedListener
 from .SublimeTextareaTools.WindowHelper import WindowHelper
+from .Http.HttpServer import HttpServer
+from .Http.AbstractOnRequest import AbstractOnRequest
+
+
+class WebsocketServerThread(Thread):
+    def __init__(self):
+        super().__init__()
+        print("WebsocketServerThread.__init__")
+        self._server = WebSocketServer('localhost', 0)
+        self._server.on_message(OnConnect())
+        self._server.on_close(OnClose())
+        OnSelectionModifiedListener.set_web_socket_server(self._server) #TODO
+
+    def run(self):
+        print("WebsocketServerThread.run")
+        self._server.start()
+
+    def get_server(self):
+        return self._server
+
+
+class OnRequest(AbstractOnRequest):
+    def on_request(self, method, uri, version, headers):
+        print("OnRequest.on_request")
+        websocket_server_thread = WebsocketServerThread()
+        websocket_server_thread.start()
+        while not websocket_server_thread.get_server().get_running():
+            sleep(0.1)
+
+        port = websocket_server_thread.get_server().get_port()
+
+        return 200, {'Content-Type': 'application/json'}, json.dumps({"WebSocketPort": port})
+
+
+class HttpStatusServerThread(Thread):
+    def __init__(self):
+        super().__init__()
+        print("HttpStatusServerThread.__init__")
+        self._server = HttpServer('localhost', 4001)
+        self._server.on_request(OnRequest())
+
+    def run(self):
+        print("HttpStatusServerThread.run")
+        self._server.start()
 
 
 class ReplaceContentCommand(TextCommand):
@@ -49,18 +94,11 @@ class OnMessage(AbstractOnMessage):
 
 class OnClose(AbstractOnClose):
     def on_close(self):
+        print("WebSocket Closed bye bye")
+        """
         self._web_socket_server.on_message(OnConnect())
         Thread(target=web_socket_server_thread).start()
+        """
 
-web_socket_server = Server('localhost', 1337)
-OnSelectionModifiedListener.set_web_socket_server(web_socket_server)
-
-web_socket_server.on_message(OnConnect())
-web_socket_server.on_close(OnClose())
-
-
-def web_socket_server_thread():
-    global web_socket_server
-    web_socket_server.start()
-
-Thread(target = web_socket_server_thread).start()
+http_status_server_thread = HttpStatusServerThread()
+http_status_server_thread.start()

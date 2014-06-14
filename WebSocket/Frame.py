@@ -59,12 +59,12 @@ class Frame:
 
         if self._payload_len == 127:  # 64 bit int length
             self._payload_len = (data[2] << 56) + \
-                               (data[3] << 48) + \
-                               (data[4] << 40) + \
-                               (data[5] << 32) + \
-                               (data[6] << 24) + \
-                               (data[7] << 16) + \
-                               (data[8] << 8) + data[9]
+                                (data[3] << 48) + \
+                                (data[4] << 40) + \
+                                (data[5] << 32) + \
+                                (data[6] << 24) + \
+                                (data[7] << 16) + \
+                                (data[8] << 8) + data[9]
             self._mask_start += 8
             self._payload_start += 8
 
@@ -100,12 +100,15 @@ class Frame:
 
     def get_payload_offset(self):
         """
-        Retuns the payload offset length.
+        Returns the payload offset length.
 
         """
         return self._payload_len - self._payload_start
 
     def _parse_first_byte(self, byte):
+        """
+        Parses the first byte.
+        """
         self.fin = byte >= 128
         opcode = byte
         if self.fin:
@@ -119,6 +122,9 @@ class Frame:
         self.pong = opcode == 10
 
     def _parse_second_byte(self, byte):
+        """
+        Parses the second byte.
+        """
         self.mask = byte >= 128
         self._payload_len = byte
 
