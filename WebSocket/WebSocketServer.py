@@ -7,6 +7,9 @@ class WebSocketServer:
     """
     A simple, single threaded, web socket server.
     """
+
+    _id = 1
+
     def __init__(self, host='localhost', port=0):
         self._handshake = Handshake()
         self._frame = Frame()
@@ -23,6 +26,9 @@ class WebSocketServer:
         self._port = 0
 
         self._received_payload = ''
+        self._id = WebSocketServer._id
+        WebSocketServer._id += 1
+        print("WebSocketServer id: {}".format(self._id))
 
     def start(self):
         """
@@ -57,7 +63,11 @@ class WebSocketServer:
                 data = bytearray()
                 data.extend(header)
                 offset = self._frame.get_payload_offset()
-                data.extend(self._conn.recv(offset))
+
+                try:
+                    data.extend(self._conn.recv(offset))
+                except MemoryError:
+                    continue
 
                 if self._frame.utf8:
                     request = self._frame.get_payload(data).decode("utf-8")
@@ -123,3 +133,9 @@ class WebSocketServer:
         Gets the port the server is listening/running on.
         """
         return self._port
+
+    def get_id(self):
+        """
+        Gets the server's id.
+        """
+        return self._id

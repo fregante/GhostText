@@ -6,7 +6,7 @@ class Server:
     """
     A simple, single threaded, http server.
     """
-    def __init__(self, host='localhost', port=1338):
+    def __init__(self, host='localhost', port=4001):
         self._on_request_handler = None
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -21,8 +21,6 @@ class Server:
         print('HTTP Start')
         self._socket.listen(1)
 
-        i = 0
-
         while True:
             self._conn, self._address = self._socket.accept()
             request = self._recv_all()
@@ -32,7 +30,6 @@ class Server:
             response = self._build_response(response_status, response_headers, response_data)
             self._conn.sendall(bytes(response, 'UTF-8'))
             self._conn.close()
-            i += 1
 
         self.stop()
 
