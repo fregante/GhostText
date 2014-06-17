@@ -40,7 +40,15 @@ class HttpServer:
         """
         Receive all data.
         """
-        return self._conn.recv(4096)
+        msg = bytearray()
+        while True:
+            chunk = self._conn.recv(4096)
+            msg.extend(chunk)
+
+            if len(chunk) < 4096:
+                break
+
+        return msg
 
     def _parse_request(self, request):
         """
