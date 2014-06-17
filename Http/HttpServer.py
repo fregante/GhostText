@@ -49,9 +49,6 @@ class HttpServer:
         Parses the http request string and returns the request parts.
         """
         headers_temp = request.decode("utf-8").strip().split("\r\n")
-        print("parse")
-        print(headers_temp)
-        print("parse End")
         request_method, request_uri, http_version = headers_temp.pop(0).split(" ")
         request_headers = {}
 
