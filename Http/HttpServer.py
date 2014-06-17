@@ -1,6 +1,6 @@
 import socket
 from .Request import Request
-from .Response import Response
+
 
 class HttpServer:
     """
@@ -26,7 +26,7 @@ class HttpServer:
             request = self._recv_all()
             request = self._parse_request(request)
             response = self._on_request_handler.on_request(request)
-            self._conn.sendall(bytes(self._build_response(response), 'UTF-8'))
+            self._conn.sendall(bytes(self._build_response(response)))
             self._conn.close()
 
     def stop(self):
@@ -54,7 +54,9 @@ class HttpServer:
         """
         Parses the http request string and returns the request parts.
         """
-        headers_temp = request.decode("utf-8").strip().split("\r\n")
+        raw_request = request.decode("utf-8").strip()
+        raw_header, raw_data = raw_request.split("\r\n\r\n")
+        headers_temp = raw_header.split("\r\n")
         request_method, request_uri, http_version = headers_temp.pop(0).split(" ")
         request_headers = {}
 
@@ -62,7 +64,7 @@ class HttpServer:
             key, value = header.split(": ")
             request_headers[key] = value
 
-        return Request(request_method, request_uri, http_version, request_headers)
+        return Request(request_method, request_uri, http_version, request_headers, raw_data)
 
     def _build_response(self, response):
         response_header = ""
