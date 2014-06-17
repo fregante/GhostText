@@ -5,4 +5,6 @@ __email__ = 'mail 64 cacodaemon 46 de'
 
 from .AbstractHandler import AbstractHandler
 from .AbstractOnRequest import AbstractOnRequest
+from .Request import Request
+from .Response import Response
 from .HttpServer import HttpServer

@@ -1,6 +1,6 @@
 import socket
-import json
-
+from .Request import Request
+from .Response import Response
 
 class HttpServer:
     """
@@ -24,11 +24,9 @@ class HttpServer:
         while True:
             self._conn, self._address = self._socket.accept()
             request = self._recv_all()
-            request_method, request_uri, http_version, request_headers = self._parse_request(request)
-            response_status, response_headers, response_data = \
-                self._on_request_handler.on_request(request_method, request_uri, http_version, request_headers)
-            response = self._build_response(response_status, response_headers, response_data)
-            self._conn.sendall(bytes(response, 'UTF-8'))
+            request = self._parse_request(request)
+            response = self._on_request_handler.on_request(request)
+            self._conn.sendall(bytes(self._build_response(response), 'UTF-8'))
             self._conn.close()
 
     def stop(self):
@@ -42,7 +40,7 @@ class HttpServer:
         """
         Receive all data.
         """
-        return self._conn.recv(1024)
+        return self._conn.recv(4096)
 
     def _parse_request(self, request):
         """
@@ -56,15 +54,15 @@ class HttpServer:
             key, value = header.split(": ")
             request_headers[key] = value
 
-        return request_method, request_uri, http_version, request_headers
+        return Request(request_method, request_uri, http_version, request_headers)
 
-    def _build_response(self, status, response_headers, response_data):
+    def _build_response(self, response):
         response_header = ""
 
-        for key in response_headers:
-            response_header += "{}: {}\r\n".format(key, response_headers[key])
+        for key in response.get_headers():
+            response_header += "{}: {}\r\n".format(key, response.get_headers()[key])
 
-        return "HTTP/1.1 {} OK\r\n{}\r\n{}".format(status, response_header, response_data)
+        return "HTTP/1.1 {} OK\r\n{}\r\n{}".format(response.get_status(), response_header, response.get_data())
 
     def on_request(self, handler):
         """

@@ -15,9 +15,11 @@ from .SublimeTextareaTools.OnSelectionModifiedListener import OnSelectionModifie
 from .SublimeTextareaTools.WindowHelper import WindowHelper
 from .Http.HttpServer import HttpServer
 from .Http.AbstractOnRequest import AbstractOnRequest
+from .Http.Request import Request
+from .Http.Response import Response
 
 
-class WebsocketServerThread(Thread):
+class WebSocketServerThread(Thread):
     def __init__(self):
         super().__init__()
         self._server = WebSocketServer('localhost', 0)
@@ -32,15 +34,15 @@ class WebsocketServerThread(Thread):
 
 
 class OnRequest(AbstractOnRequest):
-    def on_request(self, method, uri, version, headers):
-        websocket_server_thread = WebsocketServerThread()
-        websocket_server_thread.start()
-        while not websocket_server_thread.get_server().get_running():
+    def on_request(self, request):
+        web_socket_server_thread = WebSocketServerThread()
+        web_socket_server_thread.start()
+        while not web_socket_server_thread.get_server().get_running():
             sleep(0.1)
 
-        port = websocket_server_thread.get_server().get_port()
+        port = web_socket_server_thread.get_server().get_port()
 
-        return 200, {'Content-Type': 'application/json'}, json.dumps({"WebSocketPort": port})
+        return Response(json.dumps({"WebSocketPort": port}), "200 OK", {'Content-Type': 'application/json'})
 
 
 class HttpStatusServerThread(Thread):
