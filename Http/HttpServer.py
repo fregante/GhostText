@@ -26,7 +26,7 @@ class HttpServer:
             request = self._recv_all()
             request = self._parse_request(request)
             response = self._on_request_handler.on_request(request)
-            self._conn.sendall(bytes(self._build_response(response)))
+            self._conn.sendall(bytes(self._build_response(response), 'utf-8'))
             self._conn.close()
 
     def stop(self):
@@ -55,7 +55,13 @@ class HttpServer:
         Parses the http request string and returns the request parts.
         """
         raw_request = request.decode("utf-8").strip()
-        raw_header, raw_data = raw_request.split("\r\n\r\n")
+
+        try:
+            raw_header, raw_data = raw_request.split("\r\n\r\n", 1)
+        except ValueError:
+            raw_header = raw_request
+            raw_data = None
+
         headers_temp = raw_header.split("\r\n")
         request_method, request_uri, http_version = headers_temp.pop(0).split(" ")
         request_headers = {}
