@@ -66,7 +66,7 @@ class WebSocketServer:
 
                 try:
                     data.extend(self._conn.recv(offset))
-                except MemoryError:
+                except (MemoryError, ValueError):
                     continue
 
                 if self._frame.utf8:
