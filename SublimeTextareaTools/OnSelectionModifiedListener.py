@@ -1,7 +1,6 @@
 import sublime
 from sublime_plugin import EventListener
 import json
-import sys
 
 
 class OnSelectionModifiedListener(EventListener):
@@ -14,13 +13,13 @@ class OnSelectionModifiedListener(EventListener):
         if view.id() not in OnSelectionModifiedListener._bind_views:
             return
 
-        sel_min, sel_max = OnSelectionModifiedListener._get_max_selection(view)
-
         changed_text = view.substr(sublime.Region(0, view.size()))
+        selections = OnSelectionModifiedListener._get_selections(view)
         response = json.dumps({
             'title': view.name(),
             'text':  changed_text,
-            'cursor': {'min': sel_min, 'max': sel_max}
+            'syntax': view.scope_name(0),
+            'selections': selections
         })
 
         OnSelectionModifiedListener._bind_views[view.id()].send_message(response)
@@ -63,15 +62,16 @@ class OnSelectionModifiedListener(EventListener):
             OnSelectionModifiedListener.unbind_view_by_id(view_id)
 
     @staticmethod
-    def _get_max_selection(view):
+    def _get_selections(view):
         """
-        Returns the min and max values of all selections from the given view.
+        Returns the selections from the given view.
         """
-        _max = 0
-        _min = sys.maxsize
+        selections = []
 
         for pos in view.sel():
-            _min = min(pos.begin(), _min)
-            _max = max(pos.end(), _max)
+            selections.append({
+                'start': pos.begin(),
+                'end': pos.end()
+            })
 
-        return _min, _max
+        return selections
