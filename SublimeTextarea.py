@@ -42,7 +42,7 @@ class OnRequest(AbstractOnRequest):
 
         port = web_socket_server_thread.get_server().get_port()
 
-        return Response(json.dumps({"WebSocketPort": port}), "200 OK", {'Content-Type': 'application/json'})
+        return Response(json.dumps({"WebSocketPort": port, "ProtocolVersion": 1}), "200 OK", {'Content-Type': 'application/json'})
 
 
 class HttpStatusServerThread(Thread):
