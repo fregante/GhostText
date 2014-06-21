@@ -70,8 +70,11 @@ class WebSocketServer:
                     continue
 
                 if self._frame.utf8:
-                    request = self._frame.get_payload(data).decode("utf-8")
-                    self._received_payload += request.lstrip('\x00')
+                    try:
+                        request = self._frame.get_payload(data).decode("utf-8")
+                        self._received_payload += request.lstrip('\x00')
+                    except UnicodeDecodeError:
+                        continue
 
                 if self._frame.utf8 and self._frame.fin:
                     self._on_message_handler.on_message(self._received_payload)
