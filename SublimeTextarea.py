@@ -85,6 +85,7 @@ class OnMessage(AbstractOnMessage):
         try:
             request = json.loads(text)
             self._current_view.run_command('replace_content', {'txt': request['text']})
+            self._current_view.window().focus_view(self._current_view)
         except ValueError:
             print('Invalid JSON!')
 
