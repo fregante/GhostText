@@ -63,6 +63,9 @@ class ReplaceContentCommand(TextCommand):
     """
     def run(self, edit, **args):
         self.view.replace(edit, sublime.Region(0, self.view.size()), args['txt'])
+        text_length = len(args['txt'])
+        self.view.sel().clear()
+        self.view.sel().add(sublime.Region(text_length, text_length))
 
 
 class OnConnect(AbstractOnMessage):
@@ -86,6 +89,7 @@ class OnMessage(AbstractOnMessage):
             request = json.loads(text)
             self._current_view.run_command('replace_content', {'txt': request['text']})
             self._current_view.window().focus_view(self._current_view)
+            #self._current_view.set_syntax_file("Python")
         except ValueError:
             print('Invalid JSON!')
 
