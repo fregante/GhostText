@@ -24,6 +24,14 @@ class OnSelectionModifiedListener(EventListener):
 
         OnSelectionModifiedListener._bind_views[view.id()].send_message(response)
 
+    def on_close(self, view):
+        if view.id() not in OnSelectionModifiedListener._bind_views:
+            return
+
+        print("View with id: {} closed".format(view.id()))
+        OnSelectionModifiedListener._bind_views[view.id()].stop()
+        OnSelectionModifiedListener.unbind_view(view)
+
     @staticmethod
     def bind_view(view, web_socket_server):
         """
@@ -45,7 +53,8 @@ class OnSelectionModifiedListener(EventListener):
         Unbinds a view specified by it's id connected to a WebSocket.
         """
         print("Unbind view with id: {}".format(view_id))
-        del OnSelectionModifiedListener._bind_views[view_id]
+        if view_id in OnSelectionModifiedListener._bind_views:
+            del OnSelectionModifiedListener._bind_views[view_id]
 
     @staticmethod
     def unbind_view_by_web_socket_server_id(web_socket_server):
@@ -59,7 +68,7 @@ class OnSelectionModifiedListener(EventListener):
                 view_id_to_unbind = view_id
 
         if view_id_to_unbind is not None:
-            OnSelectionModifiedListener.unbind_view_by_id(view_id)
+            OnSelectionModifiedListener.unbind_view_by_id(view_id_to_unbind)
 
     @staticmethod
     def _get_selections(view):

@@ -101,10 +101,12 @@ class WebSocketServer:
         self._running = False
         try:
             self._conn.send(self._frame.close())
+            self._conn.close()
         except BrokenPipeError:
             print('Ignored BrokenPipeError')
+        except OSError:
+            print('Ignored OSError')
 
-        self._conn.close()
         if self._on_close_handler:
             print('Triggering on_close')
             self._on_close_handler.on_close()
