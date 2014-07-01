@@ -1,18 +1,19 @@
 __author__ = 'Guido Krömer'
 __license__ = 'MIT'
-__version__ = '0.1'
+__version__ = '0.2'
 __email__ = 'mail 64 cacodaemon 46 de'
 
 import sublime
 from sublime_plugin import TextCommand
+from sublime_plugin import EventListener
 from threading import Thread
 import json
 from time import sleep
 from .WebSocket.WebSocketServer import WebSocketServer
 from .WebSocket.AbstractOnClose import AbstractOnClose
 from .WebSocket.AbstractOnMessage import AbstractOnMessage
-from .SublimeTextareaTools.OnSelectionModifiedListener import OnSelectionModifiedListener
-from .SublimeTextareaTools.WindowHelper import WindowHelper
+from .GhostTextTools.OnSelectionModifiedListener import OnSelectionModifiedListener
+from .GhostTextTools.WindowHelper import WindowHelper
 from .Http.HttpServer import HttpServer
 from .Http.AbstractOnRequest import AbstractOnRequest
 from .Http.Request import Request
@@ -48,9 +49,9 @@ class OnRequest(AbstractOnRequest):
 
 
 class HttpStatusServerThread(Thread):
-    def __init__(self):
+    def __init__(self, server_port=4001):
         super().__init__()
-        self._server = HttpServer('localhost', 4001)
+        self._server = HttpServer('localhost', server_port)
         self._server.on_request(OnRequest())
 
     def run(self):
@@ -87,16 +88,47 @@ class OnMessage(AbstractOnMessage):
     def on_message(self, text):
         try:
             request = json.loads(text)
+
+            current_syntax = self._current_view.scope_name(0)
+            if current_syntax == 'text.plain ':
+                self._set_syntax_by_url(request['url'])
+
             self._current_view.run_command('replace_content', {'txt': request['text']})
             self._current_view.window().focus_view(self._current_view)
-            #self._current_view.set_syntax_file("Python")
         except ValueError:
             print('Invalid JSON!')
+
+    def _set_syntax_by_url(self, url):
+        print(url)
+
+        settings = sublime.load_settings('GhostText.sublime-settings')
+        syntaxt = settings.get('default_syntax', 'Packages/Markdown/Markdown.tmLanguage')
+        url_to_syntaxt = settings.get('url_to_syntaxt')
+
+        #TODO Syntax matching
+
+        self._current_view.set_syntax_file(settings.get('default_syntax'))
 
 
 class OnClose(AbstractOnClose):
     def on_close(self):
         OnSelectionModifiedListener.unbind_view_by_web_socket_server_id(self._web_socket_server)
 
-http_status_server_thread = HttpStatusServerThread()
-http_status_server_thread.start()
+
+class SublimeTextLoaded(EventListener):
+    """
+    Workaround, start plug-in when sublime text is ready for fetching the settings.
+    """
+    activated = False
+
+    def on_activated(self, view):
+        if SublimeTextLoaded.activated:
+            return
+
+        SublimeTextLoaded.activated = True
+
+        settings = sublime.load_settings('GhostText.sublime-settings')
+        server_port = int(settings.get('server_port', 4001))
+
+        http_status_server_thread = HttpStatusServerThread(server_port)
+        http_status_server_thread.start()

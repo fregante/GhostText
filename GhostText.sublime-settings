@@ -1,0 +1,8 @@
+{
+    "server_port": "4001",
+    "default_syntax": "Packages/Markdown/Markdown.tmLanguage",
+    "url_to_syntaxt": {
+        "github.com": "Packages/Markdown/Markdown.tmLanguage",
+        "sandbox.onlinephpfunctions.com": "Packages/PHP/PHP.tmLanguage",
+    }
+}
