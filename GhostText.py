@@ -77,8 +77,20 @@ class OnConnect(AbstractOnMessage):
             current_view = window_helper.add_file(request['title'], request['text'])
             OnSelectionModifiedListener.bind_view(current_view, self._web_socket_server)
             self._web_socket_server.on_message(OnMessage(current_view))
+            self._set_syntax_by_host(request['url'], current_view)
         except ValueError:
             print('Invalid JSON!')
+
+    def _set_syntax_by_host(self, host, view):
+        settings = sublime.load_settings('GhostText.sublime-settings')
+        syntax = settings.get('default_syntax', 'Packages/Markdown/Markdown.tmLanguage')
+        host_to_syntax = settings.get('host_to_syntax')
+
+        for host_fragment in host_to_syntax:
+            if host_fragment in host:
+                syntax = host_to_syntax[host_fragment]
+
+        view.set_syntax_file(syntax)
 
 
 class OnMessage(AbstractOnMessage):
@@ -88,26 +100,10 @@ class OnMessage(AbstractOnMessage):
     def on_message(self, text):
         try:
             request = json.loads(text)
-
-            current_syntax = self._current_view.scope_name(0)
-            if current_syntax == 'text.plain ':
-                self._set_syntax_by_url(request['url'])
-
             self._current_view.run_command('replace_content', {'txt': request['text']})
             self._current_view.window().focus_view(self._current_view)
         except ValueError:
             print('Invalid JSON!')
-
-    def _set_syntax_by_url(self, url):
-        print(url)
-
-        settings = sublime.load_settings('GhostText.sublime-settings')
-        syntaxt = settings.get('default_syntax', 'Packages/Markdown/Markdown.tmLanguage')
-        url_to_syntaxt = settings.get('url_to_syntaxt')
-
-        #TODO Syntax matching
-
-        self._current_view.set_syntax_file(settings.get('default_syntax'))
 
 
 class OnClose(AbstractOnClose):
