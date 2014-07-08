@@ -63,10 +63,16 @@ class ReplaceContentCommand(TextCommand):
     Replaces the views complete text content.
     """
     def run(self, edit, **args):
-        self.view.replace(edit, sublime.Region(0, self.view.size()), args['txt'])
-        text_length = len(args['txt'])
+        print(args)
+        self.view.replace(edit, sublime.Region(0, self.view.size()), args['text'])
+        text_length = len(args['text'])
         self.view.sel().clear()
-        self.view.sel().add(sublime.Region(text_length, text_length))
+
+        if 'selections' in args and len(args['selections']) > 0:
+            selection = args['selections'][0]
+            self.view.sel().add(sublime.Region(selection['start'], selection['end']))
+        else:
+            self.view.sel().add(sublime.Region(text_length, text_length))
 
 
 class OnConnect(AbstractOnMessage):
@@ -77,6 +83,7 @@ class OnConnect(AbstractOnMessage):
             current_view = window_helper.add_file(request['title'], request['text'])
             OnSelectionModifiedListener.bind_view(current_view, self._web_socket_server)
             self._web_socket_server.on_message(OnMessage(current_view))
+            current_view.window().focus_view(current_view)
             self._set_syntax_by_host(request['url'], current_view)
         except ValueError:
             print('Invalid JSON!')
@@ -100,7 +107,7 @@ class OnMessage(AbstractOnMessage):
     def on_message(self, text):
         try:
             request = json.loads(text)
-            self._current_view.run_command('replace_content', {'txt': request['text']})
+            self._current_view.run_command('replace_content', request)
             self._current_view.window().focus_view(self._current_view)
         except ValueError:
             print('Invalid JSON!')
