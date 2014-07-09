@@ -63,7 +63,6 @@ class ReplaceContentCommand(TextCommand):
     Replaces the views complete text content.
     """
     def run(self, edit, **args):
-        print(args)
         self.view.replace(edit, sublime.Region(0, self.view.size()), args['text'])
         text_length = len(args['text'])
         self.view.sel().clear()
