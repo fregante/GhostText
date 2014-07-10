@@ -1,4 +1,4 @@
-<h1><img src="https://raw.githubusercontent.com/Cacodaimon/GhostTextForChrome/master/images/logo_128.png" alt="GhostText" title="GhostText"/> for Sublime Text</h1>
+# ![GhostText for Sublime Text](https://raw.githubusercontent.com/Cacodaimon/GhostTextForChrome/master/images/logo_banner-for-sublimetext.png)
 
 Connects Sublime Text 3 to Google Chrome's textareas using WebSockets.
 
