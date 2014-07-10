@@ -35,7 +35,13 @@ class WebSocketServerThread(Thread):
 
 
 class OnRequest(AbstractOnRequest):
+    def __init__(self, new_window_on_connect = False):
+        self.new_window_on_connect = new_window_on_connect
+
     def on_request(self, request):
+        if len(sublime.windows()) == 0 or self.new_window_on_connect:
+            sublime.run_command("new_window")
+
         web_socket_server_thread = WebSocketServerThread()
         web_socket_server_thread.start()
         while not web_socket_server_thread.get_server().get_running():
@@ -49,10 +55,10 @@ class OnRequest(AbstractOnRequest):
 
 
 class HttpStatusServerThread(Thread):
-    def __init__(self, server_port=4001):
+    def __init__(self, server_port=4001, new_window_on_connect=False):
         super().__init__()
         self._server = HttpServer('localhost', server_port)
-        self._server.on_request(OnRequest())
+        self._server.on_request(OnRequest(new_window_on_connect))
 
     def run(self):
         self._server.start()
@@ -63,6 +69,7 @@ class ReplaceContentCommand(TextCommand):
     Replaces the views complete text content.
     """
     def run(self, edit, **args):
+        print(args)
         self.view.replace(edit, sublime.Region(0, self.view.size()), args['text'])
         text_length = len(args['text'])
         self.view.sel().clear()
@@ -131,6 +138,7 @@ class SublimeTextLoaded(EventListener):
 
         settings = sublime.load_settings('GhostText.sublime-settings')
         server_port = int(settings.get('server_port', 4001))
+        new_window_on_connect = bool(settings.get('new_window_on_connect', False))
 
-        http_status_server_thread = HttpStatusServerThread(server_port)
+        http_status_server_thread = HttpStatusServerThread(server_port, new_window_on_connect)
         http_status_server_thread.start()

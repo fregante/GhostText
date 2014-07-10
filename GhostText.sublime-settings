@@ -5,5 +5,6 @@
         "github.com": "Packages/Markdown/Markdown.tmLanguage",
         "sandbox.onlinephpfunctions.com": "Packages/PHP/PHP.tmLanguage",
         "textarea.org": "Packages/HTML/HTML.tmLanguage"
-    }
+    },
+    "new_window_on_connect": false
 }
