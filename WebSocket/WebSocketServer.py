@@ -45,7 +45,11 @@ class WebSocketServer:
         self._conn.sendall(self._handshake.perform(data).encode("utf-8"))
 
         while self._running:
-            header = self._conn.recv(24)  # Max web socket header length
+            try:
+                header = self._conn.recv(24)  # Max web socket header length
+            except OSError:
+                self._running = False
+                continue
 
             if len(data) > 0:
                 self._frame = Frame()
