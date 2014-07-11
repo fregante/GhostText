@@ -37,7 +37,7 @@ class HttpServer:
         print('HTTP Stop')
         self._run = False
         try:
-            if self._conn is None:
+            if self._conn is not None:
                 self._conn.close()
             self._socket.shutdown(socket.SHUT_RDWR)
             self._socket.close()
