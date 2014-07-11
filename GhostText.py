@@ -3,9 +3,9 @@ __license__ = 'MIT'
 __version__ = '0.2'
 __email__ = 'mail 64 cacodaemon 46 de'
 
-import os
 import sublime
 import traceback
+from sublime import Window
 from sublime_plugin import TextCommand
 from sublime_plugin import EventListener
 from threading import Thread
@@ -37,12 +37,17 @@ class WebSocketServerThread(Thread):
 
 
 class OnRequest(AbstractOnRequest):
-    def __init__(self, new_window_on_connect = False):
-        self.new_window_on_connect = new_window_on_connect
+    def __init__(self, settings):
+        self.new_window_on_connect = bool(settings.get('new_window_on_connect', False))
+        self.window_command_on_connect = str(settings.get('window_command_on_connect', 'focus_sublime_window'))
 
     def on_request(self, request):
         if len(sublime.windows()) == 0 or self.new_window_on_connect:
-            sublime.run_command("new_window")
+            sublime.run_command('new_window')
+
+        if len(self.window_command_on_connect) > 0:
+            print(self.window_command_on_connect)
+            sublime.active_window().run_command(self.window_command_on_connect)
 
         web_socket_server_thread = WebSocketServerThread()
         web_socket_server_thread.start()
@@ -58,10 +63,11 @@ class OnRequest(AbstractOnRequest):
 
 
 class HttpStatusServerThread(Thread):
-    def __init__(self, server_port=4001, new_window_on_connect=False):
+    def __init__(self, settings):
         super().__init__()
+        server_port = int(settings.get('server_port', 4001))
         self._server = HttpServer('localhost', server_port)
-        self._server.on_request(OnRequest(new_window_on_connect))
+        self._server.on_request(OnRequest(settings))
 
     def run(self):
         try:
@@ -164,10 +170,8 @@ def show_status(status=''):
 def plugin_loaded():
     print('GhostTest is starting now…')
     settings = sublime.load_settings('GhostText.sublime-settings')
-    server_port = int(settings.get('server_port', 4001))
-    new_window_on_connect = bool(settings.get('new_window_on_connect', False))
 
-    GhostTextGlobals.http_status_server_thread = HttpStatusServerThread(server_port, new_window_on_connect)
+    GhostTextGlobals.http_status_server_thread = HttpStatusServerThread(settings)
     GhostTextGlobals.http_status_server_thread.start()
 
 
