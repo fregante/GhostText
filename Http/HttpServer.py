@@ -13,6 +13,7 @@ class HttpServer:
         self._socket.bind((host, port))
         self._conn = None
         self._address = None
+        self._run = True
 
     def start(self):
         """
@@ -21,7 +22,7 @@ class HttpServer:
         print('HTTP Start')
         self._socket.listen(1)
 
-        while True:
+        while self._run:
             self._conn, self._address = self._socket.accept()
             request = self._recv_all()
             request = self._parse_request(request)
@@ -34,7 +35,15 @@ class HttpServer:
         Stops the server.
         """
         print('HTTP Stop')
-        self._socket.close()
+        self._run = False
+        try:
+            if self._conn is None:
+                self._conn.close()
+            self._socket.shutdown(socket.SHUT_RDWR)
+            self._socket.close()
+            print('HTTP Stopped')
+        except OSError:
+            print('Skipped OSError')
 
     def _recv_all(self):
         """
