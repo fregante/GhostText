@@ -2,7 +2,6 @@
     "server_port": "4001",
     "default_syntax": "Packages/Markdown/Markdown.tmLanguage",
     "host_to_syntax": {
-        "github.com": "Packages/Markdown/Markdown.tmLanguage",
         "sandbox.onlinephpfunctions.com": "Packages/PHP/PHP.tmLanguage",
         "textarea.org": "Packages/HTML/HTML.tmLanguage"
     },
