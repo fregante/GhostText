@@ -18,7 +18,7 @@ class FocusSublimeWindowCommand(WindowCommand):
             tell application "Sublime Text"
                 activate
             end tell
-            """ # Brings ALL the windows forward
+            """  # Brings ALL the windows forward
             subprocess.Popen(["osascript", "-e", script])
         elif platform == 'windows':
             print(platform)
