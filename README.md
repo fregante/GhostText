@@ -1,12 +1,28 @@
 # ![GhostText for Sublime Text](https://raw.githubusercontent.com/Cacodaimon/GhostText-for-Chrome/master/images/logo_banner-for-sublimetext.png)
-Use Sublime Text to write in your browser (only Google Chrome for now)
+Use Sublime Text to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
+
+## Support 
+
+GhostText is only compatible with Sublime Text and Google Chrome for now, but more extensions are on the way. [You can contribute.](https://github.com/Cacodaimon/GhostText-for-SublimeText/issues/3)
+
+Currently **the only supported field is `<textarea>`,** but [we're working to support more](https://github.com/Cacodaimon/GhostText-for-Chrome/issues/26), like ACE editor and CodeMirror.
 
 ## Usage
 
-In Chrome, when you're in a page with a plain-text field (`<textarea>`), click the GhostText button in the upper-right corner to open up Sublime Text. Everything you type in the editor will be instantly updated in the browser (and vice versa).
+### Open the connection
+
+In Chrome, click the GhostText button in the upper-right corner to open up Sublime Text.
+
+If there is more than one supported field in the current page and you haven't *focused* any of them already, you will be prompted to click on a field to open the connection.
+
+### Close the connection
+
+The connection will be closed when:
+* The webpage changes or is reloaded
+* The tab or window is closed (either in the browser or in the editor)
+* The used field is removed from the document
 
 [![Video of how it works](http://img.youtube.com/vi/e0aLFPtYPZI/maxresdefault.jpg)](http://youtu.be/e0aLFPtYPZI)
-
 
 ## Installation
 
