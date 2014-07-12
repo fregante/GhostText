@@ -1,5 +1,4 @@
-SublimeTextArea
-===============
+# ![GhostText for Sublime Text](https://raw.githubusercontent.com/Cacodaimon/GhostTextForChrome/master/images/logo_banner-for-sublimetext.png)
 
 Connects Sublime Text 3 to Google Chrome's textareas using WebSockets.
 
@@ -9,7 +8,9 @@ This project consists of a Sublime Text 3 plugin and a Chrome extension and is c
 
 ## Installation
 
-Install the [Sublime Text package](https://sublime.wbond.net/packages/ChromeTextArea) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) and you're ready to go!
+Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText), the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) and you're ready to go!.
+
+[![Chrome extension](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
 
 ## Learn more
 
