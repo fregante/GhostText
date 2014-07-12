@@ -5,7 +5,7 @@ Use Sublime Text to write in your browser (only Google Chrome for now)
 
 In Chrome, when you're in a page with a plain-text field (`<textarea>`), click the GhostText button in the upper-right corner to open up Sublime Text. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
-[![Video of how it works](http://img.youtube.com/vi/zffEqq2J-mM/maxresdefault.jpg)](http://www.youtube.com/watch?v=zffEqq2J-mM)
+[![Video of how it works](http://img.youtube.com/vi/e0aLFPtYPZI/maxresdefault.jpg)](http://youtu.be/e0aLFPtYPZI)
 
 
 ## Installation
@@ -23,7 +23,7 @@ It's suggested to install a Markdown syntax like those included in [MarkdownEdit
 
 ## Learn more
 
-* [Video of how it works (to be updated)](http://www.youtube.com/watch?v=zffEqq2J-mM&feature=share)
+* [Video of how it works (to be updated)](http://www.youtube.com/watch?v=e0aLFPtYPZI&feature=share)
 * [Article about its inner workings](http://cacodaemon.de/index.php?id=59)
 
 ## Development version
