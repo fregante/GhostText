@@ -15,6 +15,6 @@ class WindowHelper(sublime.Window):
         view = self.new_file()
         view.set_name(title)
         view.set_status('title', title)
-        view.run_command('replace_content', {'txt': text})
+        view.run_command('replace_content', {'text': text})
 
         return view

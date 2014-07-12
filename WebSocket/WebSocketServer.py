@@ -3,11 +3,14 @@ from .Frame import Frame
 from .Handshake import Handshake
 
 
-class Server:
+class WebSocketServer:
     """
     A simple, single threaded, web socket server.
     """
-    def __init__(self, host='localhost', port=1337):
+
+    _id = 1
+
+    def __init__(self, host='localhost', port=0):
         self._handshake = Handshake()
         self._frame = Frame()
 
@@ -20,8 +23,12 @@ class Server:
         self._running = False
         self._conn = None
         self._address = None
+        self._port = 0
 
         self._received_payload = ''
+        self._id = WebSocketServer._id
+        WebSocketServer._id += 1
+        print("WebSocketServer id: {}".format(self._id))
 
     def start(self):
         """
@@ -29,14 +36,20 @@ class Server:
         """
         print('Start')
         self._socket.listen(1)
-        self._conn, self._address = self._socket.accept()
+        self._port = self._socket.getsockname()[1]
+        print('Listening on: {}'.format(self._port))
         self._running = True
+        self._conn, self._address = self._socket.accept()
 
         data = self._conn.recv(1024)
         self._conn.sendall(self._handshake.perform(data).encode("utf-8"))
 
         while self._running:
-            header = self._conn.recv(24)  # Max web socket header length
+            try:
+                header = self._conn.recv(24)  # Max web socket header length
+            except OSError:
+                self._running = False
+                continue
 
             if len(data) > 0:
                 self._frame = Frame()
@@ -54,11 +67,18 @@ class Server:
                 data = bytearray()
                 data.extend(header)
                 offset = self._frame.get_payload_offset()
-                data.extend(self._conn.recv(offset))
+
+                try:
+                    data.extend(self._conn.recv(offset))
+                except (MemoryError, ValueError):
+                    continue
 
                 if self._frame.utf8:
-                    request = self._frame.get_payload(data).decode("utf-8")
-                    self._received_payload += request.lstrip('\x00')
+                    try:
+                        request = self._frame.get_payload(data).decode("utf-8")
+                        self._received_payload += request.lstrip('\x00')
+                    except UnicodeDecodeError:
+                        continue
 
                 if self._frame.utf8 and self._frame.fin:
                     self._on_message_handler.on_message(self._received_payload)
@@ -85,10 +105,12 @@ class Server:
         self._running = False
         try:
             self._conn.send(self._frame.close())
+            self._conn.close()
         except BrokenPipeError:
             print('Ignored BrokenPipeError')
+        except OSError:
+            print('Ignored OSError')
 
-        self._conn.close()
         if self._on_close_handler:
             print('Triggering on_close')
             self._on_close_handler.on_close()
@@ -108,3 +130,21 @@ class Server:
         print('Setting on close handler')
         self._on_close_handler = handler
         self._on_close_handler.set_web_socket_server(self)
+
+    def get_running(self):
+        """
+        Returns the running state.
+        """
+        return self._running
+
+    def get_port(self):
+        """
+        Gets the port the server is listening/running on.
+        """
+        return self._port
+
+    def get_id(self):
+        """
+        Gets the server's id.
+        """
+        return self._id
