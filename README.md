@@ -1,5 +1,4 @@
-SublimeTextArea
-===============
+# ![GhostText for Sublime Text](https://raw.githubusercontent.com/Cacodaimon/GhostTextForChrome/master/images/logo_banner-for-sublimetext.png)
 
 Connects Sublime Text 3 to Google Chrome's textareas using WebSockets.
 
