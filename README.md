@@ -1,6 +1,8 @@
 # ![GhostText for Sublime Text](https://raw.githubusercontent.com/Cacodaimon/GhostText-for-Chrome/master/images/logo_banner-for-sublimetext.png)
 Use Sublime Text to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
+[![Video of how it works](http://img.youtube.com/vi/e0aLFPtYPZI/maxresdefault.jpg)](http://youtu.be/e0aLFPtYPZI)
+
 ## Support 
 
 GhostText is only compatible with Sublime Text and Google Chrome for now, but more extensions are on the way. [You can contribute.](https://github.com/Cacodaimon/GhostText-for-SublimeText/issues/3)
@@ -21,8 +23,6 @@ The connection will be closed when:
 * The webpage changes or is reloaded
 * The tab or window is closed (either in the browser or in the editor)
 * The used field is removed from the document
-
-[![Video of how it works](http://img.youtube.com/vi/e0aLFPtYPZI/maxresdefault.jpg)](http://youtu.be/e0aLFPtYPZI)
 
 ## Installation
 
