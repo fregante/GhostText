@@ -1,5 +1,6 @@
 import os
 import sublime
+import subprocess
 from sublime_plugin import WindowCommand
 
 
@@ -13,8 +14,12 @@ class FocusSublimeWindowCommand(WindowCommand):
         if platform == 'linux':
             os.system('wmctrl -a "Sublime Text"')
         elif platform == 'osx':
-            print(platform)
-            #TODO I have no mac
+            script = """
+            tell application "Sublime Text"
+                activate
+            end tell
+            """ # Brings ALL the windows forward
+            subprocess.Popen(["osascript", "-e", script])
         elif platform == 'windows':
             print(platform)
             #TODO maybe this can do the job: http://www.nirsoft.net/utils/nircmd.html
