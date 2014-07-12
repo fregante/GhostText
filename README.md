@@ -39,8 +39,8 @@ It's suggested to install a Markdown syntax like those included in [MarkdownEdit
 
 ## Learn more
 
-* [Video of how it works (to be updated)](http://www.youtube.com/watch?v=e0aLFPtYPZI&feature=share)
-* [Article about its inner workings](http://cacodaemon.de/index.php?id=59)
+* [Video of how it works](http://www.youtube.com/watch?v=e0aLFPtYPZI&feature=share)
+* [Article about the initial proof of concept](http://cacodaemon.de/index.php?id=59)
 
 ## Development version
 
