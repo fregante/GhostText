@@ -1,4 +1,5 @@
 import socket
+import traceback
 from .Request import Request
 
 
@@ -42,8 +43,10 @@ class HttpServer:
             self._socket.shutdown(socket.SHUT_RDWR)
             self._socket.close()
             print('HTTP Stopped')
-        except OSError:
+        except OSError as e:
             print('Skipped OSError')
+            print(str(e))
+            print(traceback.format_exc())
 
     def _recv_all(self):
         """
