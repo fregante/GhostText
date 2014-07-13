@@ -37,16 +37,29 @@ class HttpServer:
         """
         print('HTTP Stop')
         self._run = False
-        try:
-            if self._conn is not None:
+
+        if self._conn is not None:
+            try:
                 self._conn.close()
+            except OSError as e:
+                print(str(e))
+                print(traceback.format_exc())
+                pass
+
+        try:
             self._socket.shutdown(socket.SHUT_RDWR)
-            self._socket.close()
-            print('HTTP Stopped')
         except OSError as e:
-            print('Skipped OSError')
             print(str(e))
             print(traceback.format_exc())
+            pass
+
+        try:
+            self._socket.close()
+        except OSError as e:
+            print(str(e))
+            print(traceback.format_exc())
+            pass
+        print('HTTP Stopped')
 
     def _recv_all(self):
         """
