@@ -30,12 +30,7 @@ Install the [Sublime Text package](https://sublime.wbond.net/packages/ChromeText
 
 [![Chrome extension](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
 
-It's suggested to install a GitHub-Flavored Markdown syntax like the one included in [MarkdownEditing](https://sublime.wbond.net/packages/MarkdownEditing). Once installed, open GhostText's user settings (Preferences > Package Settings > GhostText > Settings - User) and paste this in:
-```json
-{
-    "default_syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
-}
-```
+It's suggested to install a GitHub-Flavored Markdown syntax like the one included in [MarkdownEditing](https://sublime.wbond.net/packages/MarkdownEditing).
 
 ## Learn more
 
