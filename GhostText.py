@@ -127,9 +127,12 @@ class OnConnect(AbstractOnMessage):
         if syntax is not None:
             view.set_syntax_file(syntax)
         else:
-            syntax = settings.get('default_syntax', 'Packages/Markdown/Markdown.tmLanguage')
-            view.set_syntax_file(syntax)
             sublime.error_message('Syntax "{}" is not installed!'.format(syntax_part))
+            default_syntax = settings.get('default_syntax', 'Markdown.tmLanguage')
+            resources = sublime.find_resources('*{}'.format(default_syntax))
+
+            if len(resources) > 0:
+                view.set_syntax_file(resources[0])
 
 
 class OnMessage(AbstractOnMessage):
