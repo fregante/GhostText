@@ -111,14 +111,25 @@ class OnConnect(AbstractOnMessage):
 
     def _set_syntax_by_host(self, host, view):
         settings = sublime.load_settings('GhostText.sublime-settings')
-        syntax = settings.get('default_syntax', 'Packages/Markdown/Markdown.tmLanguage')
         host_to_syntax = settings.get('host_to_syntax')
 
+        syntax = None
         for host_fragment in host_to_syntax:
-            if host_fragment in host:
-                syntax = host_to_syntax[host_fragment]
+            if host_fragment not in host:
+                continue
 
-        view.set_syntax_file(syntax)
+            syntax_part = host_to_syntax[host_fragment]
+            resources = sublime.find_resources('*{}'.format(syntax_part))
+
+            if len(resources) > 0:
+                syntax = resources[0]
+
+        if syntax is not None:
+            view.set_syntax_file(syntax)
+        else:
+            syntax = settings.get('default_syntax', 'Packages/Markdown/Markdown.tmLanguage')
+            view.set_syntax_file(syntax)
+            sublime.error_message('Syntax "{}" is not installed!'.format(syntax_part))
 
 
 class OnMessage(AbstractOnMessage):

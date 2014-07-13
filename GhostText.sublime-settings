@@ -1,9 +1,9 @@
 {
     "server_port": "4001",
-    "default_syntax": "Packages/Markdown/Markdown.tmLanguage",
+    "default_syntax": "Markdown.tmLanguage",
     "host_to_syntax": {
-        "sandbox.onlinephpfunctions.com": "Packages/PHP/PHP.tmLanguage",
-        "textarea.org": "Packages/HTML/HTML.tmLanguage"
+        "sandbox.onlinephpfunctions.com": "PHP.tmLanguage",
+        "textarea.org": "HTML.tmLanguage"
     },
     "new_window_on_connect": false
 }
