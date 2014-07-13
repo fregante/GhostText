@@ -1,3 +1,3 @@
 GhostText for Sublime Text has been released.
 
-If you where using ChromeTextArea, the previous name of this plugin, pUpdate Package Control when Mlistone 1 has been merged into master. #17Update Package Control when Mlistone 1 has been merged into master. #17lease update your Chrome extension, too.
+If you where using ChromeTextArea, the previous name of this plugin, update your Chrome extension, too.
