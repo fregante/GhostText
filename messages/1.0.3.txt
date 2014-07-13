@@ -1,0 +1,4 @@
+SublimeTextArea has become GhostText for Sublime Text
+=====================================================
+
+Syntax detection fix if no markdown package is installed.
