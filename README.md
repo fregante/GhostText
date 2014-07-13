@@ -26,7 +26,7 @@ The connection will be closed when:
 
 ## Installation
 
-Install the [Sublime Text package](https://sublime.wbond.net/packages/ChromeTextArea) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) and you're ready to go!
+Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) and you're ready to go!
 
 [![Chrome extension](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
 
