@@ -24,18 +24,28 @@ class HttpServer:
         self._socket.listen(1)
 
         while self._run:
-            self._conn, self._address = self._socket.accept()
-            request = self._recv_all()
-            request = self._parse_request(request)
-            response = self._on_request_handler.on_request(request)
-            self._conn.sendall(bytes(self._build_response(response), 'utf-8'))
-            self._conn.close()
+            try:
+                self._conn, self._address = self._socket.accept()
+                request = self._recv_all()
+                request = self._parse_request(request)
+                response = self._on_request_handler.on_request(request)
+                self._conn.sendall(bytes(self._build_response(response), 'utf-8'))
+                self._conn.close()
+            except ConnectionAbortedError:
+                pass
+            except OSError as e:
+                print(str(e))
+                print(traceback.format_exc())
+                pass
+
+        self._conn = None
+        print('HTTP Stopped')
 
     def stop(self):
         """
         Stops the server.
         """
-        print('HTTP Stop')
+        print('HTTP server is stopping now…')
         self._run = False
 
         if self._conn is not None:
@@ -59,7 +69,6 @@ class HttpServer:
             print(str(e))
             print(traceback.format_exc())
             pass
-        print('HTTP Stopped')
 
     def _recv_all(self):
         """
