@@ -114,6 +114,7 @@ class OnConnect(AbstractOnMessage):
         host_to_syntax = settings.get('host_to_syntax')
 
         syntax = None
+        syntax_part = None
         for host_fragment in host_to_syntax:
             if host_fragment not in host:
                 continue
@@ -127,12 +128,16 @@ class OnConnect(AbstractOnMessage):
         if syntax is not None:
             view.set_syntax_file(syntax)
         else:
-            sublime.error_message('Syntax "{}" is not installed!'.format(syntax_part))
+            if syntax_part is not None:
+                sublime.error_message('Syntax "{}" is not installed!'.format(syntax_part))
+
             default_syntax = settings.get('default_syntax', 'Markdown.tmLanguage')
             resources = sublime.find_resources('*{}'.format(default_syntax))
 
             if len(resources) > 0:
                 view.set_syntax_file(resources[0])
+            else:
+                sublime.error_message('Default syntax "{}" is not installed!'.format(default_syntax))
 
 
 class OnMessage(AbstractOnMessage):
