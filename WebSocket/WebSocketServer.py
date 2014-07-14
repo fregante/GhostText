@@ -1,4 +1,6 @@
 import socket
+import traceback
+from math import ceil
 from .Frame import Frame
 from .Handshake import Handshake
 
@@ -57,6 +59,8 @@ class WebSocketServer:
                 try:
                     self._frame.parse(header)
                 except IndexError:
+                    print(str(e))
+                    print(traceback.format_exc())
                     self._running = False
                     continue
 
@@ -68,10 +72,14 @@ class WebSocketServer:
                 data.extend(header)
                 offset = self._frame.get_payload_offset()
 
-                try:
-                    data.extend(self._conn.recv(offset))
-                except (MemoryError, ValueError):
-                    continue
+                if offset > 0:
+                    try:
+                        for offset_part in range(0, ceil(offset/4096)):
+                            data.extend(self._conn.recv(4096))
+                    except MemoryError as e:
+                        print(str(e))
+                        print(traceback.format_exc())
+                        continue
 
                 if self._frame.utf8:
                     try:
