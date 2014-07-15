@@ -1,4 +1,10 @@
-SublimeTextArea has become GhostText for Sublime Text
+GhostText for Sublime Text v 1.0.3
 =====================================================
 
-Syntax detection fix if no markdown package is installed.
+- Fixed syntax detection, instead of the full resource path only the file name is need now, please use 'Markdown.tmLanguage' and not 'Packages/MarkdownEditing/Markdown.tmLanguage' anymore.
+
+- Fixed bug which lets the WebSocket sever crash when editing large text (An css file with 3k lines for example) with Ghost Text.
+
+- Fixed bug on Windows which let the status HTTP sever crash.
+
+- Plugin reload behavior has been improved, an exception where thrown on a HTTP server stop.
