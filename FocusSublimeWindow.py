@@ -20,6 +20,5 @@ class FocusSublimeWindowCommand(WindowCommand):
             end tell
             """  # Brings ALL the windows forward
             subprocess.Popen(["osascript", "-e", script])
-        elif platform == 'windows':
-            print(platform)
-            #TODO maybe this can do the job: http://www.nirsoft.net/utils/nircmd.html
+        elif platform == 'windows':  # needs http://www.nirsoft.net/utils/nircmd.html to be installed in windows dir
+            subprocess.Popen('nircmd win activate process sublime_text.exe')
