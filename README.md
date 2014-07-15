@@ -1,4 +1,4 @@
-# ![GhostText for Sublime Text](https://raw.githubusercontent.com/Cacodaimon/GhostText-for-Chrome/master/images/logo_banner-for-sublimetext.png)
+# ![GhostText for Sublime Text](https://raw.githubusercontent.com/Cacodaimon/GhostText-for-Chrome/master/promo/gt_banner-for-sublimetext.png)
 Use Sublime Text to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
 [![Video of how it works](http://img.youtube.com/vi/e0aLFPtYPZI/maxresdefault.jpg)](http://youtu.be/e0aLFPtYPZI)
