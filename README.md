@@ -32,6 +32,8 @@ Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText)
 
 It's suggested to install a GitHub-Flavored Markdown syntax like the one included in [MarkdownEditing](https://sublime.wbond.net/packages/MarkdownEditing).
 
+If you are using Linux installing [wmctrl](http://tomas.styblo.name/wmctrl/) lets GhostText focus your Sublime Text window on a new connection.
+
 ## Learn more
 
 * [Video of how it works](http://www.youtube.com/watch?v=e0aLFPtYPZI&feature=share)
