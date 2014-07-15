@@ -137,7 +137,7 @@ class OnConnect(AbstractOnMessage):
             if len(resources) > 0:
                 view.set_syntax_file(resources[0])
             else:
-                sublime.error_message('Default syntax "{}" is not installed!'.format(default_syntax))
+                print('Default syntax "{}" is not installed!'.format(default_syntax))
 
 
 class OnMessage(AbstractOnMessage):
