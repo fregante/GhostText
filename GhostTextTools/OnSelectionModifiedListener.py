@@ -61,14 +61,21 @@ class OnSelectionModifiedListener(EventListener):
         """
         Unbinds a view specified by it's WebSocket server.
         """
-        view_id_to_unbind = None
-
-        for view_id in OnSelectionModifiedListener._bind_views:
-            if OnSelectionModifiedListener._bind_views[view_id].get_id() == web_socket_server.get_id():
-                view_id_to_unbind = view_id
+        view_id_to_unbind = OnSelectionModifiedListener.find_view_id_by_web_socket_server_id(web_socket_server)
 
         if view_id_to_unbind is not None:
             OnSelectionModifiedListener.unbind_view_by_id(view_id_to_unbind)
+
+    @staticmethod
+    def find_view_id_by_web_socket_server_id(web_socket_server):
+        """
+        Searches a view by the given WebSocket server or returns None.
+        """
+        for view_id in OnSelectionModifiedListener._bind_views:
+            if OnSelectionModifiedListener._bind_views[view_id].get_id() == web_socket_server.get_id():
+                return view_id
+
+        return None
 
     @staticmethod
     def _get_selections(view):

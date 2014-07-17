@@ -5,3 +5,4 @@ __email__ = 'mail 64 cacodaemon 46 de'
 
 from .OnSelectionModifiedListener import OnSelectionModifiedListener
 from .WindowHelper import WindowHelper
+from .Utils import Utils

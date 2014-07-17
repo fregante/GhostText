@@ -1,9 +1,13 @@
 {
     "server_port": "4001",
+    "new_window_on_connect": false,
     "default_syntax": "Markdown.tmLanguage",
     "host_to_syntax": {
         "sandbox.onlinephpfunctions.com": "PHP.tmLanguage",
         "textarea.org": "HTML.tmLanguage"
     },
-    "new_window_on_connect": false
+    "view_title_prefix": {
+        "connected": "[GT]",
+        "disconnected": "[G̶T̶]",
+    }
 }

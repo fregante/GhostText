@@ -4,7 +4,6 @@ __version__ = '0.2'
 __email__ = 'mail 64 cacodaemon 46 de'
 
 import sublime
-import traceback
 from sublime import Window
 from sublime_plugin import TextCommand
 from sublime_plugin import EventListener
@@ -16,6 +15,7 @@ from .WebSocket.AbstractOnClose import AbstractOnClose
 from .WebSocket.AbstractOnMessage import AbstractOnMessage
 from .GhostTextTools.OnSelectionModifiedListener import OnSelectionModifiedListener
 from .GhostTextTools.WindowHelper import WindowHelper
+from .GhostTextTools.Utils import Utils
 from .Http.HttpServer import HttpServer
 from .Http.AbstractOnRequest import AbstractOnRequest
 from .Http.Request import Request
@@ -55,7 +55,7 @@ class OnRequest(AbstractOnRequest):
             sleep(0.1)
 
         port = web_socket_server_thread.get_server().get_port()
-        show_status('Connection opened')
+        Utils.show_status('Connection opened')
 
         return Response(json.dumps({"WebSocketPort": port, "ProtocolVersion": 1}),
                         "200 OK",
@@ -73,7 +73,7 @@ class HttpStatusServerThread(Thread):
         try:
             self._server.start()
         except OSError as e:
-            show_error(e, 'HttpStatusServerThread')
+            Utils.show_error(e, 'HttpStatusServerThread')
             raise e
 
     def stop(self):
@@ -101,43 +101,14 @@ class OnConnect(AbstractOnMessage):
         try:
             request = json.loads(text)
             window_helper = WindowHelper()
+            request['title'] = '{} {}'.format(Utils.get_view_prefix('connected'), request['title'])
             current_view = window_helper.add_file(request['title'], request['text'])
             OnSelectionModifiedListener.bind_view(current_view, self._web_socket_server)
             self._web_socket_server.on_message(OnMessage(current_view))
             current_view.window().focus_view(current_view)
-            self._set_syntax_by_host(request['url'], current_view)
+            Utils.set_syntax_by_host(request['url'], current_view)
         except ValueError as e:
-            show_error(e, 'Invalid JSON')
-
-    def _set_syntax_by_host(self, host, view):
-        settings = sublime.load_settings('GhostText.sublime-settings')
-        host_to_syntax = settings.get('host_to_syntax')
-
-        syntax = None
-        syntax_part = None
-        for host_fragment in host_to_syntax:
-            if host_fragment not in host:
-                continue
-
-            syntax_part = host_to_syntax[host_fragment]
-            resources = sublime.find_resources('*{}'.format(syntax_part))
-
-            if len(resources) > 0:
-                syntax = resources[0]
-
-        if syntax is not None:
-            view.set_syntax_file(syntax)
-        else:
-            if syntax_part is not None:
-                sublime.error_message('Syntax "{}" is not installed!'.format(syntax_part))
-
-            default_syntax = settings.get('default_syntax', 'Markdown.tmLanguage')
-            resources = sublime.find_resources('*{}'.format(default_syntax))
-
-            if len(resources) > 0:
-                view.set_syntax_file(resources[0])
-            else:
-                print('Default syntax "{}" is not installed!'.format(default_syntax))
+            Utils.show_error(e, 'Invalid JSON')
 
 
 class OnMessage(AbstractOnMessage):
@@ -150,13 +121,19 @@ class OnMessage(AbstractOnMessage):
             self._current_view.run_command('replace_content', request)
             self._current_view.window().focus_view(self._current_view)
         except ValueError as e:
-            show_error(e, 'Invalid JSON')
+            Utils.show_error(e, 'Invalid JSON')
 
 
 class OnClose(AbstractOnClose):
     def on_close(self):
+        view_id = OnSelectionModifiedListener.find_view_id_by_web_socket_server_id(self._web_socket_server)
+        if view_id is not None:
+            view = Utils.find_view_by_id(view_id)
+            if view is not None:
+                Utils.mark_view_as(view, 'disconnected')
+
         OnSelectionModifiedListener.unbind_view_by_web_socket_server_id(self._web_socket_server)
-        show_status('Connection closed')
+        Utils.show_status('Connection closed')
 
 
 class GhostTextGlobals():
@@ -166,32 +143,13 @@ class GhostTextGlobals():
     http_status_server_thread = None
 
 
-def show_error(e=None, hint='', message=''):
-    """
-    Shows a sublime error dialog.
-    """
-    if hint:
-        hint = ' - ' + hint
-
-    if e:
-        sublime.status_message('GhostText{}: {}, {}, {}'.format(hint, message, str(e), traceback.format_exc()))
-    else:
-        sublime.status_message('GhostText{}: {}'.format(hint, message))
-
-
-def show_status(status=''):
-    """
-    Shows a status message.
-    """
-    sublime.status_message('GhostText - {}'.format(status))
-
-
 def plugin_loaded():
     print('GhostTest is starting now…')
     settings = sublime.load_settings('GhostText.sublime-settings')
-
     GhostTextGlobals.http_status_server_thread = HttpStatusServerThread(settings)
     GhostTextGlobals.http_status_server_thread.start()
+
+    Utils.replace_connected_with_disconnected_prefix()
 
 
 def plugin_unloaded():
