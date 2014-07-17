@@ -34,6 +34,8 @@ It's suggested to install a GitHub-Flavored Markdown syntax like the one include
 
 If you are using Linux installing [wmctrl](http://tomas.styblo.name/wmctrl/) lets GhostText focus your Sublime Text window on a new connection.
 
+On Windows you should consider installing [nircmd](http://www.nirsoft.net/utils/nircmd.html) in the windows dir, for archiving the same window focus behavior described above.
+
 ## Learn more
 
 * [Video of how it works](http://www.youtube.com/watch?v=e0aLFPtYPZI&feature=share)
