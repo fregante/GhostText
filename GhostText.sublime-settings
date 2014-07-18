@@ -7,7 +7,7 @@
         "textarea.org": "HTML.tmLanguage"
     },
     "view_title_prefix": {
-        "connected": "[GT]",
-        "disconnected": "[G̶T̶]",
+        "connected": "☗ ●",
+        "disconnected": "☗ ☾"
     }
 }
