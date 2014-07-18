@@ -46,7 +46,6 @@ class OnRequest(AbstractOnRequest):
             sublime.run_command('new_window')
 
         if len(self.window_command_on_connect) > 0:
-            print(self.window_command_on_connect)
             sublime.active_window().run_command(self.window_command_on_connect)
 
         web_socket_server_thread = WebSocketServerThread()
@@ -101,7 +100,6 @@ class OnConnect(AbstractOnMessage):
         try:
             request = json.loads(text)
             window_helper = WindowHelper()
-            request['title'] = '{} {}'.format(Utils.get_view_prefix('connected'), request['title'])
             current_view = window_helper.add_file(request['title'], request['text'])
             OnSelectionModifiedListener.bind_view(current_view, self._web_socket_server)
             self._web_socket_server.on_message(OnMessage(current_view))

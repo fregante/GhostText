@@ -38,8 +38,10 @@ class Utils():
                 name = Utils.get_name_or_file_name_from_view(view)
                 if needle in name:
                     result.append(view)
-        return result
+                if needle == name:
+                    result.append(view)
 
+        return result
 
     @staticmethod
     def find_view_by_id(view_id):
@@ -61,6 +63,7 @@ class Utils():
         name = Utils.get_name_or_file_name_from_view(view)
         name = name.replace(Utils.get_view_prefix('connected'), '')
         name = name.replace(Utils.get_view_prefix('disconnected'), '')
+        name = name.lstrip()
         view.set_name('{} {}'.format(Utils.get_view_prefix(state), name))
 
     @staticmethod
