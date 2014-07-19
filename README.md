@@ -36,6 +36,12 @@ If you are using Linux installing [wmctrl](http://tomas.styblo.name/wmctrl/) let
 
 On Windows you should consider installing [nircmd](http://www.nirsoft.net/utils/nircmd.html) in the windows dir, for archiving the same window focus behavior described above.
 
+
+## Complementary repos
+
+* [GhostText for Chrome](https://github.com/Cacodaimon/GhostText-for-Chrome)
+* [GhostText for Firefox](https://github.com/Cacodaimon/GhostText-for-Firefox) (prototype)
+
 ## Learn more
 
 * [Video of how it works](http://www.youtube.com/watch?v=e0aLFPtYPZI&feature=share)
