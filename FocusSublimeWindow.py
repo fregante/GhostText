@@ -12,7 +12,7 @@ class FocusSublimeWindowCommand(WindowCommand):
         platform = sublime.platform()
 
         if platform == 'linux':
-            os.system('wmctrl -a "Sublime Text"')
+            os.system('sh -c "xdotool windowactivate $(xdotool search --class sublime | tail -1)"')
         elif platform == 'osx':
             script = """
             tell application "Sublime Text"
