@@ -1,0 +1,4 @@
+GhostText for Sublime Text v 1.0.6
+=====================================================
+
+- New views are now in scratch mode.

@@ -19,6 +19,7 @@ class WindowHelper(sublime.Window):
         view.set_name('{} {}'.format(self._view_connected_prefix, title))
         view.set_status('title', title)
         view.run_command('replace_content', {'text': text})
+        view.set_scratch(True)
 
         return view
 
