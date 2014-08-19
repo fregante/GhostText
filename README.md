@@ -7,13 +7,35 @@ Use Sublime Text to write in your browser. Everything you type in the editor wil
 
 GhostText is only compatible with Sublime Text and Google Chrome for now, but more extensions are on the way. [You can contribute.](https://github.com/Cacodaimon/GhostText-for-SublimeText/issues/3)
 
-Besides the classic `<textarea>`, both common JavaScript editors [Ace](http://ace.c9.io/) and [CodeMirror](http://codemirror.net/) as well as [Content Editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) elements are supported, too!
+It supports `<textarea>` elements,  simple [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) elements (like the editor in Gmail), and the more complex [CodeMirror](http://codemirror.net/) (used on CodePen, JSFiddle, JS Bin, …) and [Ace](http://ace.c9.io/) (used on Tumblr, …)
 
 ## Usage
 
 ### Open the connection
 
-In Chrome, click the GhostText button in the upper-right corner to open up Sublime Text.
+In Chrome, click the GhostText button in the upper-right corner to open up Sublime Text. Alternatively you can you these keyboard shortcuts to activate GhostText:
+
+<table>
+  <tr>
+    <th>OS</th>
+    <th>Shortcut</th>
+  </tr>
+  <tr>
+    <td>Windows</td>
+    <td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
+  </tr>
+  <tr>
+    <td>Linux</td>
+    <td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>H</kbd></td>
+  </tr>
+  <tr>
+    <td>Mac</td>
+    <td><kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
+  </tr>
+  <tr>
+    <td colspan="2">The shortcut can be <a href="http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121">changed or disabled</a></td>
+  </tr>
+</table>
 
 If there is more than one supported field in the current page and you haven't *focused* any of them already, you will be prompted to click on a field to open the connection.
 
