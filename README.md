@@ -7,7 +7,7 @@ Use Sublime Text to write in your browser. Everything you type in the editor wil
 
 GhostText is only compatible with Sublime Text and Google Chrome for now, but more extensions are on the way. [You can contribute.](https://github.com/Cacodaimon/GhostText-for-SublimeText/issues/3)
 
-Currently **the only supported field is `<textarea>`,** but [we're working to support more](https://github.com/Cacodaimon/GhostText-for-Chrome/issues/26), like ACE editor and CodeMirror.
+Besides the classic `<textarea>`, both common JavaScript editors [Ace](http://ace.c9.io/) and [CodeMirror](http://codemirror.net/) as well as [Content Editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) elements are supported, too!
 
 ## Usage
 
