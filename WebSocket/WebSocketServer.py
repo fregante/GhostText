@@ -112,9 +112,6 @@ class WebSocketServer:
         Stops the server by sending the fin package to the client and closing the socket.
         """
  
-        if not self._running:
-            return
- 
         self._running = False
         try:
             self._conn.send(self._frame.close())
