@@ -142,7 +142,7 @@ class GhostTextGlobals():
 
 
 def plugin_loaded():
-    print('GhostTest is starting now…')
+    print('GhostText is starting now…')
     settings = sublime.load_settings('GhostText.sublime-settings')
     GhostTextGlobals.http_status_server_thread = HttpStatusServerThread(settings)
     GhostTextGlobals.http_status_server_thread.start()
@@ -151,7 +151,7 @@ def plugin_loaded():
 
 
 def plugin_unloaded():
-    print('GhostTest is stopping now…')
+    print('GhostText is stopping now…')
     print(GhostTextGlobals.http_status_server_thread)
     if GhostTextGlobals.http_status_server_thread is None:
         return
