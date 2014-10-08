@@ -63,6 +63,7 @@ On Windows you should consider installing [nircmd](http://www.nirsoft.net/utils/
 
 * [GhostText for Chrome](https://github.com/Cacodaimon/GhostText-for-Chrome)
 * [GhostText for Firefox](https://github.com/Cacodaimon/GhostText-for-Firefox)
+* [GhostText for Atom](https://github.com/Cacodaimon/GhostText-for-Atom) (prototype)
 
 ## Learn more
 
