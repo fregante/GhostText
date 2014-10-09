@@ -56,6 +56,30 @@ class Utils():
         return None
 
     @staticmethod
+    def close_view(view):
+        """
+        Closes the given view by running the close_by_index command.
+        If there are more than one open windows and the window has no more views it gets closed, too.
+        """
+        window = view.window()
+        group_index, view_index = window.get_view_index(view)
+        window.run_command('close_by_index', {'group': group_index, 'index': view_index})
+        if len(sublime.windows()) > 1 and len(window.views()) is 0:
+            window.run_command('close')
+
+    @staticmethod
+    def close_view_by_id(view_id):
+        """
+        Closes the given view, specified by it's id, by running the close_by_index command.
+        """
+        view = Utils.find_view_by_id(view_id)
+
+        if view is None:
+            return
+
+        Utils.close_view(view)
+
+    @staticmethod
     def mark_view_as(view, state):
         """
         Marks a view, sets a prefix, as connected or disconnected.

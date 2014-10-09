@@ -23,11 +23,11 @@ from .Http.Response import Response
 
 
 class WebSocketServerThread(Thread):
-    def __init__(self):
+    def __init__(self, settings):
         super().__init__()
         self._server = WebSocketServer('localhost', 0)
-        self._server.on_message(OnConnect())
-        self._server.on_close(OnClose())
+        self._server.on_message(OnConnect(settings))
+        self._server.on_close(OnClose(settings))
 
     def run(self):
         self._server.start()
@@ -40,6 +40,7 @@ class OnRequest(AbstractOnRequest):
     def __init__(self, settings):
         self.new_window_on_connect = bool(settings.get('new_window_on_connect', False))
         self.window_command_on_connect = str(settings.get('window_command_on_connect', 'focus_sublime_window'))
+        self._settings = settings
 
     def on_request(self, request):
         if len(sublime.windows()) == 0 or self.new_window_on_connect:
@@ -48,7 +49,7 @@ class OnRequest(AbstractOnRequest):
         if len(self.window_command_on_connect) > 0:
             sublime.active_window().run_command(self.window_command_on_connect)
 
-        web_socket_server_thread = WebSocketServerThread()
+        web_socket_server_thread = WebSocketServerThread(self._settings)
         web_socket_server_thread.start()
         while not web_socket_server_thread.get_server().get_running():
             sleep(0.1)
@@ -96,13 +97,16 @@ class ReplaceContentCommand(TextCommand):
 
 
 class OnConnect(AbstractOnMessage):
+    def __init__(self, settings):
+        self._settings = settings
+
     def on_message(self, text):
         try:
             request = json.loads(text)
             window_helper = WindowHelper()
             current_view = window_helper.add_file(request['title'], request['text'])
             OnSelectionModifiedListener.bind_view(current_view, self._web_socket_server)
-            self._web_socket_server.on_message(OnMessage(current_view))
+            self._web_socket_server.on_message(OnMessage(self._settings, current_view))
             current_view.window().focus_view(current_view)
             Utils.set_syntax_by_host(request['url'], current_view)
         except ValueError as e:
@@ -110,8 +114,9 @@ class OnConnect(AbstractOnMessage):
 
 
 class OnMessage(AbstractOnMessage):
-    def __init__(self, current_view):
+    def __init__(self, settings, current_view):
         self._current_view = current_view
+        self._settings = settings
 
     def on_message(self, text):
         try:
@@ -123,12 +128,19 @@ class OnMessage(AbstractOnMessage):
 
 
 class OnClose(AbstractOnClose):
+    def __init__(self, settings):
+        self._settings = settings
+        self._close_view_on_disconnect = bool(settings.get('close_view_on_disconnect', False))
+
     def on_close(self):
         view_id = OnSelectionModifiedListener.find_view_id_by_web_socket_server_id(self._web_socket_server)
         if view_id is not None:
             view = Utils.find_view_by_id(view_id)
             if view is not None:
                 Utils.mark_view_as(view, 'disconnected')
+
+        if self._close_view_on_disconnect:
+            Utils.close_view_by_id(view_id)
 
         OnSelectionModifiedListener.unbind_view_by_web_socket_server_id(self._web_socket_server)
         Utils.show_status('Connection closed')

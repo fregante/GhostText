@@ -1,6 +1,7 @@
 {
     "server_port": "4001",
-    "new_window_on_connect": false,
+    "new_window_on_connect": true,
+    "close_view_on_disconnect": true,
     "default_syntax": "Markdown.tmLanguage",
     "host_to_syntax": {
         "sandbox.onlinephpfunctions.com": "PHP.tmLanguage",
