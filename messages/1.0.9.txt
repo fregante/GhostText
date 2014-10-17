@@ -1,0 +1,4 @@
+GhostText for Sublime Text v 1.0.9
+=====================================================
+
+- Bugfix, the view does not get marked as disconnected when the client closes the connection.
