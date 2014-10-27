@@ -56,8 +56,7 @@ class Frame:
             self._payload_len = (data[2] << 8) + data[3]
             self._mask_start += 2
             self._payload_start += 2
-
-        if self._payload_len == 127:  # 64 bit int length
+        elif self._payload_len == 127:  # 64 bit int length
             self._payload_len = (data[2] << 56) + \
                                 (data[3] << 48) + \
                                 (data[4] << 40) + \
