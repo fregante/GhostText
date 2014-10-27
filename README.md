@@ -5,7 +5,7 @@ Use Sublime Text to write in your browser. Everything you type in the editor wil
 
 ## Support 
 
-GhostText is only compatible with Sublime Text and Google Chrome for now, but more extensions are on the way. [You can contribute.](https://github.com/Cacodaimon/GhostText-for-SublimeText/issues/3)
+GhostText is compatible with Sublime Text, Google Chrome and Mozilla Firefox for now, but more extensions are on the way. [You can contribute.](https://github.com/Cacodaimon/GhostText-for-Atom)
 
 It supports `<textarea>` elements,  simple [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) elements (like the editor in Gmail), and the more complex [CodeMirror](http://codemirror.net/) (used on CodePen, JSFiddle, JS Bin, …) and [Ace](http://ace.c9.io/) (used on Tumblr, …)
 
@@ -48,7 +48,7 @@ The connection will be closed when:
 
 ## Installation
 
-Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) and you're ready to go!
+Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) or [Firefox add-on](https://addons.mozilla.org/de/firefox/addon/ghosttext-for-firefox/) and you're ready to go!
 
 [![Chrome extension](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
 
