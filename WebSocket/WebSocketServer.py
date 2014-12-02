@@ -59,10 +59,9 @@ class WebSocketServer:
  
                 try:
                     self._frame.parse(header)
-                except IndexError:
+                except IndexError as e:
                     print(str(e))
                     print(traceback.format_exc())
-                    self._running = False
                     continue
  
                 if self._frame.terminate:
