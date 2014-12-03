@@ -1,5 +1,6 @@
 import socket
 import traceback
+import binascii
 from math import ceil
 from .Frame import Frame
 from .Handshake import Handshake
@@ -46,10 +47,13 @@ class WebSocketServer:
  
         data = self._conn.recv(1024)
         self._conn.sendall(self._handshake.perform(data).encode("utf-8"))
+        print(binascii.hexlify(data))
+        print(data)
  
         while self._running:
             try:
                 header = self._conn.recv(24)  # Max web socket header length
+                print(binascii.hexlify(header))
             except OSError:
                 self._running = False
                 continue
@@ -80,6 +84,9 @@ class WebSocketServer:
                         print(str(e))
                         print(traceback.format_exc())
                         continue
+
+                print(binascii.hexlify(data))
+                print(data)
  
                 if self._frame.utf8:
                     try:
