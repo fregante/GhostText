@@ -1,0 +1,4 @@
+GhostText for Sublime Text v 1.0.12
+=====================================================
+
+- Bugfix in the WebSocket component, the server can now handle connection requests which are longer than 1024 bytes.
