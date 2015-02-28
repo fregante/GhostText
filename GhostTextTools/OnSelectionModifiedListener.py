@@ -29,7 +29,7 @@ class OnSelectionModifiedListener(EventListener):
             return
 
         print("View with id: {} closed".format(view.id()))
-        OnSelectionModifiedListener._bind_views[view.id()].stop()
+        OnSelectionModifiedListener._bind_views[view.id()].initiate_close()
         OnSelectionModifiedListener.unbind_view(view)
 
     @staticmethod

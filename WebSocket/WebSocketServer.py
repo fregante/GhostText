@@ -3,7 +3,6 @@ import traceback
 from math import ceil
 from .Frame import Frame
 from .Handshake import Handshake
-from time import sleep
 
 
 class WebSocketServer:
@@ -27,6 +26,8 @@ class WebSocketServer:
         self._conn = None
         self._address = None
         self._port = 0
+        self._close_frame_send = False
+        self._close_frame_received = False
 
         self._received_payload = ''
         self._id = WebSocketServer._id
@@ -66,6 +67,10 @@ class WebSocketServer:
                     continue
 
                 if self._frame.terminate:
+                    self._close_frame_received = True
+                    if not self._close_frame_send:
+                        self._conn.send(self._frame.close())
+                        self._close_frame_send = True
                     self._running = False
                     continue
 
@@ -114,9 +119,8 @@ class WebSocketServer:
 
         self._running = False
         try:
-            self._conn.send(self._frame.close())
-            sleep(0.1)
-            self._conn.close()
+            if not self._close_frame_send and not self._close_frame_received:
+                self._conn.close()
         except BrokenPipeError:
             print('Ignored BrokenPipeError')
         except OSError:
@@ -125,6 +129,14 @@ class WebSocketServer:
         if self._on_close_handler:
             print('Triggering on_close')
             self._on_close_handler.on_close()
+
+    def initiate_close(self):
+        """
+        Initiates the close handshake at the server side
+        """
+        self._conn.send(self._frame.close())
+        self._close_frame_send = True
+
 
     def on_message(self, handler):
         """
