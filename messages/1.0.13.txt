@@ -1,0 +1,4 @@
+GhostText for Sublime Text v 1.0.13
+=====================================================
+
+- Fixed bug occurred when WebSocket has been closed at Server side.
