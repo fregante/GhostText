@@ -3,7 +3,6 @@ import traceback
 from math import ceil
 from .Frame import Frame
 from .Handshake import Handshake
-from time import sleep
 
 
 class WebSocketServer:
