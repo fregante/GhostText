@@ -48,7 +48,7 @@ The connection will be closed when:
 
 ## Installation
 
-Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) or [Firefox add-on](https://addons.mozilla.org/de/firefox/addon/ghosttext-for-firefox/) and you're ready to go!
+Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) or [Firefox add-on](https://addons.mozilla.org/firefox/addon/ghosttext-for-firefox/) and you're ready to go!
 
 [![Chrome extension](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
 

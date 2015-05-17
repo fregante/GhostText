@@ -7,7 +7,7 @@ Don't forget to install the Chrome extension:
 https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca
 
 Or the Firefox add-on:
-https://addons.mozilla.org/de/firefox/addon/ghosttext-for-firefox/
+https://addons.mozilla.org/firefox/addon/ghosttext-for-firefox/
 
 Usage
 -----
