@@ -1,5 +1,6 @@
 import sublime
 import traceback
+import os
 
 
 class Utils():
@@ -131,32 +132,41 @@ class Utils():
     def set_syntax_by_host(host, view):
         """
         Sets the view's syntax by using the host_to_syntax for an lookup.
+
+        Syntaxes should be in the full path format expected by ST. To get
+        the syntax path for a particular syntax file, you can enter this
+        in your ST console:
+
+        view.settings().get('syntax')
+
         """
         settings = sublime.load_settings('GhostText.sublime-settings')
-        host_to_syntax = settings.get('host_to_syntax')
+        markdown_path = os.path.join('Packages', 'Markdown', 'Markdown.tmLanguage')
+        default_syntax = settings.get('default_syntax', markdown_path)
+        host_dict = settings.get('host_to_syntax', {})
+        host_syntax = None
+        base_syntax = None
 
-        syntax = None
-        syntax_part = None
-        for host_fragment in host_to_syntax:
-            if host_fragment not in host:
-                continue
+        for host_fragment in host_dict:
+            if host_fragment and host_fragment in host:
+                host_syntax = host_dict[host_fragment]
+                break
 
-            syntax_part = host_to_syntax[host_fragment]
-            resources = sublime.find_resources('*{}'.format(syntax_part))
+        try:
+            if host_syntax:
+                base_syntax = os.path.basename(host_syntax)
+                msg = '"{}" loaded with syntax {}'.format(host_fragment, base_syntax)
+                view.set_syntax_file(host_syntax)
 
-            if len(resources) > 0:
-                syntax = resources[0]
-
-        if syntax is not None:
-            view.set_syntax_file(syntax)
-        else:
-            if syntax_part is not None:
-                sublime.error_message('Syntax "{}" is not installed!'.format(syntax_part))
-
-            default_syntax = settings.get('default_syntax', 'Markdown.tmLanguage')
-            resources = sublime.find_resources('*{}'.format(default_syntax))
-
-            if len(resources) > 0:
-                view.set_syntax_file(resources[0])
             else:
-                print('Default syntax "{}" is not installed!'.format(default_syntax))
+                base_syntax = os.path.basename(default_syntax)
+                msg = 'Using default syntax {}'.format(base_syntax)
+                view.set_syntax_file(default_syntax)
+
+        except:
+            msg = 'Error loading syntax {}'.format(base_syntax)
+            print(msg)
+            view.set_syntax_file(markdown_path)
+
+        finally:
+            Utils.show_status(msg)

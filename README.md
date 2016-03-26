@@ -46,6 +46,23 @@ The connection will be closed when:
 * The tab or window is closed (either in the browser or in the editor)
 * The used field is removed from the document
 
+### Syntax Support
+
+By default, all files open using `Markdown.tmLanguage` syntax. You can override this in your `GhostText.sublime-settings` file by setting the `default_syntax` key to a valid Sublime Text syntax file path (e.g. `Packages/HTML/HTML.tmLanguage`). If you don't know the path of a particular syntax file, simply open the console and type `view.settings().get('syntax')`.
+
+```json
+"default_syntax": "Packages/Markdown/Markdown.tmLanguage"
+```
+
+If you want to set specific syntaxes for certain domains, add a key:value pair to the `GhostText.sublime-settings` file inside the `host_to_syntax` key. The format should be a text based domain partial (e.g. `textarea.org` or `github.com`), followed by the Sublime Text syntax file path (e.g. `Packages/Markdown/MultiMarkdown.tmLanguage`).
+
+```json
+"host_to_syntax": {
+  "sandbox.onlinephpfunctions.com": "Packages/PHP/PHP.tmLanguage",
+  "textarea.org": "Packages/HTML/HTML.tmLanguage"
+}
+```
+
 ## Installation
 
 Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) or [Firefox add-on](https://addons.mozilla.org/firefox/addon/ghosttext-for-firefox/) and you're ready to go!
