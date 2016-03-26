@@ -104,11 +104,11 @@ class OnConnect(AbstractOnMessage):
         try:
             request = json.loads(text)
             window_helper = WindowHelper()
-            current_view = window_helper.add_file(request['title'], request['text'])
+            syntax = Utils.get_syntax_by_host(request['url'])
+            current_view = window_helper.add_file(request['title'] + '.' + syntax, request['text'])
             OnSelectionModifiedListener.bind_view(current_view, self._web_socket_server)
             self._web_socket_server.on_message(OnMessage(self._settings, current_view))
             current_view.window().focus_view(current_view)
-            Utils.set_syntax_by_host(request['url'], current_view)
         except ValueError as e:
             Utils.show_error(e, 'Invalid JSON')
 
