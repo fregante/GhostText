@@ -36,6 +36,8 @@ nosetests.xml
 .pydevproject
 
 .idea
-SublimeText3Plugin/.idea
+.xpi
+
+node_modules
 
 ChromeExtension.pem
