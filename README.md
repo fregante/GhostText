@@ -1,13 +1,20 @@
-# ![GhostText for Sublime Text](https://raw.githubusercontent.com/Cacodaimon/GhostText-for-Chrome/master/promo/gt_banner-for-sublimetext.png)
-Use Sublime Text to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
+# <img src="https://raw.githubusercontent.com/Cacodaimon/GhostText-for-Chrome/master/promo/gt_banner.png" height="60" alt="GhostText">
+Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
 [![Video of how it works](http://img.youtube.com/vi/e0aLFPtYPZI/maxresdefault.jpg)](http://youtu.be/e0aLFPtYPZI)
 
-## Support 
 
-GhostText is compatible with Sublime Text, Google Chrome and Mozilla Firefox for now, but more extensions are on the way. [You can contribute.](https://github.com/Cacodaimon/GhostText-for-Atom)
+## Installation
 
-It supports `<textarea>` elements,  simple [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) elements (like the editor in Gmail), and the more complex [CodeMirror](http://codemirror.net/) (used on CodePen, JSFiddle, JS Bin, …) and [Ace](http://ace.c9.io/) (used on Tumblr, …)
+0. Install the editor extension: [for Sublime Text](https://sublime.wbond.net/packages/GhostText) or [for Atom](https://github.com/Cacodaimon/GhostText-for-Atom)
+1. Install the browser extension: [for Chrome](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) or [for Firefox](https://addons.mozilla.org/firefox/addon/ghosttext-for-firefox/)
+
+## Website support 
+
+* `<textarea>` elements
+* [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) areas: like in Gmail
+* [CodeMirror](http://codemirror.net/) editors: used on CodePen, JSFiddle, JS Bin, …
+* [Ace](http://ace.c9.io/) editor: used on Tumblr, …
 
 ## Usage
 
@@ -46,23 +53,12 @@ The connection will be closed when:
 * The tab or window is closed (either in the browser or in the editor)
 * The used field is removed from the document
 
-## Installation
-
-Install the [Sublime Text package](https://sublime.wbond.net/packages/GhostText) and the [Chrome extension](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) or [Firefox add-on](https://addons.mozilla.org/firefox/addon/ghosttext-for-firefox/) and you're ready to go!
-
-[![Chrome extension](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
-
-It's suggested to install a GitHub-Flavored Markdown syntax like the one included in [MarkdownEditing](https://sublime.wbond.net/packages/MarkdownEditing).
-
-If you are using Linux installing [xdotool](http://www.semicomplete.com/projects/xdotool/) lets GhostText focus your Sublime Text window on a new connection.
-
-On Windows you should consider installing [nircmd](http://www.nirsoft.net/utils/nircmd.html) in the windows dir, for archiving the same window focus behavior described above.
-
 
 ## Complementary repos
 
 * [GhostText for Chrome](https://github.com/Cacodaimon/GhostText-for-Chrome)
 * [GhostText for Firefox](https://github.com/Cacodaimon/GhostText-for-Firefox)
+* [GhostText for SublimeText](https://github.com/GhostText/GhostText-for-SublimeText)
 * [GhostText for Atom](https://github.com/Cacodaimon/GhostText-for-Atom) (prototype)
 * [GhostText for Vim](https://github.com/falstro/ghost-text-vim) (fan-built prototype)
 
@@ -70,28 +66,3 @@ On Windows you should consider installing [nircmd](http://www.nirsoft.net/utils/
 
 * [Video of how it works](http://www.youtube.com/watch?v=e0aLFPtYPZI&feature=share)
 * [Article about the initial proof of concept](http://cacodaemon.de/index.php?id=59)
-
-## Development version
-
-To try the latest version, follow these istructions:
-
-**Without Git:** Download the latest source from [GitHub](https://github.com/Cacodaimon/GhostText-for-SublimeText) and copy the GhostText folder to your Sublime Text "Packages" directory.
-
-**With Git:** Clone the repository in your Sublime Text "Packages" directory:
-
-    git clone https://github.com/Cacodaimon/GhostText-for-SublimeText.git
-
-
-The "Packages" directory is located at:
-
-* OS X:
-
-        ~/Library/Application Support/Sublime Text 3/Packages/
-
-* Linux:
-
-        ~/.config/sublime-text-3/Packages/
-
-* Windows:
-
-        %APPDATA%/Sublime Text 3/Packages/
