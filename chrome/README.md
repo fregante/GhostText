@@ -1,4 +1,4 @@
-# [![GhostText for Chrome](../promo/gt_banner-for-chrome.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
+# [![GhostText for Chrome](../promo/gt_banner-for-chrome.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
 
 ## Installation of the development version
 
