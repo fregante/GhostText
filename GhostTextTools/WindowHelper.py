@@ -1,4 +1,5 @@
 import sublime
+import os
 from .Utils import Utils
 
 
@@ -16,7 +17,7 @@ class WindowHelper(sublime.Window):
         Creates a new file and adds the given text content to it.
         """
         view = self._find_disconnected_view(title)
-        view.set_name('{} {}'.format(self._view_connected_prefix, title))
+        view.set_name('{} {}'.format(self._view_connected_prefix, os.path.splitext(title)[0]))
         view.set_status('title', title)
         view.run_command('replace_content', {'text': text})
         view.set_scratch(True)
@@ -34,4 +35,4 @@ class WindowHelper(sublime.Window):
         if len(disconnected_views) > 0:
             return disconnected_views[0]
 
-        return self.new_file()
+        return self.open_file(title)

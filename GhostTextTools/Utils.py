@@ -128,9 +128,10 @@ class Utils():
         return ''
 
     @staticmethod
-    def set_syntax_by_host(host, view):
+    def get_syntax_by_host(host):
         """
-        Sets the view's syntax by using the host_to_syntax for an lookup.
+        Looks for a user-suggested syntax in the "host_to_syntax" setting,
+        defaults to "default_syntax"
         """
         settings = sublime.load_settings('GhostText.sublime-settings')
         host_to_syntax = settings.get('host_to_syntax')
@@ -141,22 +142,6 @@ class Utils():
             if host_fragment not in host:
                 continue
 
-            syntax_part = host_to_syntax[host_fragment]
-            resources = sublime.find_resources('*{}'.format(syntax_part))
+            return host_to_syntax[host_fragment]
 
-            if len(resources) > 0:
-                syntax = resources[0]
-
-        if syntax is not None:
-            view.set_syntax_file(syntax)
-        else:
-            if syntax_part is not None:
-                sublime.error_message('Syntax "{}" is not installed!'.format(syntax_part))
-
-            default_syntax = settings.get('default_syntax', 'Markdown.tmLanguage')
-            resources = sublime.find_resources('*{}'.format(default_syntax))
-
-            if len(resources) > 0:
-                view.set_syntax_file(resources[0])
-            else:
-                print('Default syntax "{}" is not installed!'.format(default_syntax))
+        return settings.get('default_syntax')

@@ -2,10 +2,10 @@
     "server_port": "4001",
     "new_window_on_connect": false,
     "close_view_on_disconnect": false,
-    "default_syntax": "Markdown.tmLanguage",
+    "default_syntax": "md",
     "host_to_syntax": {
-        "sandbox.onlinephpfunctions.com": "PHP.tmLanguage",
-        "textarea.org": "HTML.tmLanguage"
+        "sandbox.onlinephpfunctions.com": "php",
+        "textarea.org": "html"
     },
     "view_title_prefix": {
         "connected": "☗ ●",
