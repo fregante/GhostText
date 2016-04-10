@@ -1,0 +1,41 @@
+{
+    "manifest_version": 2,
+    "name": "GhostText for Chrome",
+    "short_name": "GhostText",
+    "description": "Use your text editor to write in Google Chrome (Sublime Text only for now)",
+    "version": "1.1.4",
+    "author": "Guido Krömer, Federico Brigante",
+    "icons": {
+        "16": "images/icon_19.png",
+        "19": "images/icon_19.png",
+        "38": "images/icon_48.png",
+        "48": "images/icon_48.png",
+        "128": "images/icon_128.png"
+    },
+    "permissions": [
+        "activeTab", "http://localhost/"
+    ],
+    "options_page": "options.html",
+    "browser_action": {
+        "default_title": "GhostText",
+        "default_icon":  {
+            "19": "images/icon_19.png",
+            "38": "images/icon_48.png"
+        }
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+K",
+                "linux": "Ctrl+Shift+H"
+            }
+        }
+    },
+    "background": {
+        "scripts": [
+            "vendor/jquery.min.js",
+            "scripts/lib.js",
+            "scripts/background.js"
+        ]
+    }
+}

@@ -1,0 +1,1 @@
+GhostText.connectionHandler();

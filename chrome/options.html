@@ -1,0 +1,68 @@
+<html>
+<head>
+    <title>GhostText - Options</title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="vendor/jquery.min.js"></script>
+    <script src="scripts/lib.js"></script>
+    <script src="scripts/options.js"></script>
+</head>
+
+<body>
+
+    <div class="jumbotron ng-scope">
+        <div class="container">
+            <h1><img src="images/icon_128.png" alt=""> GhostText <span id="ghost-text-version"></span></h1>
+            <p>
+                A live edit extension written with <span class="glyphicon glyphicon-heart"></span> by <a href="http://www.cacodaemon.de">Guido Kr&ouml;mer</a> and <a href="http://bfred.it/">Federico Brigante</a>. Icon by <a href="http://www.epeo.it">Emiliano Cicero</a>.
+            </p>
+            <p>
+                You can find the code of <a href="https://github.com/Cacodaimon/GhostTextForSublimeText">Sublime Text package</a> and <a href="https://github.com/Cacodaimon/GhostTextForChrome">Chrome extension</a> on GitHub, licensed under the <a target="_blank" href="https://github.com/Cacodaimon/GhostTextForSublimeText/blob/master/LICENSE">MIT License</a>.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+
+            <div id="alerts"></div>
+
+            <form id="options-form"
+                  class="form-horizontal">
+                <fieldset>
+
+                    <legend>Options</legend>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="server-port">Server Port</label>
+
+                        <div class="col-md-9">
+                            <input id="server-port"
+                                   name="server-port"
+                                   type="number"
+                                   min="1"
+                                   max="65536"
+                                   step="1"
+                                   placeholder="4001"
+                                   class="form-control input-md"
+                                   required="required">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-3 col-md-9">
+                        <button id="options-form-save-btn"
+                                name="singlebutton"
+                                class="btn btn-success">
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                            Save
+                        </button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    </body>
+</html>
