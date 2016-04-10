@@ -1,4 +1,0 @@
-GhostText for Sublime Text v 1.0.5
-=====================================================
-
-- Linux users should install xdotool which provides a better window focusing behavior as wmctrl, wmctrl is not longer supported.

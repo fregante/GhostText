@@ -1,4 +1,0 @@
-GhostText for Sublime Text v 1.0.7
-=====================================================
-
-- Fixed disconnection bug on Windows machines.

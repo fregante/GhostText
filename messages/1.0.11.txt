@@ -1,4 +1,0 @@
-GhostText for Sublime Text v 1.0.11
-=====================================================
-
-- Bugfix in the WebSocket server, WebSocket packets with a size of exactly 127 byte let the server crash.

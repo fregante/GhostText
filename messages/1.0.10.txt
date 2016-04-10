@@ -1,5 +1,0 @@
-GhostText for Sublime Text v 1.0.10
-=====================================================
-
-- The new "close_view_on_disconnect" option enables auto closing of views, when the client disconnects.
-  It is disabled by default and can be enabled by setting the flag to true.

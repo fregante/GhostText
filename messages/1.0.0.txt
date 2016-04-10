@@ -1,3 +1,0 @@
-GhostText for Sublime Text has been released.
-
-If you where using ChromeTextArea, the previous name of this plugin, update your Chrome extension, too.

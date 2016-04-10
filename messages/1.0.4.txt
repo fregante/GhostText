@@ -1,6 +1,0 @@
-GhostText for Sublime Text v 1.0.4
-=====================================================
-
-- Connection status indicator added, the indicator prefix can be modified in the config.
-
-- Closed views gets reused when starting a new connection, a view with a matching title has precede before any other closed view.
