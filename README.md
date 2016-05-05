@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/Cacodaimon/GhostText-for-Chrome/master/promo/gt_banner.png" height="60" alt="GhostText">
+# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
 Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
 [![Video of how it works](http://img.youtube.com/vi/e0aLFPtYPZI/maxresdefault.jpg)](http://youtu.be/e0aLFPtYPZI)
@@ -6,7 +6,7 @@ Use your text editor to write in your browser. Everything you type in the editor
 
 ## Installation
 
-0. Install the editor extension: [for Sublime Text](https://sublime.wbond.net/packages/GhostText) or [for Atom](https://github.com/Cacodaimon/GhostText-for-Atom)
+0. Install the editor extension: [for Sublime Text](https://sublime.wbond.net/packages/GhostText) or [for Atom](https://github.com/GhostText/GhostText-for-Atom)
 1. Install the browser extension: [for Chrome](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) or [for Firefox](https://addons.mozilla.org/firefox/addon/ghosttext-for-firefox/)
 
 ## Website support 
