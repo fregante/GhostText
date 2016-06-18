@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
-    "name": "GhostText for Chrome",
+    "name": "GhostText",
     "short_name": "GhostText",
-    "description": "Use your text editor to write in Google Chrome (Sublime Text only for now)",
-    "version": "1.1.4",
+    "description": "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser.",
+    "version": "1.2.0",
     "author": "Guido Krömer, Federico Brigante",
     "icons": {
         "16": "images/icon_19.png",
