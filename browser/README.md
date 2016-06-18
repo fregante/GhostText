@@ -1,9 +1,22 @@
-# [![GhostText for Chrome](../promo/gt_banner-for-chrome.png)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
+# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText"> [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
+
+## Installation
+
+Follow the [instructions on the main README.md](https://github.com/GhostText/GhostText/#installation)
 
 ## Installation of the development version
+
+### On Chrome
 
 1. Clone **GhostText** on your computer with `git clone https://github.com/GhostText/GhostText.git`
 2. Visit `chrome://extensions/` in Chrome
 3. Enable the **Developer mode** in the upper-right corner
 4. Use the "Load unpacked extension…" button on the left
-5. Select the folder `chrome` inside your newly cloned project
+5. Select the folder `extension` inside your newly cloned project
+
+### On Firefox
+
+1. Clone **GhostText** on your computer with `git clone https://github.com/GhostText/GhostText.git`
+2. Visit `about:debugging#addons` in Firefox
+3. Click on **Load Temporary Add-on**
+4. Select the file `extension/manifest.json` inside your newly cloned project
