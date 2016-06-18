@@ -68,11 +68,6 @@ module GhostText.InputArea {
          */
         private elementRemovedListener: EventListener = null;
 
-        /**
-         * The plugin's browser.
-         */
-        private browser: Browser;
-
         public bind(domElement: HTMLElement): void {
             this.textArea = <HTMLTextAreaElement>domElement;
             var that = this;
@@ -113,7 +108,7 @@ module GhostText.InputArea {
             };
             window.addEventListener('beforeunload', this.beforeUnloadListener);
 
-            this.customEventInput = <Event>StandardsCustomEvent.get(this.browser, 'input',  { detail: { generatedByGhostText: true} });
+            this.customEventInput = <Event>StandardsCustomEvent.get('input',  { detail: { generatedByGhostText: true} });
             this.customKeyUpEvent = this.createKeyboardEvent();
         }
 
@@ -201,10 +196,6 @@ module GhostText.InputArea {
                 this.getText(),
                 this.getSelections().getAll()
             );
-        }
-
-        public setBrowser(browser: Browser): void {
-            this.browser = browser;
         }
 
         /**

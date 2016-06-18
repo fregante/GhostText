@@ -149,7 +149,7 @@ var GhostTextContent = {
     selectField: function () {
         console.log('GhostText: selectField()');
 
-        var detector = new GhostText.InputArea.Detector(GhostText.InputArea.Browser.Chrome);
+        var detector = new GhostText.InputArea.Detector();
         detector.focusEvent(function (inputArea) {
             console.log('GhostText: detector.focusEvent()');
             GhostTextContent.currentInputArea = inputArea;

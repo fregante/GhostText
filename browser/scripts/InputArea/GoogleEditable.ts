@@ -53,11 +53,6 @@ module GhostText.InputArea {
          */
         private beforeUnloadListener: EventListener = null;
 
-        /**
-         * The plugin's browser.
-         */
-        private browser: Browser;
-
         public bind(domElement: HTMLElement): void {
             this.googleEditableElement = <HTMLBodyElement>domElement;
             console.log(domElement);
@@ -150,10 +145,6 @@ module GhostText.InputArea {
                 this.getText(),
                 this.getSelections().getAll()
             );
-        }
-
-        public setBrowser(browser: Browser): void {
-            this.browser = browser;
         }
 
         /**

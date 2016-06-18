@@ -8,7 +8,6 @@ module.exports = function (grunt) {
     typescript: {
       base: {
         src: [
-            'scripts/InputArea/BrowserEnum.ts',
             'scripts/InputArea/StandardsCustomEvent.ts',
             'scripts/InputArea/Selection.ts',
             'scripts/InputArea/Selections.ts',

@@ -63,11 +63,6 @@ module GhostText.InputArea {
          */
         private currentText: string = null;
 
-        /**
-         * The plugin's browser.
-         */
-        private browser: Browser;
-
         public bind(domElement: HTMLElement): void {
             this.jsCodeEditorDiv = <HTMLDivElement>domElement;
             var that = this;
@@ -117,12 +112,12 @@ module GhostText.InputArea {
         }
 
         public focus(): void {
-            var gtDoFocusEvent = <Event>StandardsCustomEvent.get(this.browser, 'GhostTextDoFocus', {detail: null});
+            var gtDoFocusEvent = <Event>StandardsCustomEvent.get('GhostTextDoFocus', {detail: null});
             this.jsCodeEditorDiv.dispatchEvent(gtDoFocusEvent);
         }
 
         public blur(): void {
-            var gtDoBlurEvent = <Event>StandardsCustomEvent.get(this.browser, 'GhostTextDoBlur', {detail: null});
+            var gtDoBlurEvent = <Event>StandardsCustomEvent.get('GhostTextDoBlur', {detail: null});
             this.jsCodeEditorDiv.dispatchEvent(gtDoBlurEvent);
         }
 
@@ -157,7 +152,7 @@ module GhostText.InputArea {
 
             this.currentText = text;
             var details = {detail: {text: this.currentText}};
-            var gtServerInputEvent = <Event>StandardsCustomEvent.get(this.browser, 'GhostTextServerInput', details);
+            var gtServerInputEvent = <Event>StandardsCustomEvent.get('GhostTextServerInput', details);
             this.jsCodeEditorDiv.dispatchEvent(gtServerInputEvent);
         }
 
@@ -167,7 +162,7 @@ module GhostText.InputArea {
 
         public setSelections(selections: Selections): void {
             var details = {detail: {selections: selections.toJSON()}};
-            var gtDoFocusEvent = <Event>StandardsCustomEvent.get(this.browser, 'GhostTextServerSelectionChanged', details);
+            var gtDoFocusEvent = <Event>StandardsCustomEvent.get('GhostTextServerSelectionChanged', details);
             this.jsCodeEditorDiv.dispatchEvent(gtDoFocusEvent);
         }
 
@@ -178,15 +173,11 @@ module GhostText.InputArea {
             );
         }
 
-        public setBrowser(browser: Browser): void {
-            this.browser = browser;
-        }
-
         /**
          * Adds some nice highlight styles.
          */
         private highlight(): void {
-            var gtDoHighlightEvent = <Event>StandardsCustomEvent.get(this.browser, 'GhostTextDoHighlight', {detail: null});
+            var gtDoHighlightEvent = <Event>StandardsCustomEvent.get('GhostTextDoHighlight', {detail: null});
             this.jsCodeEditorDiv.dispatchEvent(gtDoHighlightEvent);
         }
 
@@ -194,7 +185,7 @@ module GhostText.InputArea {
          * Removes the highlight styles.
          */
         private removeHighlight(): void {
-            var gtRemoveHighlightEvent = <Event>StandardsCustomEvent.get(this.browser, 'GhostTextRemoveHighlight', {detail: null});
+            var gtRemoveHighlightEvent = <Event>StandardsCustomEvent.get('GhostTextRemoveHighlight', {detail: null});
             this.jsCodeEditorDiv.dispatchEvent(gtRemoveHighlightEvent);
         }
     }

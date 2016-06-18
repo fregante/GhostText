@@ -16,14 +16,8 @@ module GhostText.InputArea {
          */
         private onFocusCB: (inputArea: IInputArea) => void = null;
 
-        /**
-         * The used browser.
-         */
-        private browser: Browser;
-
-        public constructor(browser: Browser) {
+        public constructor() {
             this.inputAreaElements = [];
-            this.browser = browser;
         }
 
         /**
@@ -76,7 +70,6 @@ module GhostText.InputArea {
 
             for (var i = 0; i < textAreas.length; i++) {
                 var inputArea = new TextArea();
-                inputArea.setBrowser(this.browser);
                 inputArea.bind(<HTMLTextAreaElement>textAreas[i]);
                 this.inputAreaElements.push(inputArea);
             }
@@ -92,7 +85,6 @@ module GhostText.InputArea {
 
             for (var i = 0; i < contentEditables.length; i++) {
                 var inputArea = new ContentEditable();
-                inputArea.setBrowser(this.browser);
                 inputArea.bind(<HTMLDivElement>contentEditables[i]);
                 this.inputAreaElements.push(inputArea);
             }
@@ -108,7 +100,6 @@ module GhostText.InputArea {
 
             for (var i = 0; i < googleEditables.length; i++) {
                 var inputArea = new GoogleEditable();
-                inputArea.setBrowser(this.browser);
                 inputArea.bind(<HTMLDivElement>googleEditables[i]);
                 this.inputAreaElements.push(inputArea);
             }
@@ -130,7 +121,6 @@ module GhostText.InputArea {
                     aceEditor.setAttribute('id', id);
                 }
                 var inputArea = new AceCodeEditor();
-                inputArea.setBrowser(this.browser);
                 inputArea.bind(aceEditor);
                 this.injectScript(document, inputArea.getScript(), id);
                 this.inputAreaElements.push(inputArea);
@@ -153,7 +143,6 @@ module GhostText.InputArea {
                     codeMirrorEditor.setAttribute('id', id);
                 }
                 var inputArea = new CodeMirror();
-                inputArea.setBrowser(this.browser);
                 inputArea.bind(codeMirrorEditor);
                 this.injectScript(document, inputArea.getScript(), id);
                 this.inputAreaElements.push(inputArea);
@@ -226,23 +215,11 @@ module GhostText.InputArea {
                 return;
             }
 
-            var head: HTMLHeadElement = document.getElementsByTagName('head')[0];
             var script: HTMLScriptElement = document.createElement('script');
-            script.setAttribute('type', 'text/javascript');
-            script.setAttribute('class', 'ghost-text-injected-script');
             script.setAttribute('id', 'ghost-text-injected-script-' + id);
-            switch (this.browser) {
-                case Browser.Chrome:
-                    script.innerText = "(" + javaScript.toString() + ")('" + id + "')";
-                    break;
-                case Browser.Firefox:
-                    script.text = "(" + javaScript.toString() + ")('" + id + "')";
-                    break;
-                default:
-                    throw 'Unknown browser given!';
-            }
+            script.textContent = "(" + javaScript.toString() + ")('" + id + "')";
 
-            head.appendChild(script);
+            document.head.appendChild(script);
         }
     }
 }

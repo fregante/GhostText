@@ -92,12 +92,5 @@ module GhostText.InputArea {
          * Builds a text change object which the server understands.
          */
         buildChange(): TextChange;
-
-        /**
-         * Sets the browser.
-         *
-         * @param browser The plugin's browser.
-         */
-        setBrowser(browser: Browser): void;
     }
 }
