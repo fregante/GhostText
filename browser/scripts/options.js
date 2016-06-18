@@ -1,30 +1,19 @@
-$(document).ready(function () {
-    /**
-     * @type {jQuery}
-     */
-    var serverPortInput = $('#server-port');
+/**
+ * @type {Element}
+ */
+var serverPortInput = document.getElementById('server-port');
 
-    /**
-     * @type {jQuery}
-     */
-    var optionsFormSaveBtn = $('#options-form-save-btn');
+/**
+ * @type {number}
+ */
+var initialServerPort = GhostText.serverPort();
 
-    serverPortInput.val(GhostText.serverPort());
+if (initialServerPort !== serverPortInput.placeholder) {
+    serverPortInput.value = initialServerPort;
+}
 
-    $('#options-form').submit(function () {
-        /**
-         * @type {number}
-         */
-        var serverPort = serverPortInput.val();
-        GhostText.serverPort(serverPort);
-
-        optionsFormSaveBtn.attr('disabled', true);
-        return false;
-    });
-
-    serverPortInput.change(function () {
-        optionsFormSaveBtn.attr('disabled', false);
-    });
-
-    $('#ghost-text-version').text(chrome.runtime.getManifest().version);
+serverPortInput.addEventListener('input', function () {
+    GhostText.serverPort(serverPortInput.value || 4001);
 });
+
+document.getElementById('ghost-text-version').textContent = chrome.runtime.getManifest().version;

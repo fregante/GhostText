@@ -15,12 +15,15 @@
     "permissions": [
         "activeTab", "http://localhost/"
     ],
-    "options_page": "options.html",
     "applications": {
         "gecko": {
             "id": "ghosttext@github.com",
             "strict_min_version": "45.0"
         }
+    },
+    "options_ui": {
+        "chrome_style": true,
+        "page": "options.html"
     },
     "browser_action": {
         "default_title": "GhostText",
