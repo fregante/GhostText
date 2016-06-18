@@ -16,6 +16,12 @@
         "activeTab", "http://localhost/"
     ],
     "options_page": "options.html",
+    "applications": {
+        "gecko": {
+            "id": "ghosttext@github.com",
+            "strict_min_version": "45.0"
+        }
+    },
     "browser_action": {
         "default_title": "GhostText",
         "default_icon":  {
