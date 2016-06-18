@@ -2,8 +2,7 @@ When you're in a page with a text field (<textarea>, CodeMirror and ACE editor),
 
 Contribute
 ==========
-https://github.com/Cacodaimon/GhostText-for-SublimeText/
-https://github.com/Cacodaimon/GhostText-for-Chrome/
+https://github.com/GhostText/GhostText/
 
 Copyright Guido Krömer
 MIT License: https://tldrlegal.com/license/mit-license
