@@ -8,17 +8,8 @@ module GhostText.InputArea {
      */
     export class StandardsCustomEvent {
         static get(browser: Browser, eventType: string, data: {detail: any}): CustomEvent {
-            if (browser == Browser.Firefox) {
-                var cloned = cloneInto(data.detail, document.defaultView);
-                var event = <any>document.createEvent('CustomEvent');
-                event.initCustomEvent(eventType, true, true, cloned);
-
-                return <CustomEvent> event;
-            }
-
             var customEvent = <any>CustomEvent;
-            var event = new customEvent(eventType, data);
-
+            var event = new customEvent(eventType /*, data*/); // data causes an error in Firefox
             return <CustomEvent> event;
         }
     }
