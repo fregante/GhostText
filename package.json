@@ -1,0 +1,10 @@
+{
+  "name": "GhostText-browser",
+  "private": true,
+  "devDependencies": {
+    "chrome-webstore-upload-cli": "^1.0.0"
+  },
+  "scripts": {
+    "release": "webstore upload --source=browser --auto-publish"
+  }
+}

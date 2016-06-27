@@ -1,5 +1,6 @@
 {
-  "name": "GhostText-for-Chrome",
+  "name": "GhostText-typescript",
+  "private": true,
   "version": "1.1.2",
   "devDependencies": {
     "grunt": "^0.4.5",
