@@ -1,7 +1,7 @@
 module GhostText.InputArea {
 
     /**
-     * Implementation for a text area element.
+     * Implementation for a textarea element.
      *
      * @licence The MIT License (MIT)
      * @author Guido Krömer <mail 64 cacodaemon 46 de>
@@ -9,7 +9,7 @@ module GhostText.InputArea {
     export class TextArea implements IInputArea {
 
         /**
-         * The bind HTML text area element.
+         * The bind HTML textarea element.
          */
         private textArea: HTMLTextAreaElement = null;
 
