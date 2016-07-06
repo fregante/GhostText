@@ -2717,7 +2717,7 @@ declare module AceAjax {
         getMouseEventTarget(): HTMLElement;
 
         /**
-         * Returns the element to which the hidden text area is added.
+         * Returns the element to which the hidden textarea is added.
          **/
         getTextAreaContainer(): HTMLElement;
 
