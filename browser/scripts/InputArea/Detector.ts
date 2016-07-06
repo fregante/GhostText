@@ -61,7 +61,7 @@ module GhostText.InputArea {
         }
 
         /**
-         * Adds all text area elements found in the dom.
+         * Adds all textarea elements found in the dom.
          *
          * @param document The HTML root node.
          */
