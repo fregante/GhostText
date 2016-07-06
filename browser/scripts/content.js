@@ -141,7 +141,7 @@ var GhostTextContent = {
     },
 
     /**
-     * Look for text areas in document and connect to is as soon as possible.
+     * Look for textarea elements in document and connect to is as soon as possible.
      *
      * @private
      * @static
@@ -159,14 +159,14 @@ var GhostTextContent = {
 
         var countElementsFound = detector.detect(document);
         if (countElementsFound === 0) {
-            GhostTextContent.alertUser('No text area elements on this page');
+            GhostTextContent.alertUser('No textarea elements on this page');
         } else if (countElementsFound > 1) {
-            GhostTextContent.informUser('There are multiple text areas on this page. \n Click on the one you want to use.', true);
+            GhostTextContent.informUser('There are multiple textarea elements on this page. \n Click on the one you want to use.', true);
         }
     },
 
     /**
-     * Connects a HTML text area to a GhostText server by messaging through the background script
+     * Connects a HTML textarea to a GhostText server by messaging through the background script
      * TODO code cleanup needed…
      *
      * @public
