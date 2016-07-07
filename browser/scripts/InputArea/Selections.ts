@@ -38,7 +38,7 @@ module GhostText.InputArea {
 
         /**
          * Gets the min and max cursor position calculated from the selections set.
-         * Useful for elements only supporting a single selection like a text area.
+         * Useful for elements only supporting a single selection like a textarea.
          *
          * @return {Selection}
          */
