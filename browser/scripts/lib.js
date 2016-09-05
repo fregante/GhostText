@@ -80,24 +80,33 @@ var GhostText = {
      * @public
      * @static
      */
-    connectionHandler: function() {
+    connectionHandler: function () {
         chrome.runtime.onConnect.addListener(GhostText.connectionHandlerOnConnect);
-
         chrome.runtime.onMessage.addListener(GhostText.messageHandler);
+        chrome.browserAction.onClicked.addListener(GhostText.toggleCurrentTab);
+        chrome.commands.onCommand.addListener(function (command) {
+            if (command === 'toggle') {
+                GhostText.toggleCurrentTab();
+            }
+        });
+    },
 
-        //inform the content script that the button has been clicked
-        chrome.browserAction.onClicked.addListener(function () {
-            GhostText.inCurrentTab(function toggleConnection (tabId){
-                GhostText.loadContentJs(tabId, function () {
-                    if (GhostText.connections[tabId]) {
-                        GhostText.closeConnection(tabId);
-                    } else {
-                        chrome.tabs.sendMessage(tabId, {
-                            action: 'select-field',
-                            tabId: tabId
-                        });
-                    }
-                });
+    /**
+     * Enable or disable GT in the current tab
+     * @public
+     * @static
+     */
+    toggleCurrentTab: function () {
+        GhostText.inCurrentTab(function (tabId) {
+            GhostText.loadContentJs(tabId, function () {
+                if (GhostText.connections[tabId]) {
+                    GhostText.closeConnection(tabId);
+                } else {
+                    chrome.tabs.sendMessage(tabId, {
+                        action: 'select-field',
+                        tabId: tabId
+                    });
+                }
             });
         });
     },
