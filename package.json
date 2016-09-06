@@ -2,9 +2,11 @@
   "name": "GhostText-browser",
   "private": true,
   "devDependencies": {
-    "chrome-webstore-upload-cli": "^1.0.0"
+    "chrome-webstore-upload-cli": "^1.0.0",
+    "typescript": "^1.8.10"
   },
   "scripts": {
+    "build": "tsc",
     "release": "webstore upload --source=browser --auto-publish"
   }
 }
