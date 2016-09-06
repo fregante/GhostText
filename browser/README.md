@@ -7,6 +7,17 @@ Follow the [instructions on the main README.md](https://github.com/GhostText/Gho
 
 ## Installation of the development version
 
+### Setup
+
+Run this in the project root (outside the folder `browser`):
+
+```sh
+npm install
+npm run build
+# or this:
+npm run watch
+```
+
 ### On Chrome
 
 1. Clone **GhostText** on your computer with `git clone https://github.com/GhostText/GhostText.git`
