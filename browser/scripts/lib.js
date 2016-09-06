@@ -60,7 +60,7 @@ var GhostText = {
      */
     loadContentJs: function (tabId, callback) {
         chrome.tabs.executeScript(tabId, {
-             { file: 'scripts/isalreadyloaded.js' }  //check if it's already loaded
+             file: 'scripts/isalreadyloaded.js'   //check if it's already loaded
         }, function (hasContentJs) {
             if (hasContentJs[0]) {
                 callback();
