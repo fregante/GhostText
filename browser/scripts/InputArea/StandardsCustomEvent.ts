@@ -9,7 +9,7 @@ module GhostText.InputArea {
     export class StandardsCustomEvent {
         static get(eventType: string, data: {detail: any}): CustomEvent {
             var customEvent = <any>CustomEvent;
-            var event = new customEvent(eventType /*, data*/); // data causes an error in Firefox
+            var event = new customEvent(eventType, data);
             return <CustomEvent> event;
         }
     }
