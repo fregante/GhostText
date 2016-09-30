@@ -1,5 +1,7 @@
-# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText"> [![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
- [![travis build](https://travis-ci.org/GhostText/GhostText.svg?branch=master)](https://travis-ci.org/GhostText/GhostText)
+# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
+
+[![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
+[![travis build](https://travis-ci.org/GhostText/GhostText.svg?branch=master)](https://travis-ci.org/GhostText/GhostText)
 
 ## Installation
 
