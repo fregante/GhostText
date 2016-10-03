@@ -6,7 +6,7 @@ Use your text editor to write in your browser. Everything you type in the editor
 ## Installation
 
 0. Install the editor extension: [for Sublime Text](https://sublime.wbond.net/packages/GhostText) or [for Atom](https://github.com/GhostText/GhostText-for-Atom)
-1. Install the browser extension: [for Chrome](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca) or [for Firefox](https://addons.mozilla.org/firefox/addon/ghosttext-for-firefox/)
+1. Install the browser extension: [for Chrome](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca) or [for Firefox](https://github.com/GhostText/GhostText/tree/master/browser#on-firefox)
 
 ## Website support 
 
