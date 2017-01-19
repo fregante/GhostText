@@ -5,8 +5,15 @@ Use your text editor to write in your browser. Everything you type in the editor
 
 ## Installation
 
-0. Install the editor extension: [for Sublime Text](https://sublime.wbond.net/packages/GhostText) or [for Atom](https://github.com/GhostText/GhostText-for-Atom)
-1. Install the browser extension: [for Chrome](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca) or [for Firefox](https://github.com/GhostText/GhostText/tree/master/browser#on-firefox)
+0. Install your editor extension:
+  + Sublime Text - [Install](https://sublime.wbond.net/packages/GhostText) - [Repo](https://github.com/GhostText/GhostText-for-SublimeText)
+  + Atom - [Repo](https://github.com/GhostText/GhostText-for-Atom)
+  + VS - [Install](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
+  + Vim - [Repo](https://github.com/falstro/ghost-text-vim) (Third party)
+0. Install the browser extension:
+  + Chrome - [Install](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
+  + Firefox - [Install](https://github.com/GhostText/GhostText/tree/master/browser#on-firefox)
+  + Opera - Use [`Download Chrome Extension`](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) to install the Chrome extension
 
 ## Website support 
 
@@ -51,13 +58,6 @@ The connection will be closed when:
 * The webpage changes or is reloaded
 * The tab or window is closed (either in the browser or in the editor)
 * The used field is removed from the document
-
-
-## Complementary repos
-
-* [GhostText for SublimeText](https://github.com/GhostText/GhostText-for-SublimeText)
-* [GhostText for Atom](https://github.com/GhostText/GhostText-for-Atom) (prototype)
-* [GhostText for Vim](https://github.com/falstro/ghost-text-vim) (fan-built prototype)
 
 ## Learn more
 
