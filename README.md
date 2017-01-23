@@ -8,7 +8,7 @@ Use your text editor to write in your browser. Everything you type in the editor
 0. Install your editor extension:
   + Sublime Text - [Install](https://sublime.wbond.net/packages/GhostText) - [Repo](https://github.com/GhostText/GhostText-for-SublimeText)
   + Atom - [Repo](https://github.com/GhostText/GhostText-for-Atom)
-  + VS - [Install](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
+  + VS Code - [Install](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
   + Vim - [Repo](https://github.com/falstro/ghost-text-vim) (Third party)
 0. Install the browser extension:
   + Chrome - [Install](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
