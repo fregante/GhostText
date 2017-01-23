@@ -1,8 +1,0 @@
-When you're in a page with a text field (<textarea>, CodeMirror and ACE editor), click the GhostText button in the upper-right corner to open up Sublime Text. Everything you type in the editor will be instantly updated in the browser (and vice versa).
-
-Contribute
-==========
-https://github.com/GhostText/GhostText/
-
-Copyright Guido Krömer
-MIT License: https://tldrlegal.com/license/mit-license

@@ -1,0 +1,28 @@
+Use your text editor to write in your browser (Firefox, Chrome, Opera). Everything you type in the editor will be instantly updated in the browser.
+
+<strong>Compatible editors:</strong>
+
+<ul>
+    <li>Sublime Text - <a href="https://packagecontrol.io/packages/GhostText">Install extension</a></li>
+    <li>Atom - <a href="https://github.com/GhostText/GhostText-for-Atom">Install extension</a></li>
+    <li>VS Code - <a href="https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext">Install extension</a></li>
+    <li>Vim - <a href="https://github.com/falstro/ghost-text-vim">Install extension</a></li>
+</ul>
+
+<strong>Setup:</strong>
+
+<ol>
+    <li>Install the extension in Firefox</li>
+    <li>Install the extension in your editor</li>
+    <li>If using Atom or VS Code, you'll have to "Enable the server" in the editor's command palette.</li>
+</ol>
+
+<strong>Usage:</strong>
+
+<ol>
+    <li>Visit a page with a compatible text field (<code>&lt;textarea&gt;</code>, CodeMirror and ACE editor); for example <a href="https://hastebin.com/">hastebin</a></li>
+    <li>Click the GhostText button in the upper-right corner of the browser</li>
+    <li>If more than one field is detected, you'll be asked to click in it</li>
+    <li>Once the field is selected, your editor will be connected.</li>
+    <li><em>Start typing!</em></li>
+</ol>
