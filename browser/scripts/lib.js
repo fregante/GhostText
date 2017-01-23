@@ -267,6 +267,7 @@ var GhostText = {
      * @static
      */
     checkProtocolVersion: function(version) {
+        version = parseFloat(version);
         if (version === GhostText.protocolVersion) {
             return true;
         }
