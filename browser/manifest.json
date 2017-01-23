@@ -18,7 +18,7 @@
     ],
     "applications": {
         "gecko": {
-            "id": "ghosttext@github.com",
+            "id": "ghosttext@bfred.it",
             "strict_min_version": "45.0"
         }
     },
