@@ -30,9 +30,6 @@
         "localStorage",
         "WebSocket",
         "CustomEvent",
-
-        "jQuery",
-        "$",
         "GThumane"
     ]
 }

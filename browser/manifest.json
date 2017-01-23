@@ -44,7 +44,6 @@
     },
     "background": {
         "scripts": [
-            "vendor/jquery.min.js",
             "scripts/lib.js",
             "scripts/background.js"
         ]
