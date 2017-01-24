@@ -12,7 +12,7 @@ Use your text editor to write in your browser. Everything you type in the editor
   + Vim - [Repo](https://github.com/falstro/ghost-text-vim) (Third party)
 0. Install the browser extension:
   + Chrome - [Install](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
-  + Firefox - [Install](https://github.com/GhostText/GhostText/tree/master/browser#on-firefox)
+  + Firefox - [Install](https://addons.mozilla.org/en-US/firefox/addon/ghosttext/)
   + Opera - Use [`Download Chrome Extension`](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) to install the Chrome extension
 
 ## Website support 
