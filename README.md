@@ -7,14 +7,14 @@ Use your text editor to write in your browser. Everything you type in the editor
 ## Installation
 
 1. Install your editor extension:
-  + Sublime Text - [Install](https://sublime.wbond.net/packages/GhostText) - [Repo](https://github.com/GhostText/GhostText-for-SublimeText)
-  + Atom - [Repo](https://github.com/GhostText/GhostText-for-Atom)
-  + VS Code - [Install](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
-  + Vim - [Repo](https://github.com/falstro/ghost-text-vim) (Third party)
-2. Install the browser extension:
-  + Chrome - [Install](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
-  + Firefox - [Install](https://addons.mozilla.org/en-US/firefox/addon/ghosttext/)
-  + Opera - Use [this Opera extension](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) to install the Chrome extension
+  + [**Sublime Text** extension](https://sublime.wbond.net/packages/GhostText) - [Repo](https://github.com/GhostText/GhostText-for-SublimeText)
+  + [**Atom** package](https://github.com/GhostText/GhostText-for-Atom)
+  + [**VS Code** extension](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
+  + [**Vim** script](https://github.com/falstro/ghost-text-vim) (Third party)
+2. Install your browser extension:
+  + [**Chrome** extension](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
+  + [**Firefox** add-on](https://addons.mozilla.org/en-US/firefox/addon/ghosttext/)
+  + Opera - You can install the Chrome extension by installing [this Opera extension](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) first.
 
 ## Website support 
 
