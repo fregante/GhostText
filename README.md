@@ -1,16 +1,17 @@
 # <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
-Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
-![Demo screencast](promo/demo.gif)
+<img src="promo/demo.gif" alt="Demo screencast" align="right"> 
+
+Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
 ## Installation
 
-0. Install your editor extension:
+1. Install your editor extension:
   + Sublime Text - [Install](https://sublime.wbond.net/packages/GhostText) - [Repo](https://github.com/GhostText/GhostText-for-SublimeText)
   + Atom - [Repo](https://github.com/GhostText/GhostText-for-Atom)
   + VS Code - [Install](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
   + Vim - [Repo](https://github.com/falstro/ghost-text-vim) (Third party)
-0. Install the browser extension:
+2. Install the browser extension:
   + Chrome - [Install](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
   + Firefox - [Install](https://addons.mozilla.org/en-US/firefox/addon/ghosttext/)
   + Opera - Use [this Opera extension](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) to install the Chrome extension
