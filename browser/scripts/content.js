@@ -137,7 +137,7 @@ var GhostTextContent = {
 
         GhostTextContent.currentInputArea.unbind();
         GhostTextContent.currentInputArea = null;
-        GhostTextContent.informUser('Disconnected! \n <a href="https://github.com/Cacodaimon/GhostTextForChrome/issues?state=open" target="_blank">Report issues</a> | <a href="https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca/reviews" target="_blank">Leave review</a>');
+        GhostTextContent.informUser('Disconnected! \n <a href="https://github.com/GhostText/GhostText/issues?state=open" target="_blank">Report issues</a> | <a href="https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca/reviews" target="_blank">Leave review</a>');
     },
 
     /**
