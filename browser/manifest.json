@@ -3,7 +3,7 @@
     "name": "GhostText",
     "short_name": "GhostText",
     "description": "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser.",
-    "version": "1.2.4.1",
+    "version": "0.0.0",
     "minimum_chrome_version": "49",
     "author": "Guido Krömer, Federico Brigante",
     "icons": {

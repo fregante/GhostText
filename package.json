@@ -4,11 +4,16 @@
   "private": true,
   "devDependencies": {
     "chrome-webstore-upload-cli": "^1.0.0",
-    "typescript": "^1.8.10"
+    "dot-json": "^1.0.3",
+    "typescript": "^1.8.10",
+    "webext": "^1.9.1-with-submit.1"
   },
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "release": "tsc; webstore upload --source=browser --auto-publish"
+    "deploy": "npm run build && npm run update-version && npm run release-cws && npm run release-amo",
+    "release-amo": "cd browser && webext submit",
+    "release-cws": "cd browser && webstore upload --auto-publish",
+    "update-version": "dot-json browser/manifest.json version $(date -u +%y.%-m.%-d.%-H%M)"
   }
 }

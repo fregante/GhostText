@@ -1,11 +1,17 @@
 language: node_js
 node_js:
-  - 'node'
+  - node
+branches:
+  only: master
 env:
   - EXTENSION_ID=godiecgffnchndlihlpaajjcplehddca
+
 deploy:
   provider: script
-  script: npm run release
+  skip_cleanup: true
+  script: npm run deploy
   on:
     branch: master
-    tags: true
+
+    # the deployment will be skipped if the last commit doesn't touch the extension's files
+    condition: $(git diff-tree --no-commit-id --name-only -r HEAD | sed -n '/browser\// q 1'; echo $?) = 1
