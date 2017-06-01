@@ -1,4 +1,6 @@
-# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText"> [![Chrome version][badge-cws]][link-cws] [![Firefox version][badge-amo]][link-amo] [![Autodeployment][badge-travis]][link-travis]
+# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
+
+[![Chrome version][badge-cws]][link-cws] [![Firefox version][badge-amo]][link-amo] [![Autodeployment][badge-travis]][link-travis]
 
   [badge-cws]: https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg?label=for%20chrome
   [badge-amo]: https://img.shields.io/amo/v/ghosttext.svg?label=for%20firefox
