@@ -1,7 +1,11 @@
-# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
+# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText"> [![Chrome version][badge-cws]][link-cws] [![Firefox version][badge-amo]][link-amo] [![Autodeployment][badge-travis]][link-travis]
 
-[![Version published on Chrome Web Store](https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg)](https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca)
-[![travis build](https://travis-ci.org/GhostText/GhostText.svg?branch=master)](https://travis-ci.org/GhostText/GhostText)
+  [badge-cws]: https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg?label=for%20chrome
+  [badge-amo]: https://img.shields.io/amo/v/ghosttext.svg?label=for%20firefox
+  [badge-travis]: https://img.shields.io/travis/GhostText/GhostText/master.svg?label=autodeployment
+  [link-cws]: https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca "Version published on Chrome Web Store"
+  [link-amo]: https://addons.mozilla.org/en-US/firefox/addon/ghosttext/ "Version published on Mozilla Add-ons"
+  [link-travis]: https://travis-ci.org/GhostText/GhostText
 
 ## Installation
 
