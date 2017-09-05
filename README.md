@@ -11,6 +11,7 @@ Use your text editor to write in your browser. Everything you type in the editor
   + [**Atom** package](https://github.com/GhostText/GhostText-for-Atom)
   + [**VS Code** extension](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
   + [**Vim** script](https://github.com/falstro/ghost-text-vim) (Third party)
+  + [**Emacs** package](https://melpa.org/#/atomic-chrome) - [Repo](https://github.com/alpha22jp/atomic-chrome) (Third party)
 2. Install your browser extension:
   + [**Chrome** extension](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
   + [**Firefox** add-on](https://addons.mozilla.org/en-US/firefox/addon/ghosttext/)
