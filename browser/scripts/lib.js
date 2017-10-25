@@ -181,7 +181,7 @@ var GhostText = {
                         change: event.data
                     });
                 };
-            }).fail(GhostText.errorHandler);
+            }).catch(GhostText.errorHandler);
         });
     },
 
