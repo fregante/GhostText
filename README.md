@@ -4,6 +4,8 @@
 
 Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
+**Notice: GhostText generally works but it has some bugs across the various implementations. If you use it regularly please consider contributing/bugfixing your editor's GhostText plugin.**
+
 ## Installation
 
 1. Install your editor extension:
