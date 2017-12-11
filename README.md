@@ -31,13 +31,14 @@ Use your text editor to write in your browser. Everything you type in the editor
 ## Usage
 
 1. Open your editor
-2. Sublime Text automatically starts the GhostText server, but in some editors you’ll need to run the "Enable GhostText" command. Refer to your editor's GhostText extension readme.
-3. In the browser, click the **GhostText** button in the browser’s toolbar to start the connection for the current tab.
-4. If there's more than one field, you may be asked to select which field to synchronize. Click inside it to start.
+2. Click the **GhostText** button in the browser’s toolbar
+3. Click inside the desired field (if there’s more than one)
+
+Notice: in some editors you’ll need to run the _Enable GhostText_ command after step 1. Refer to your editor’s GhostText extension readme. Sublime Text does this automatically.
 
 ### Keyboard shortcuts
 
-In Chrome, you can use a keyboard shortcut to enable GhostText instead of clicking the button. You can [change it or disable it.](http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121)
+In Chrome, you can use a keyboard shortcut instead of clicking the button. You can also [change or disable](http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121) the shortcut.
 
 Firefox [doesn’t support them yet.](https://github.com/GhostText/GhostText/issues/113)
 
