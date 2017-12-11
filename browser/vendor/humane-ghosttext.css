@@ -1,3 +1,10 @@
+.GT-field {
+  transition: box-shadow 1s cubic-bezier(0.25, 2, 0.5, 1);
+}
+.GT-field--enabled {
+  box-shadow: rgb(0,173,238) 0 0 20px 5px inset;
+}
+
 /*Copyright (c) 2011 Marc Harter <wavded@gmail.com> */
 /*flatty.css, customized for GhostText*/
 .ghost-text-message {

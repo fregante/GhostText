@@ -2,34 +2,33 @@
 <meta charset="UTF-8">
 <title>GhostText options</title>
 <style>
-    html {
-        font-family: sans-serif;
-    }
-    label, button, footer {
-        display: block;
-        margin: 1em 0;
-    }
-    input {
-        font: inherit;
-    }
-    footer {
-        font-style: italic;
-        font-size: 0.8em;
-        color: gray
-    }
-    footer a {
-        color: inherit;
-    }
+	html {
+		font-family: sans-serif;
+	}
+	label, button, footer {
+		display: block;
+		margin: 1em 0;
+	}
+	input {
+		font: inherit;
+	}
+	footer {
+		font-style: italic;
+		font-size: 0.8em;
+		color: gray
+	}
+	footer a {
+		color: inherit;
+	}
 </style>
 <form id="options-form">
-    <label>
-        Server Port
-        <input id="server-port" type="number" min="1" max="65536" step="1" placeholder="4001" required>
-    </label>
+	<label>
+		Server Port
+		<input name="serverPort" type="number" min="1" max="65536" step="1" placeholder="4001" value="4001" required>
+	</label>
 </form>
 <footer>
-    <a href="https://github.com/GhostText/GhostText">GhostText</a>
-    <span id="ghost-text-version"></span> – Options automatically saved
+	Issues? Let’s fix them on <a href="https://github.com/GhostText/GhostText">GhostText’s GitHub repo</a>!
 </div>
-<script src="scripts/lib.js"></script>
+<script src="vendor/webext-options-sync.js"></script>
 <script src="scripts/options.js"></script>

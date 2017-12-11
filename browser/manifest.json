@@ -1,51 +1,52 @@
 {
-    "manifest_version": 2,
-    "name": "GhostText",
-    "short_name": "GhostText",
-    "description": "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser.",
-    "version": "0.0.0",
-    "minimum_chrome_version": "49",
-    "author": "Guido Krömer, Federico Brigante",
-    "icons": {
-        "16": "images/icon_19.png",
-        "19": "images/icon_19.png",
-        "38": "images/icon_48.png",
-        "48": "images/icon_48.png",
-        "128": "images/icon_128.png"
-    },
-    "permissions": [
-        "activeTab", "http://localhost/"
-    ],
-    "applications": {
-        "gecko": {
-            "id": "ghosttext@bfred.it",
-            "strict_min_version": "45.0"
-        }
-    },
-    "options_ui": {
-        "chrome_style": true,
-        "page": "options.html"
-    },
-    "browser_action": {
-        "default_title": "GhostText",
-        "default_icon":  {
-            "19": "images/icon_19.png",
-            "38": "images/icon_48.png"
-        }
-    },
-    "commands": {
-        "toggle": {
-            "description": "Toggle GhostText",
-            "suggested_key": {
-                "default": "Ctrl+Shift+K",
-                "linux": "Ctrl+Shift+H"
-            }
-        }
-    },
-    "background": {
-        "scripts": [
-            "scripts/lib.js",
-            "scripts/background.js"
-        ]
-    }
+	"manifest_version": 2,
+	"name": "GhostText",
+	"description": "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser.",
+	"version": "0.0.0",
+	"minimum_chrome_version": "49",
+	"author": "Federico Brigante",
+	"icons": {
+		"16": "images/icon_19.png",
+		"19": "images/icon_19.png",
+		"38": "images/icon_48.png",
+		"48": "images/icon_48.png",
+		"128": "images/icon_128.png"
+	},
+	"permissions": [
+		"activeTab",
+		"http://localhost/",
+		"storage"
+	],
+	"applications": {
+		"gecko": {
+			"id": "ghosttext@bfred.it",
+			"strict_min_version": "45.0"
+		}
+	},
+	"options_ui": {
+		"chrome_style": true,
+		"page": "options.html"
+	},
+	"browser_action": {
+		"default_title": "GhostText",
+		"default_icon":  {
+			"19": "images/icon_19.png",
+			"38": "images/icon_48.png"
+		}
+	},
+	"commands": {
+		"toggle": {
+			"description": "Toggle GhostText",
+			"suggested_key": {
+				"default": "Ctrl+Shift+K",
+				"linux": "Ctrl+Shift+H"
+			}
+		}
+	},
+	"background": {
+		"scripts": [
+			"vendor/webext-dynamic-content-scripts.js",
+			"scripts/background.js"
+		]
+	}
 }
