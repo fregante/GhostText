@@ -92,7 +92,6 @@ module GhostText.InputArea {
                     that.focusEventCB(that);
                 }
 
-                that.highlight();
             };
             this.jsCodeEditorDiv.addEventListener('GhostTextJSCodeEditorFocus', this.focusEventListener, false);
 
@@ -101,7 +100,10 @@ module GhostText.InputArea {
                     that.unloadEventCB(that);
                 }
             };
+
             this.jsCodeEditorDiv.addEventListener('beforeunload', this.beforeUnloadListener);
+
+            this.highlight();
         }
 
         public unbind(): void {
