@@ -58,4 +58,6 @@ Chrome offers some keyboard shortcuts to enable GhostText without clicking the b
   </tr>
 </table>
 
+## License
 
+MIT © [Federico Brigante](http://twitter.com/bfred_it), Guido Krömer
