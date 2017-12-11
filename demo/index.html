@@ -10,6 +10,7 @@
 			color: #333;
 			margin: auto;
 		}
+		iframe,
 		textarea,
 		[contenteditable],
 		.CodeMirror,
@@ -29,6 +30,10 @@
 		}
 		textarea {
 			max-width: 49%;
+		}
+		iframe {
+			opacity: 0.8;
+			height: 200px;
 		}
 	</style>
 </head>
@@ -70,4 +75,8 @@
 	<script>
 		window.ace.edit('ace').setOption("maxLines", 30)
 	</script>
+
+
+	<h2>Fields inside <code>&lt;iframe&gt;</code></h2>
+	<iframe src="http://localhost:3000/demo/" frameborder="0">One level deep, please!</iframe>
 </html>

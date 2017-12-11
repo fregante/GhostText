@@ -32,7 +32,8 @@ async function handleAction(tab) {
 	});
 
 	chrome.tabs.executeScript(tab.id, {
-		code: 'startGT()'
+		code: 'startGT()',
+		allFrames: true
 	});
 }
 
