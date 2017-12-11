@@ -21,10 +21,6 @@ module GhostText.InputArea {
                     ghostTextCodeMirrorEditor.focus();
                 });
 
-                ghostTextCodeMirrorDiv.addEventListener("GhostTextDoBlur", function () {
-                    ghostTextCodeMirrorEditor.blur();
-                });
-
                 ghostTextCodeMirrorDiv.addEventListener("GhostTextServerSelectionChanged", function (e) {
                     for (var i = 0; i < e.detail.selections.length; i++) {
                         var selection = e.detail.selections[i];
