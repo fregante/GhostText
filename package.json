@@ -5,14 +5,31 @@
   "devDependencies": {
     "chrome-webstore-upload-cli": "^1.0.0",
     "dot-json": "^1.0.3",
-    "webext": "^1.9.1-with-submit.1"
+    "webext": "^1.9.1-with-submit.1",
+    "xo": "*"
   },
   "scripts": {
+    "test": "xo",
     "build": "true",
     "watch": "true",
     "deploy": "npm run build && npm run update-version && npm run release-cws && npm run release-amo",
     "release-amo": "cd browser && dot-json manifest.json commands --delete && webext submit",
     "release-cws": "cd browser && webstore upload --auto-publish",
     "update-version": "dot-json browser/manifest.json version $(date -u +%y.%-m.%-d.%-H%M)"
+  },
+  "xo": {
+    "envs": [
+      "browser"
+    ],
+    "rules": {
+      "import/no-unassigned-import": 0,
+      "no-alert": 0
+    },
+    "globals": [
+      "chrome"
+    ],
+    "ignores": [
+      "browser/vendor/*"
+    ]
   }
 }

@@ -1,3 +1,5 @@
+/* global oneEvent */
+
 const knownElements = new Map();
 const activeFields = new Set();
 
@@ -28,11 +30,11 @@ class GhostTextField {
 		if (ProtocolVersion !== 1) {
 			throw new Error('Incompatible protocol version');
 		}
-		console.log('will open socket')
+		console.log('will open socket');
 		this.socket = new WebSocket('ws://localhost:' + WebSocketPort);
 
 		await oneEvent.promise(this.socket, 'open');
-		console.log('socket open')
+		console.log('socket open');
 
 		this.socket.addEventListener('close', this.deactivate);
 		this.socket.addEventListener('error', event => console.error('error!', event));
@@ -57,7 +59,7 @@ class GhostTextField {
 					end: this.field.selectionEnd
 				}
 			]
-		}))
+		}));
 	}
 
 	receive(event) {
@@ -126,10 +128,9 @@ function startGT() {
 		if (activeFields.size === 0) {
 			knownElements.get(focused).activate();
 			return;
-		} else {
-			// Blur focused element to allow selection with a click/focus
-			focused.blur();
 		}
+			// Blur focused element to allow selection with a click/focus
+		focused.blur();
 	}
 
 	// If there's one element and it's not active, activate.
@@ -153,3 +154,6 @@ function stopGT() {
 	GhostTextField.deactivateAll();
 	isWaitingForActivation = false;
 }
+
+window.startGT = startGT;
+window.stopGT = stopGT;

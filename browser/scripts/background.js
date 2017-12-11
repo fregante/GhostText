@@ -17,6 +17,7 @@ async function handleAction(tab) {
 	previousAction = Date.now();
 
 	await window.DCS.addToTab(tab, {
+		/* eslint-disable camelcase */
 		run_at: 'document_start',
 		all_frames: true,
 		css: [
