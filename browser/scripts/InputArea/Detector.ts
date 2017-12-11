@@ -68,9 +68,12 @@ module GhostText.InputArea {
             var textAreas: NodeList = document.querySelectorAll('textarea:not(.ace_text-input)');
 
             for (var i = 0; i < textAreas.length; i++) {
-                var inputArea = new TextArea();
-                inputArea.bind(<HTMLTextAreaElement>textAreas[i]);
-                this.inputAreaElements.push(inputArea);
+                // Only handle areas that are visible
+                if ((<HTMLTextAreaElement>textAreas[i]).getBoundingClientRect().width) {
+                    var inputArea = new TextArea();
+                    inputArea.bind(<HTMLTextAreaElement>textAreas[i]);
+                    this.inputAreaElements.push(inputArea);
+                }
             }
         }
 
