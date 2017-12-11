@@ -46,6 +46,7 @@
 	"background": {
 		"scripts": [
 			"vendor/webext-dynamic-content-scripts.js",
+			"vendor/webext-options-sync.js",
 			"scripts/background.js"
 		]
 	}

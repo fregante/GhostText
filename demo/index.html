@@ -23,6 +23,13 @@
 		textarea {
 			font: inherit;
 		}
+		.flex {
+			display: flex;
+			justify-content: space-between;
+		}
+		textarea {
+			max-width: 49%;
+		}
 	</style>
 </head>
 	<h1>
@@ -30,7 +37,10 @@
 	</h1>
 
 	<h2><code>&lt;textarea&gt;</code></h2>
-	<textarea>This is a textarea</textarea>
+	<div class="flex">
+		<textarea>This is a textarea</textarea>
+		<textarea>This is a second textarea</textarea>
+	</div>
 
 	<h2><code>&lt;contenteditable&gt;</code></h2>
 	<div contenteditable>This is a <code>contenteditable</code> div</div>

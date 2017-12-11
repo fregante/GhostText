@@ -5,7 +5,17 @@ function inCurrentTab(callback) {
 	}, tabs => callback(tabs[0]));
 }
 
-async function start(tab) {
+let previousAction = 0;
+async function handleAction(tab) {
+	// Close connection on BrowserAction double click
+	if (Date.now() - previousAction < 500) {
+		chrome.tabs.executeScript(tab.id, {
+			code: 'stopGT()'
+		});
+		return;
+	}
+	previousAction = Date.now();
+
 	await window.DCS.addToTab(tab, {
 		run_at: 'document_start',
 		all_frames: true,
@@ -25,26 +35,27 @@ async function start(tab) {
 	});
 }
 
-function handleMessages({code}, {tab}) {
-	if (code === 'connection-opened') {
+function handleMessages({code, count}, {tab}) {
+	if (code === 'connection-count') {
+		let text = '';
+		if (count === 1) {
+			text = /OS X/i.test(navigator.userAgent) ? '✓' : 'ON';
+		} else if (count > 1) {
+			text = String(count);
+		}
 		chrome.browserAction.setBadgeText({
-			text: /OS X/i.test(navigator.userAgent)?'✓':'ON',
-			tabId: tab.id
-		});
-	} else if (code === 'connection-closed') {
-		chrome.browserAction.setBadgeText({
-			text: '',
+			text,
 			tabId: tab.id
 		});
 	}
 }
 
 function init() {
-	chrome.browserAction.onClicked.addListener(start);
+	chrome.browserAction.onClicked.addListener(handleAction);
 	chrome.runtime.onMessage.addListener(handleMessages);
 	chrome.commands.onCommand.addListener(command => {
 		if (command === 'toggle') {
-			inCurrentTab(start);
+			inCurrentTab(handleAction);
 		}
 	});
 
