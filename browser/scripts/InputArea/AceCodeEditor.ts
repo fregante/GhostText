@@ -55,13 +55,13 @@ module GhostText.InputArea {
                 });
 
                 ghostTextAceDiv.addEventListener("GhostTextDoHighlight", function () {
-                    var ghostTextAceScrollerDiv: HTMLDivElement = <HTMLDivElement>ghostTextAceDiv.querySelector(".ace_scroller");
+                    var ghostTextAceScrollerDiv: HTMLElement = <HTMLElement>ghostTextAceDiv.querySelector(".ace_scroller");
                     ghostTextAceScrollerDiv.style.transition = "box-shadow 1s cubic-bezier(.25,2,.5,1)";
                     ghostTextAceScrollerDiv.style.boxShadow = "rgb(0,173,238) 0 0 20px 5px inset";
                 });
 
                 ghostTextAceDiv.addEventListener("GhostTextRemoveHighlight", function () {
-                    var ghostTextAceScrollerDiv: HTMLDivElement = <HTMLDivElement>ghostTextAceDiv.querySelector(".ace_scroller");
+                    var ghostTextAceScrollerDiv: HTMLElement = <HTMLElement>ghostTextAceDiv.querySelector(".ace_scroller");
                     ghostTextAceScrollerDiv.style.boxShadow = "";
                 });
 

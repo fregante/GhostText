@@ -11,7 +11,7 @@ module GhostText.InputArea {
         /**
          * The editor's div element.
          */
-        private jsCodeEditorDiv: HTMLDivElement = null;
+        private jsCodeEditorDiv: HTMLElement = null;
 
         /**
          * Callback fired on an input event.
@@ -64,7 +64,7 @@ module GhostText.InputArea {
         private currentText: string = null;
 
         public bind(domElement: HTMLElement): void {
-            this.jsCodeEditorDiv = <HTMLDivElement>domElement;
+            this.jsCodeEditorDiv = <HTMLElement>domElement;
             var that = this;
 
             this.inputEventListener = function (e: CustomEvent) {

@@ -11,7 +11,7 @@ module GhostText.InputArea {
         /**
          * The bind HTML content editable element.
          */
-        private contentEditableElement: HTMLDivElement = null;
+        private contentEditableElement: HTMLElement = null;
 
         /**
          * Callback fired on an input event.
@@ -54,7 +54,7 @@ module GhostText.InputArea {
         private beforeUnloadListener: EventListener = null;
 
         public bind(domElement: HTMLElement): void {
-            this.contentEditableElement = <HTMLDivElement>domElement;
+            this.contentEditableElement = <HTMLElement>domElement;
             var that = this;
 
 

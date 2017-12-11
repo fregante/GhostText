@@ -81,11 +81,11 @@ module GhostText.InputArea {
          * @param document The HTML root node.
          */
         private addContentEditableElements(document: HTMLDocument): void {
-            var contentEditables: NodeList = document.body.querySelectorAll('[contenteditable=\'true\']');
+            var contentEditables: NodeList = document.body.querySelectorAll('[contenteditable]:not([contenteditable=\'false\'])');
 
             for (var i = 0; i < contentEditables.length; i++) {
                 var inputArea = new ContentEditable();
-                inputArea.bind(<HTMLDivElement>contentEditables[i]);
+                inputArea.bind(<HTMLElement>contentEditables[i]);
                 this.inputAreaElements.push(inputArea);
             }
         }
@@ -114,7 +114,7 @@ module GhostText.InputArea {
             var aceEditors: NodeList = document.body.querySelectorAll('.ace_editor');
 
             for (var i = 0; i < aceEditors.length; i++) {
-                var aceEditor: HTMLDivElement = <HTMLDivElement>aceEditors[i];
+                var aceEditor: HTMLElement = <HTMLElement>aceEditors[i];
                 var id: string = aceEditor.getAttribute('id');
                 if (id === null) {
                     id = 'generated-by-ghost-text-' + (Math.random() * 1e17);
@@ -136,7 +136,7 @@ module GhostText.InputArea {
             var codeMirrorEditors: NodeList = document.body.querySelectorAll('.CodeMirror');
 
             for (var i = 0; i < codeMirrorEditors.length; i++) {
-                var codeMirrorEditor: HTMLDivElement = <HTMLDivElement>codeMirrorEditors[i];
+                var codeMirrorEditor: HTMLElement = <HTMLElement>codeMirrorEditors[i];
                 var id: string = codeMirrorEditor.getAttribute('id');
                 if (id === null) {
                     id = 'generated-by-ghost-text-' + (Math.random() * 1e17);

@@ -40,13 +40,13 @@ module GhostText.InputArea {
                 });
 
                 ghostTextCodeMirrorDiv.addEventListener("GhostTextDoHighlight", function () {
-                    var ghostTextCodeMirrorSizerDiv = <HTMLDivElement>ghostTextCodeMirrorDiv.querySelector(".CodeMirror-sizer");
+                    var ghostTextCodeMirrorSizerDiv = <HTMLElement>ghostTextCodeMirrorDiv.querySelector(".CodeMirror-sizer");
                     ghostTextCodeMirrorSizerDiv.style.transition = "box-shadow 1s cubic-bezier(.25,2,.5,1)";
                     ghostTextCodeMirrorSizerDiv.style.boxShadow = "rgb(0,173,238) 0 0 20px 5px inset";
                 });
 
                 ghostTextCodeMirrorDiv.addEventListener("GhostTextRemoveHighlight", function () {
-                    var ghostTextCodeMirrorSizerDiv = <HTMLDivElement>ghostTextCodeMirrorDiv.querySelector(".CodeMirror-sizer");
+                    var ghostTextCodeMirrorSizerDiv = <HTMLElement>ghostTextCodeMirrorDiv.querySelector(".CodeMirror-sizer");
                     ghostTextCodeMirrorSizerDiv.style.boxShadow = "";
                 });
 
