@@ -30,9 +30,14 @@ Use your text editor to write in your browser. Everything you type in the editor
 
 ## Usage
 
-### Open the connection
+1. Open your editor
+2. Sublime Text automatically starts the GhostText server, but in some editors you’ll need to run the "Enable GhostText" command. Refer to your editor's GhostText extension readme.
+3. In the browser, click the **GhostText** button in the browser’s toolbar to start the connection for the current tab.
+4. If there's more than one field, you may be asked to select which field to synchronize. Click inside it to start.
 
-In Chrome, click the GhostText button in the upper-right corner to open up Sublime Text. Alternatively you can you these keyboard shortcuts to activate GhostText:
+### Keyboard shortcuts
+
+Chrome offers some keyboard shortcuts to enable GhostText without clicking the button. They can be <a href="http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121">changed or disabled</a>. Firefox doesn’t support them correctly yet.
 
 <table>
   <tr>
@@ -40,32 +45,17 @@ In Chrome, click the GhostText button in the upper-right corner to open up Subli
     <th>Shortcut</th>
   </tr>
   <tr>
-    <td>Windows</td>
+    <td>Chrome on Windows</td>
     <td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
   </tr>
   <tr>
-    <td>Linux</td>
+    <td>Chrome on Linux</td>
     <td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>H</kbd></td>
   </tr>
   <tr>
-    <td>Mac</td>
+    <td>Chrome on Mac</td>
     <td><kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
-  </tr>
-  <tr>
-    <td colspan="2">The shortcut can be <a href="http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121">changed or disabled</a></td>
   </tr>
 </table>
 
-If there is more than one supported field in the current page and you haven't *focused* any of them already, you will be prompted to click on a field to open the connection.
 
-### Close the connection
-
-The connection will be closed when:
-* The webpage changes or is reloaded
-* The tab or window is closed (either in the browser or in the editor)
-* The used field is removed from the document
-
-## Learn more
-
-* [Video of how it works](http://www.youtube.com/watch?v=e0aLFPtYPZI&feature=share)
-* [Article about the initial proof of concept](http://cacodaemon.de/index.php?id=59)
