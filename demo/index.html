@@ -1,0 +1,63 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>GhostText test page</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css">
+	<style>
+		html {
+			font-family: sans-serif;
+			max-width: 600px;
+			color: #333;
+			margin: auto;
+		}
+		textarea,
+		[contenteditable],
+		.CodeMirror,
+		#ace {
+			border: solid 1px silver;
+			border-radius: 3px;
+			min-height: 100px; /* Ace */
+			height: 100px; /* CodeMirror */
+			width: 100%;
+		}
+		textarea {
+			font: inherit;
+		}
+	</style>
+</head>
+	<h1>
+		<img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
+	</h1>
+
+	<h2><code>&lt;textarea&gt;</code></h2>
+	<textarea>This is a textarea</textarea>
+
+	<h2><code>&lt;contenteditable&gt;</code></h2>
+	<div contenteditable>This is a <code>contenteditable</code> div</div>
+
+	<h2>CodeMirror</h2>
+	<textarea id="codemirror">This is a CodeMirror field
+
+
+
+
+</textarea>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js"></script>
+	<script>
+		window.CodeMirror.fromTextArea(document.getElementById('codemirror'), {
+			lineNumbers: true
+		});
+	</script>
+
+	<h2>Ace</h2>
+	<pre id="ace">This is a Ace field
+
+
+
+
+</pre>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
+	<script>
+		window.ace.edit('ace').setOption("maxLines", 30)
+	</script>
+</html>
