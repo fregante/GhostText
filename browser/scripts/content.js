@@ -27,6 +27,7 @@ class GhostTextField {
 
 		// Send first value to init tab
 		this.send();
+		chrome.runtime.sendMessage({code: 'connection-opened'});
 	}
 
 	send() {
@@ -59,9 +60,9 @@ class GhostTextField {
 		this.socket.close();
 		this.field.removeEventListener('input', this.send);
 		this.field.classList.remove('GT-field--enabled');
+		chrome.runtime.sendMessage({code: 'connection-closed'});
 	}
 }
-
 
 async function startGT() {
 	const focused = document.querySelector('textarea:focus');

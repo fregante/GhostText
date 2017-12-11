@@ -25,12 +25,31 @@ async function start(tab) {
 	});
 }
 
+function handleMessages({code}, {tab}) {
+	if (code === 'connection-opened') {
+		chrome.browserAction.setBadgeText({
+			text: /OS X/i.test(navigator.userAgent)?'✓':'ON',
+			tabId: tab.id
+		});
+	} else if (code === 'connection-closed') {
+		chrome.browserAction.setBadgeText({
+			text: '',
+			tabId: tab.id
+		});
+	}
+}
+
 function init() {
 	chrome.browserAction.onClicked.addListener(start);
+	chrome.runtime.onMessage.addListener(handleMessages);
 	chrome.commands.onCommand.addListener(command => {
 		if (command === 'toggle') {
 			inCurrentTab(start);
 		}
+	});
+
+	chrome.browserAction.setBadgeBackgroundColor({
+		color: '#008040'
 	});
 
 	/* globals OptionsSync */
