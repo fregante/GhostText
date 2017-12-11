@@ -15,7 +15,6 @@
       "browser/scripts/InputArea/JSCodeEditor.ts",
       "browser/scripts/InputArea/AceCodeEditor.ts",
       "browser/scripts/InputArea/CodeMirror.ts",
-      "browser/scripts/InputArea/ContentEditable.ts",
-      "browser/scripts/InputArea/GoogleEditable.ts"
+      "browser/scripts/InputArea/ContentEditable.ts"
     ]
 }

@@ -35,7 +35,6 @@ module GhostText.InputArea {
             this.addCodeMirrorElements(document);
             this.addTextAreas(document);
             this.addContentEditableElements(document);
-            this.addGoogleEditableElements(document);
             this.addIframes(document);
 
             if (this.inputAreaElements.length === 0) {
@@ -66,7 +65,7 @@ module GhostText.InputArea {
          * @param document The HTML root node.
          */
         private addTextAreas(document: HTMLDocument): void {
-            var textAreas: NodeList = document.body.querySelectorAll('textarea:not(.ace_text-input)');
+            var textAreas: NodeList = document.querySelectorAll('textarea:not(.ace_text-input)');
 
             for (var i = 0; i < textAreas.length; i++) {
                 var inputArea = new TextArea();
@@ -81,26 +80,11 @@ module GhostText.InputArea {
          * @param document The HTML root node.
          */
         private addContentEditableElements(document: HTMLDocument): void {
-            var contentEditables: NodeList = document.body.querySelectorAll('[contenteditable]:not([contenteditable=\'false\'])');
+            var contentEditables: NodeList = document.querySelectorAll('[contenteditable]:not([contenteditable=\'false\'])');
 
             for (var i = 0; i < contentEditables.length; i++) {
                 var inputArea = new ContentEditable();
                 inputArea.bind(<HTMLElement>contentEditables[i]);
-                this.inputAreaElements.push(inputArea);
-            }
-        }
-
-        /**
-         * Adds all google editable elements found in the dom.
-         *
-         * @param document The HTML root node.
-         */
-        private addGoogleEditableElements(document: HTMLDocument): void {
-            var googleEditables: NodeList = document.querySelectorAll('[g_editable=\'true\']');
-
-            for (var i = 0; i < googleEditables.length; i++) {
-                var inputArea = new GoogleEditable();
-                inputArea.bind(<HTMLDivElement>googleEditables[i]);
                 this.inputAreaElements.push(inputArea);
             }
         }
@@ -111,7 +95,7 @@ module GhostText.InputArea {
          * @param document The HTML root node.
          */
         private addAceElements(document: HTMLDocument): void {
-            var aceEditors: NodeList = document.body.querySelectorAll('.ace_editor');
+            var aceEditors: NodeList = document.querySelectorAll('.ace_editor');
 
             for (var i = 0; i < aceEditors.length; i++) {
                 var aceEditor: HTMLElement = <HTMLElement>aceEditors[i];
@@ -133,7 +117,7 @@ module GhostText.InputArea {
          * @param document The HTML root node.
          */
         private addCodeMirrorElements(document: HTMLDocument): void {
-            var codeMirrorEditors: NodeList = document.body.querySelectorAll('.CodeMirror');
+            var codeMirrorEditors: NodeList = document.querySelectorAll('.CodeMirror');
 
             for (var i = 0; i < codeMirrorEditors.length; i++) {
                 var codeMirrorEditor: HTMLElement = <HTMLElement>codeMirrorEditors[i];
