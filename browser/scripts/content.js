@@ -5,9 +5,61 @@ const activeFields = new Set();
 
 let isWaitingForActivation = false;
 
+class ContentEditableWrapper {
+	constructor(el) {
+		this.el = el;
+		this.classList = el.classList;
+		this.addEventListener = el.addEventListener.bind(el);
+		this.removeEventListener = el.removeEventListener.bind(el);
+		this.blur = el.blur.bind(el);
+		this.selectionStart = 0; // TODO
+		this.selectionEnd = 0; // TODO
+	}
+	get value() {
+		return this.el.innerHTML;
+	}
+	set value(html) {
+		this.el.innerHTML = html;
+	}
+}
+
+class AceTextWrapper {
+	constructor(el) {
+		this.el = el;
+		this.editor = el.parentNode.env.editor;
+		this.classList = el.parentNode.querySelector('.ace_scroller').classList;
+		this.blur = this.editor.blur.bind(this.editor);
+		this.selectionStart = 0; // TODO
+		this.selectionEnd = 0; // TODO
+	}
+	addEventListener(type, callback) {
+		// TODO: Make sure it doesn't go in a loop
+		this.editor.session.on('change', callback);
+	}
+	removeEventListener(type, callback) {
+		this.editor.session.off('change', callback);
+	}
+	get value() {
+		return this.editor.session.getValue();
+	}
+	set value(html) {
+		this.editor.session.setValue(html);
+	}
+}
+
+function wrapField(field) {
+	if (field.isContentEditable) {
+		return new ContentEditableWrapper(field);
+	}
+	if (field.classList.contains('ace_text-input')) {
+		return new AceTextWrapper(field);
+	}
+	return field;
+}
+
 class GhostTextField {
 	constructor(field) {
-		this.field = field;
+		this.field = wrapField(field);
 		this.send = this.send.bind(this);
 		this.receive = this.receive.bind(this);
 		this.deactivate = this.deactivate.bind(this);
@@ -48,6 +100,7 @@ class GhostTextField {
 	}
 
 	send() {
+		console.info('sending')
 		this.socket.send(JSON.stringify({
 			title: document.title, // TODO: move to first fetch
 			url: location.host, // TODO: move to first fetch
@@ -106,8 +159,15 @@ function updateCount() {
 	});
 }
 
+const selector = `
+	textarea,
+	[contenteditable=""],
+	[contenteditable="true"]
+`;
 function registerElements() {
-	for (const element of document.querySelectorAll('textarea')) {
+	for (const element of document.querySelectorAll(selector)) {
+		// TODO: Only handle areas that are visible
+		//  && element.getBoundingClientRect().width > 20
 		if (!knownElements.has(element)) {
 			knownElements.set(element, new GhostTextField(element));
 		}
@@ -122,15 +182,15 @@ function startGT() {
 		return;
 	}
 
-	const focused = document.querySelector('textarea:focus');
+	const focused = knownElements.get(document.querySelector(':focus'));
 	if (focused) {
 		// Track the focused element automatically, unless GT is already active somewhere
 		if (activeFields.size === 0) {
-			knownElements.get(focused).activate();
+			focused.activate();
 			return;
 		}
-			// Blur focused element to allow selection with a click/focus
-		focused.blur();
+		// Blur focused element to allow selection with a click/focus
+		focused.field.blur();
 	}
 
 	// If there's one element and it's not active, activate.
