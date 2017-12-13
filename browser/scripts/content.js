@@ -5,6 +5,36 @@ const activeFields = new Set();
 
 let isWaitingForActivation = false;
 
+function aceMessenger() {
+	document.addEventListener('ghost-text:ace:unsafesetup', event => {
+		const editor = event.target.parentNode.env.editor;
+		const session = editor.session;
+		const isUserChange = () => editor.curOp && editor.curOp.command.name;
+
+		// Pass messenger to contentScript
+		const messenger = document.createElement('textarea');
+		messenger.value = session.getValue();
+		document.body.append(messenger);
+		messenger.dispatchEvent(new CustomEvent('ghost-text:ace:safesetup', {
+			bubbles: true
+		}));
+		messenger.remove();
+
+		// Listen to changes
+		session.on('change', () => {
+			if (isUserChange()) {
+				messenger.value = session.getValue();
+				messenger.dispatchEvent(new InputEvent('input-from-browser'));
+			}
+		});
+		messenger.addEventListener('input-from-editor', () => {
+			if (!isUserChange()) {
+				session.setValue(messenger.value);
+			}
+		});
+	});
+}
+
 class ContentEditableWrapper {
 	constructor(el) {
 		this.el = el;
@@ -12,8 +42,6 @@ class ContentEditableWrapper {
 		this.addEventListener = el.addEventListener.bind(el);
 		this.removeEventListener = el.removeEventListener.bind(el);
 		this.blur = el.blur.bind(el);
-		this.selectionStart = 0; // TODO
-		this.selectionEnd = 0; // TODO
 	}
 	get value() {
 		return this.el.innerHTML;
@@ -26,24 +54,31 @@ class ContentEditableWrapper {
 class AceTextWrapper {
 	constructor(el) {
 		this.el = el;
-		this.editor = el.parentNode.env.editor;
 		this.classList = el.parentNode.querySelector('.ace_scroller').classList;
-		this.blur = this.editor.blur.bind(this.editor);
-		this.selectionStart = 0; // TODO
-		this.selectionEnd = 0; // TODO
+		document.addEventListener('ghost-text:ace:safesetup', this.setClone.bind(this), {
+			once: true
+		});
+		this.el.dispatchEvent(new CustomEvent('ghost-text:ace:unsafesetup', {
+			bubbles: true
+		}));
+	}
+	setClone(event) {
+		this.messenger = event.target;
 	}
 	addEventListener(type, callback) {
-		// TODO: Make sure it doesn't go in a loop
-		this.editor.session.on('change', callback);
+		this.messenger.addEventListener('input-from-browser', callback);
 	}
 	removeEventListener(type, callback) {
-		this.editor.session.off('change', callback);
+		this.messenger.removeEventListener('input-from-browser', callback);
 	}
 	get value() {
-		return this.editor.session.getValue();
+		return this.messenger.value;
 	}
-	set value(html) {
-		this.editor.session.setValue(html);
+	set value(value) {
+		if (this.messenger.value !== value) {
+			this.messenger.value = value;
+			this.messenger.dispatchEvent(new InputEvent('input-from-editor'));
+		}
 	}
 }
 
@@ -100,7 +135,7 @@ class GhostTextField {
 	}
 
 	send() {
-		console.info('sending')
+		console.info('sending', this.field.value)
 		this.socket.send(JSON.stringify({
 			title: document.title, // TODO: move to first fetch
 			url: location.host, // TODO: move to first fetch
@@ -108,8 +143,8 @@ class GhostTextField {
 			text: this.field.value,
 			selections: [
 				{
-					start: this.field.selectionStart,
-					end: this.field.selectionEnd
+					start: this.field.selectionStart || 0,
+					end: this.field.selectionEnd || 0
 				}
 			]
 		}));
@@ -214,6 +249,14 @@ function stopGT() {
 	GhostTextField.deactivateAll();
 	isWaitingForActivation = false;
 }
+
+function init() {
+	const script = document.createElement('script');
+	script.textContent = '(' + aceMessenger.toString() + ')()';
+	document.head.append(script);
+}
+
+init();
 
 window.startGT = startGT;
 window.stopGT = stopGT;
