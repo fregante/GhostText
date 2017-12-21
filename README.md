@@ -16,6 +16,7 @@ Use your text editor to write in your browser. Everything you type in the editor
     + [**Neovim** plugin](https://github.com/raghur/vim-ghost) (Third party)
     + [**Emacs** package](https://melpa.org/#/atomic-chrome) - [Repo](https://github.com/alpha22jp/atomic-chrome) (Third party)
     + [**Acme** client](https://github.com/fhs/Ghost) (Third party)
+    + CLI editors like nano, joe, jupp, … may work via [It's All Ghosts](https://edugit.org/nik/itsallghosts) (Third party, not real time sync)
 2. Install your browser extension:
     + [**Chrome** extension](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
     + [**Firefox** add-on](https://addons.mozilla.org/en-US/firefox/addon/ghosttext/)
