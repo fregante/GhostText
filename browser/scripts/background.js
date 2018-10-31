@@ -21,7 +21,8 @@ async function handleAction(tab) {
 		run_at: 'document_start',
 		all_frames: true,
 		css: [
-			'vendor/humane-ghosttext.css'
+			'vendor/humane-ghosttext.css',
+			'scripts/content.css'
 		],
 		js: [
 			'vendor/webext-dynamic-content-scripts.js',

@@ -1,4 +1,4 @@
-/* global oneEvent */
+/* global oneEvent, GThumane */
 
 const knownElements = new Map();
 const activeFields = new Set();
@@ -101,7 +101,7 @@ class GhostTextField {
 		this.socket = new WebSocket('ws://localhost:' + WebSocketPort);
 
 		await oneEvent.promise(this.socket, 'open');
-		console.log('socket open');
+		notify('log', 'Connected! You can switch to your editor');
 
 		this.socket.addEventListener('close', this.deactivate);
 		this.socket.addEventListener('error', event => console.error('error!', event));
@@ -173,6 +173,10 @@ function updateCount() {
 		code: 'connection-count',
 		count: activeFields.size
 	});
+
+	if (activeFields.size === 0) {
+		notify('log', 'Disconnected! \n <a href="https://github.com/GhostText/GhostText/issues?state=open" target="_blank">Report issues</a> | <a href="https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca/reviews" target="_blank">Leave review</a>');
+	}
 }
 
 const selector = `
@@ -189,12 +193,28 @@ function registerElements() {
 		}
 	}
 }
+function getMessageDisplayTime(message) {
+	var wpm = 100;//180 is the average words read per minute, make it slower
+	return message.split(' ').length / wpm * 60000;
+}
+
+function notify(type, message, stay) {
+	console[type]('GhostText:', message);
+	GThumane.remove();
+	message = message.replace(/\n/g,'<br>');
+	var timeout = stay ? 0 : getMessageDisplayTime(message);
+	GThumane.log(message, {
+		timeout: timeout,
+		clickToClose: true,
+		addnCls: type === 'log' ? '' : 'ghost-text-message-error'
+	});
+}
 
 function startGT() {
 	registerElements();
 	console.info(knownElements.size + ' elements on the page');
 	if (knownElements.size === 0) {
-		alert('No supported elements found!');
+		notify('warn', 'No supported elements found!');
 		return;
 	}
 
@@ -219,10 +239,11 @@ function startGT() {
 	} else {
 		isWaitingForActivation = true;
 		document.body.classList.add('GT--waiting');
+
 		if (activeFields.size === 0) {
-			console.log('Click on the desired element to activate it.');
+			notify('log', 'Click on the desired element to activate it.', true);
 		} else {
-			console.log('Click on the desired element to activate it or double-click the GhostText icon to stop the connection.');
+			notify('log', 'Click on the desired element to activate it or double-click the GhostText icon to stop the connection.', true);
 		}
 		// TODO: waiting timeout
 	}
