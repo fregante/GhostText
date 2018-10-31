@@ -49,5 +49,8 @@
 			"vendor/webext-options-sync.js",
 			"scripts/background.js"
 		]
-	}
+	},
+	"web_accessible_resources": [
+		"scripts/unsafe-messenger.js"
+	]
 }
