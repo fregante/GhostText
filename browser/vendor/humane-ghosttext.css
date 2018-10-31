@@ -8,12 +8,7 @@
   box-shadow: rgb(0, 173, 238) 0 0 20px 5px inset;
 }
 .GT-field--loading {
-  animation: GT-field--loading 0.5s;
-}
-@keyframes GT-field--loading {
-  50% {
-    background-color: rgba(0, 173, 238, 0.2);
-  }
+  box-shadow: rgb(223, 238, 0) 0 0 20px 5px inset;
 }
 
 /*Copyright (c) 2011 Marc Harter <wavded@gmail.com> */
