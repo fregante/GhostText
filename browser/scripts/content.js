@@ -232,7 +232,8 @@ function startGT() {
 	// If it's one and active, do nothing
 	if (knownElements.size === 1) {
 		if (activeFields.size === 0) {
-			[...knownElements][0].activate();
+			const [field] = knownElements.values();
+			field.activate();
 		}
 	} else {
 		isWaitingForActivation = true;
