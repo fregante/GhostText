@@ -13,9 +13,11 @@ class ContentEditableWrapper {
 		this.removeEventListener = el.removeEventListener.bind(el);
 		this.blur = el.blur.bind(el);
 	}
+
 	get value() {
 		return this.el.innerHTML;
 	}
+
 	set value(html) {
 		this.el.innerHTML = html;
 	}
@@ -32,18 +34,23 @@ class AdvancedTextWrapper {
 			bubbles: true
 		}));
 	}
+
 	setClone(event) {
 		this.messenger = event.target;
 	}
+
 	addEventListener(type, callback) {
 		this.messenger.addEventListener('input-from-browser', callback);
 	}
+
 	removeEventListener(type, callback) {
 		this.messenger.removeEventListener('input-from-browser', callback);
 	}
+
 	get value() {
 		return this.messenger.value;
 	}
+
 	set value(value) {
 		if (this.messenger.value !== value) {
 			this.messenger.value = value;
@@ -115,7 +122,7 @@ class GhostTextField {
 	}
 
 	send() {
-		console.info('sending', this.field.value)
+		console.info('sending', this.field.value);
 		this.socket.send(JSON.stringify({
 			title: document.title, // TODO: move to first fetch
 			url: location.host, // TODO: move to first fetch
@@ -193,18 +200,19 @@ function registerElements() {
 		}
 	}
 }
+
 function getMessageDisplayTime(message) {
-	var wpm = 100;//180 is the average words read per minute, make it slower
+	const wpm = 100; // 180 is the average words read per minute, make it slower
 	return message.split(' ').length / wpm * 60000;
 }
 
 function notify(type, message, stay) {
 	console[type]('GhostText:', message);
 	GThumane.remove();
-	message = message.replace(/\n/g,'<br>');
-	var timeout = stay ? 0 : getMessageDisplayTime(message);
+	message = message.replace(/\n/g, '<br>');
+	const timeout = stay ? 0 : getMessageDisplayTime(message);
 	GThumane.log(message, {
-		timeout: timeout,
+		timeout,
 		clickToClose: true,
 		addnCls: type === 'log' ? '' : 'ghost-text-message-error'
 	});

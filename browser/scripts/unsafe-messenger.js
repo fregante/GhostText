@@ -31,8 +31,8 @@ document.addEventListener('ghost-text:codemirror:unsafesetup', event => {
 });
 
 document.addEventListener('ghost-text:ace:unsafesetup', event => {
-	const editor = event.target.parentNode.env.editor;
-	const session = editor.session;
+	const {editor} = event.target.parentNode.env;
+	const {session} = editor;
 	const isUserChange = () => editor.curOp && editor.curOp.command.name;
 
 	// Pass messenger to contentScript

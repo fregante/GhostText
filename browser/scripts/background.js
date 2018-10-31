@@ -56,7 +56,7 @@ function init() {
 		title: 'Disconnect GhostText on this page',
 		contexts: ['browser_action'],
 		onclick: handleClose
-	})
+	});
 	chrome.commands.onCommand.addListener(command => {
 		if (command === 'open') {
 			inCurrentTab(handleAction);
