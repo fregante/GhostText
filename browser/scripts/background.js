@@ -11,21 +11,25 @@ function handleClose(info, tab) {
 }
 
 async function handleAction(tab) {
-	await window.DCS.addToTab(tab, {
-		/* eslint-disable camelcase */
-		run_at: 'document_start',
-		all_frames: true,
-		css: [
-			'vendor/humane-ghosttext.css',
-			'scripts/content.css'
-		],
-		js: [
-			'vendor/webext-dynamic-content-scripts.js',
-			'vendor/humane-ghosttext.min.js',
-			'vendor/one-event.browser.js',
-			'scripts/content.js'
-		]
-	});
+	try {
+		await window.DCS.addToTab(tab, {
+			/* eslint-disable camelcase */
+			run_at: 'document_start',
+			all_frames: true,
+			css: [
+				'vendor/humane-ghosttext.css',
+				'scripts/content.css'
+			],
+			js: [
+				'vendor/webext-dynamic-content-scripts.js',
+				'vendor/humane-ghosttext.min.js',
+				'vendor/one-event.browser.js',
+				'scripts/content.js'
+			]
+		});
+	} catch (error) {
+		console.log(error);
+	}
 
 	chrome.tabs.executeScript(tab.id, {
 		code: 'startGT()',

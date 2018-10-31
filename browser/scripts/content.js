@@ -269,7 +269,7 @@ function init() {
 	document.head.append(script);
 }
 
-init();
-
 window.startGT = startGT;
 window.stopGT = stopGT;
+
+init();
