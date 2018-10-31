@@ -74,6 +74,7 @@ function wrapField(field) {
 class GhostTextField {
 	constructor(field) {
 		this.field = wrapField(field);
+		this.field.classList.add('GT-field');
 		this.send = this.send.bind(this);
 		this.receive = this.receive.bind(this);
 		this.deactivate = this.deactivate.bind(this);
@@ -89,7 +90,7 @@ class GhostTextField {
 		this.state = 'active';
 		activeFields.add(this);
 
-		this.field.classList.add('GT-field', 'GT-field--loading');
+		this.field.classList.add('GT-field--loading');
 
 		const response = await fetch('http://localhost:4001');
 		const {ProtocolVersion, WebSocketPort} = await response.json();
@@ -156,6 +157,7 @@ class GhostTextField {
 		if (isWaitingForActivation && this.state === 'inactive') {
 			this.activate();
 			isWaitingForActivation = false;
+			document.body.classList.remove('GT--waiting');
 		}
 	}
 
@@ -216,6 +218,7 @@ function startGT() {
 		}
 	} else {
 		isWaitingForActivation = true;
+		document.body.classList.add('GT--waiting');
 		if (activeFields.size === 0) {
 			console.log('Click on the desired element to activate it.');
 		} else {
@@ -228,6 +231,7 @@ function startGT() {
 function stopGT() {
 	GhostTextField.deactivateAll();
 	isWaitingForActivation = false;
+	document.body.classList.remove('GT--waiting');
 }
 
 function init() {
