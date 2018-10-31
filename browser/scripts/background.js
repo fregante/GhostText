@@ -4,18 +4,13 @@ function inCurrentTab(callback) {
 		currentWindow: true
 	}, tabs => callback(tabs[0]));
 }
+function handleClose(info, tab) {
+	chrome.tabs.executeScript(tab.id, {
+		code: 'stopGT()'
+	});
+}
 
-let previousAction = 0;
 async function handleAction(tab) {
-	// Close connection on BrowserAction double click
-	if (Date.now() - previousAction < 500) {
-		chrome.tabs.executeScript(tab.id, {
-			code: 'stopGT()'
-		});
-		return;
-	}
-	previousAction = Date.now();
-
 	await window.DCS.addToTab(tab, {
 		/* eslint-disable camelcase */
 		run_at: 'document_start',
@@ -56,8 +51,14 @@ function handleMessages({code, count}, {tab}) {
 function init() {
 	chrome.browserAction.onClicked.addListener(handleAction);
 	chrome.runtime.onMessage.addListener(handleMessages);
+	chrome.contextMenus.create({
+		id: 'stop-gt',
+		title: 'Disconnect GhostText on this page',
+		contexts: ['browser_action'],
+		onclick: handleClose
+	})
 	chrome.commands.onCommand.addListener(command => {
-		if (command === 'toggle') {
+		if (command === 'open') {
 			inCurrentTab(handleAction);
 		}
 	});

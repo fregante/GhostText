@@ -243,7 +243,7 @@ function startGT() {
 		if (activeFields.size === 0) {
 			notify('log', 'Click on the desired element to activate it.', true);
 		} else {
-			notify('log', 'Click on the desired element to activate it or double-click the GhostText icon to stop the connection.', true);
+			notify('log', 'Click on the desired element to activate it or right-click the GhostText icon to stop the connection.', true);
 		}
 		// TODO: waiting timeout
 	}

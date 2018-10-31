@@ -14,6 +14,7 @@
 	},
 	"permissions": [
 		"activeTab",
+		"contextMenus",
 		"http://localhost/",
 		"storage"
 	],
@@ -35,8 +36,8 @@
 		}
 	},
 	"commands": {
-		"toggle": {
-			"description": "Toggle GhostText",
+		"open": {
+			"description": "Connect to GhostText",
 			"suggested_key": {
 				"default": "Ctrl+Shift+K",
 				"linux": "Ctrl+Shift+H"
