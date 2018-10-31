@@ -21,14 +21,14 @@ class ContentEditableWrapper {
 	}
 }
 
-class AceTextWrapper {
-	constructor(el) {
+class AdvancedTextWrapper {
+	constructor(el, name, visualEl) {
 		this.el = el;
-		this.classList = el.parentNode.querySelector('.ace_scroller').classList;
-		document.addEventListener('ghost-text:ace:safesetup', this.setClone.bind(this), {
+		this.classList = visualEl.classList;
+		document.addEventListener(`ghost-text:${name}:safesetup`, this.setClone.bind(this), {
 			once: true
 		});
-		this.el.dispatchEvent(new CustomEvent('ghost-text:ace:unsafesetup', {
+		this.el.dispatchEvent(new CustomEvent(`ghost-text:${name}:unsafesetup`, {
 			bubbles: true
 		}));
 	}
@@ -56,9 +56,18 @@ function wrapField(field) {
 	if (field.isContentEditable) {
 		return new ContentEditableWrapper(field);
 	}
+
 	if (field.classList.contains('ace_text-input')) {
-		return new AceTextWrapper(field);
+		const visualEl = field.parentNode.querySelector('.ace_scroller');
+		return new AdvancedTextWrapper(field, 'ace', visualEl);
 	}
+
+	const cm = field.closest('.CodeMirror');
+	if (cm) {
+		const visualEl = cm.querySelector('.CodeMirror-sizer');
+		return new AdvancedTextWrapper(cm, 'codemirror', visualEl);
+	}
+
 	return field;
 }
 
