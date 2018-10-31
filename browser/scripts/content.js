@@ -196,7 +196,7 @@ function startGT() {
 		return;
 	}
 
-	const focused = knownElements.get(document.querySelector(':focus'));
+	const focused = knownElements.get(document.activeElement);
 	if (focused) {
 		// Track the focused element automatically, unless GT is already active somewhere
 		if (activeFields.size === 0) {
