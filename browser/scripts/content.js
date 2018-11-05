@@ -226,14 +226,9 @@ function startGT() {
 		return;
 	}
 
+	// Blur focused element to allow selection with a click/focus
 	const focused = knownElements.get(document.activeElement);
 	if (focused) {
-		// Track the focused element automatically, unless GT is already active somewhere
-		if (activeFields.size === 0) {
-			focused.activate();
-			return;
-		}
-		// Blur focused element to allow selection with a click/focus
 		focused.field.blur();
 	}
 
