@@ -20,10 +20,15 @@ window.unsafeMessenger = function () {
 		);
 	}
 
-	function debounce(wait, callback) {
-		return function t(...args) {
-			clearTimeout(t.id);
-			t.id = setTimeout(callback, wait, ...args);
+	function throttle(interval, callback) {
+		let timer;
+		return (...args) => {
+			if (!timer) {
+				timer = setTimeout(() => {
+					timer = false;
+					callback(...args);
+				}, interval);
+			}
 		};
 	}
 
@@ -32,7 +37,7 @@ window.unsafeMessenger = function () {
 
 		sendBack(target, editor.getValue());
 
-		editor.on('changes', debounce(50, (instance, [{origin}]) => {
+		editor.on('changes', throttle(50, (instance, [{origin}]) => {
 			if (origin !== 'setValue') {
 				sendBack(target, editor.getValue());
 			}
@@ -52,10 +57,10 @@ window.unsafeMessenger = function () {
 
 		sendBack(target, session.getValue());
 
-		const debouncedSend = debounce(50, sendBack); // `isUserChange` needs to be run synchronously, unlike codeMirror's
+		const throttledSend = throttle(50, sendBack); // `isUserChange` needs to be run synchronously, unlike codeMirror's
 		session.on('change', () => {
 			if (isUserChange()) {
-				debouncedSend(target, session.getValue());
+				throttledSend(target, session.getValue());
 			}
 		});
 		target.addEventListener('gt:transfer', event => {
