@@ -24,37 +24,39 @@ class ContentEditableWrapper {
 }
 
 class AdvancedTextWrapper {
-	constructor(el, name, visualEl) {
+	constructor(el, visualEl) {
 		this.el = el;
-		this.classList = visualEl.classList;
-		document.addEventListener(`ghost-text:${name}:safesetup`, this.setClone.bind(this), {
-			once: true
+		this.dataset = visualEl.dataset;
+		this.el.addEventListener('gt:input', event => {
+			this._value = event.detail.value;
 		});
-		this.el.dispatchEvent(new CustomEvent(`ghost-text:${name}:unsafesetup`, {
+		this.el.dispatchEvent(new CustomEvent('gt:get', {
 			bubbles: true
 		}));
 	}
 
-	setClone(event) {
-		this.messenger = event.target;
+	blur() {
+		this.el.dispatchEvent(new CustomEvent('gt:blur'));
 	}
 
 	addEventListener(type, callback) {
-		this.messenger.addEventListener('input-from-browser', callback);
+		this.el.addEventListener(`gt:${type}`, callback);
 	}
 
 	removeEventListener(type, callback) {
-		this.messenger.removeEventListener('input-from-browser', callback);
+		this.el.removeEventListener(`gt:${type}`, callback);
 	}
 
 	get value() {
-		return this.messenger.value;
+		return this._value;
 	}
 
 	set value(value) {
-		if (this.messenger.value !== value) {
-			this.messenger.value = value;
-			this.messenger.dispatchEvent(new InputEvent('input-from-editor'));
+		if (this._value !== value) {
+			this._value = value;
+			this.el.dispatchEvent(
+				new CustomEvent('gt:transfer', {detail: {value}})
+			);
 		}
 	}
 }
@@ -65,14 +67,15 @@ function wrapField(field) {
 	}
 
 	if (field.classList.contains('ace_text-input')) {
-		const visualEl = field.parentNode.querySelector('.ace_scroller');
-		return new AdvancedTextWrapper(field, 'ace', visualEl);
+		const ace = field.parentNode;
+		const visualEl = ace.querySelector('.ace_scroller');
+		return new AdvancedTextWrapper(ace, visualEl);
 	}
 
 	const cm = field.closest('.CodeMirror');
 	if (cm) {
 		const visualEl = cm.querySelector('.CodeMirror-sizer');
-		return new AdvancedTextWrapper(cm, 'codemirror', visualEl);
+		return new AdvancedTextWrapper(cm, visualEl);
 	}
 
 	return field;
