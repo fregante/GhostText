@@ -265,7 +265,7 @@ function stopGT() {
 
 function init() {
 	const script = document.createElement('script');
-	script.src = chrome.runtime.getURL('scripts/unsafe-messenger.js');
+	script.textContent = '(' + window.unsafeMessenger.toString() + ')()';
 	document.head.append(script);
 }
 

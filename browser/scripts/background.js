@@ -24,6 +24,7 @@ async function handleAction(tab) {
 				'vendor/webext-dynamic-content-scripts.js',
 				'vendor/humane-ghosttext.min.js',
 				'vendor/one-event.browser.js',
+				'scripts/unsafe-messenger.js',
 				'scripts/content.js'
 			]
 		});
