@@ -145,7 +145,9 @@ class GhostTextField {
 			text,
 			selections
 		} = JSON.parse(event.data);
-		this.field.value = text;
+		if (this.field.value !== text) {
+			this.field.value = text;
+		}
 		this.field.selectionStart = selections[0].start;
 		this.field.selectionEnd = selections[0].end;
 	}
