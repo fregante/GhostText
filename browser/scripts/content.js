@@ -8,7 +8,7 @@ let isWaitingForActivation = false;
 class ContentEditableWrapper {
 	constructor(el) {
 		this.el = el;
-		this.classList = el.classList;
+		this.dataset = el.dataset;
 		this.addEventListener = el.addEventListener.bind(el);
 		this.removeEventListener = el.removeEventListener.bind(el);
 		this.blur = el.blur.bind(el);
@@ -84,7 +84,7 @@ function wrapField(field) {
 class GhostTextField {
 	constructor(field) {
 		this.field = wrapField(field);
-		this.field.classList.add('GT-field');
+		this.field.dataset.gtField = '';
 		this.send = this.send.bind(this);
 		this.receive = this.receive.bind(this);
 		this.deactivate = this.deactivate.bind(this);
@@ -100,7 +100,7 @@ class GhostTextField {
 		this.state = 'active';
 		activeFields.add(this);
 
-		this.field.classList.add('GT-field--loading');
+		this.field.dataset.gtField = 'loading';
 
 		const response = await fetch('http://localhost:4001');
 		const {ProtocolVersion, WebSocketPort} = await response.json();
@@ -117,7 +117,7 @@ class GhostTextField {
 		this.socket.addEventListener('error', event => console.error('error!', event));
 		this.socket.addEventListener('message', this.receive);
 		this.field.addEventListener('input', this.send);
-		this.field.classList.replace('GT-field--loading', 'GT-field--enabled');
+		this.field.dataset.gtField = 'enabled';
 
 		// Send first value to init tab
 		this.send();
@@ -125,7 +125,7 @@ class GhostTextField {
 	}
 
 	send() {
-		console.info('sending', this.field.value);
+		console.info('sending', this.field.value.length, 'characters');
 		this.socket.send(JSON.stringify({
 			title: document.title, // TODO: move to first fetch
 			url: location.host, // TODO: move to first fetch
@@ -159,7 +159,7 @@ class GhostTextField {
 		activeFields.delete(this);
 		this.socket.close();
 		this.field.removeEventListener('input', this.send);
-		this.field.classList.remove('GT-field--enabled');
+		this.field.dataset.gtField = '';
 		updateCount();
 	}
 

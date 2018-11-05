@@ -1,12 +1,12 @@
-.GT-field {
+[data-gt-field] {
 	transition: box-shadow 1s cubic-bezier(0.25, 2, 0.5, 1);
 }
-.GT--waiting .GT-field {
-	box-shadow: rgb(20, 253, 156) 0 0 20px inset;
+.GT--waiting [data-gt-field] {
+	box-shadow: #00F25A 0 0 20px inset;
 }
-.GT-field.GT-field--enabled {
-	box-shadow: rgb(0, 173, 238) 0 0 20px 5px inset;
+[data-gt-field="loading"] {
+	box-shadow: #FFB600 0 0 20px 5px inset;
 }
-.GT-field--loading {
-	box-shadow: rgb(223, 238, 0) 0 0 20px 5px inset;
+[data-gt-field="enabled"] {
+	box-shadow: #00ACEE 0 0 20px 5px inset !important;
 }
