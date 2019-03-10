@@ -251,10 +251,10 @@ var GhostText = {
         if(e && (e.target && e.target.readyState === 3) || e.status === 404 || e.status === 0) {
             GhostText.notifyUser('error',
                 'Connection error.',
-                '\nMake sure that Sublime Text is open and has GhostText installed.',
+                '\nMake sure that your editor is open and it has GhostText installed.',
                 '\nTry closing and opening it and try again.',
                 '\nMake sure that the port matches (4001 is the default).',
-                '\nSee if there are any errors in Sublime Text\'s console.'
+                '\nSee if there are any errors in the editor\'s console.'
             );
         }
     },
