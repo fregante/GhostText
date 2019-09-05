@@ -12,7 +12,7 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "deploy": "npm run build && npm run update-version && npm run release-cws && npm run release-amo",
-    "release-amo": "cd browser && dot-json manifest.json commands --delete && webext submit",
+    "release-amo": "cd browser && webext submit",
     "release-cws": "cd browser && webstore upload --auto-publish",
     "update-version": "dot-json browser/manifest.json version $(date -u +%y.%-m.%-d.%-H%M)"
   }
