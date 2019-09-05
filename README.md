@@ -39,9 +39,10 @@ Notice: in some editors you’ll need to run the _Enable GhostText_ command afte
 
 ### Keyboard shortcuts
 
-In Chrome, you can use a keyboard shortcut instead of clicking the button. You can also [change or disable](http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121) the shortcut.
-
-Firefox [doesn’t support them yet.](https://github.com/GhostText/GhostText/issues/113)
+You can use a keyboard shortcut instead of clicking the button. The shortcut can be changed or disabled,
+[like this in Chrome](http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121)
+or
+[like this in Firefox](https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox).
 
 <table>
   <tr>
@@ -49,15 +50,15 @@ Firefox [doesn’t support them yet.](https://github.com/GhostText/GhostText/iss
     <th>Shortcut</th>
   </tr>
   <tr>
-    <td>Chrome on Windows</td>
+    <td>Windows</td>
     <td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
   </tr>
   <tr>
-    <td>Chrome on Linux</td>
+    <td>Linux</td>
     <td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>H</kbd></td>
   </tr>
   <tr>
-    <td>Chrome on Mac</td>
+    <td>Mac</td>
     <td><kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
   </tr>
 </table>
