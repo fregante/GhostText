@@ -5,13 +5,14 @@
   "devDependencies": {
     "chrome-webstore-upload-cli": "^1.0.0",
     "dot-json": "^1.0.3",
+    "npm-run-all": "^4.1.5",
     "typescript": "^1.8.10",
     "webext": "^1.9.1-with-submit.1"
   },
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "deploy": "npm run build && npm run update-version && npm run release-cws & npm run release-amo",
+    "deploy": "run-s build update-version --parallel --continue-on-error release-cws release-amo",
     "release-amo": "cd browser && webext submit",
     "release-cws": "cd browser && webstore upload --auto-publish",
     "update-version": "dot-json browser/manifest.json version $(date -u +%y.%-m.%-d.%-H%M)"
