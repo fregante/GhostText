@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "deploy": "run-s build update-version --parallel --continue-on-error release-cws release-amo",
+    "deploy": "npm-run-all build update-version --parallel --continue-on-error release-cws release-amo",
     "release-amo": "cd browser && webext submit",
     "release-cws": "cd browser && webstore upload --auto-publish",
     "update-version": "dot-json browser/manifest.json version $(date -u +%y.%-m.%-d.%-H%M)"
