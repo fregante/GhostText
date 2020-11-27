@@ -54,9 +54,8 @@ class AdvancedTextWrapper {
 	set value(value) {
 		if (this._value !== value) {
 			this._value = value;
-			this.el.dispatchEvent(
-				new CustomEvent('gt:transfer', {detail: {value}})
-			);
+			this.el.setAttribute('gt-value', value);
+			this.el.dispatchEvent(new CustomEvent('gt:transfer'));
 		}
 	}
 }

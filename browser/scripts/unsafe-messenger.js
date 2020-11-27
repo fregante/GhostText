@@ -42,8 +42,8 @@ window.unsafeMessenger = function () {
 				sendBack(target, editor.getValue());
 			}
 		}));
-		target.addEventListener('gt:transfer', event => {
-			editor.setValue(event.detail.value);
+		target.addEventListener('gt:transfer', () => {
+			editor.setValue(target.getAttribute('gt-value'));
 		});
 		target.addEventListener('gt:blur', () => {
 			editor.getInputField().blur();
@@ -63,9 +63,9 @@ window.unsafeMessenger = function () {
 				throttledSend(target, session.getValue());
 			}
 		});
-		target.addEventListener('gt:transfer', event => {
+		target.addEventListener('gt:transfer', () => {
 			if (!isUserChange()) {
-				session.setValue(event.detail.value);
+				session.setValue(target.getAttribute('gt-value'));
 			}
 		});
 		target.addEventListener('gt:blur', () => {
