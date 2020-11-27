@@ -75,7 +75,7 @@ function handleMessages({code, count}, {tab}) {
 	if (code === 'connection-count') {
 		let text = '';
 		if (count === 1) {
-			text = /OS X/i.test(navigator.userAgent) ? '✓' : 'ON';
+			text = /os x/i.test(navigator.userAgent) ? '✓' : 'ON';
 		} else if (count > 1) {
 			text = String(count);
 		}
