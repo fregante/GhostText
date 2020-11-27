@@ -10,18 +10,31 @@
 			color: #333;
 			margin: auto;
 		}
+		iframe,
 		textarea,
 		[contenteditable],
-		.CodeMirror,
 		#ace {
 			border: solid 1px silver;
 			border-radius: 3px;
-			min-height: 100px; /* Ace */
-			height: 100px; /* CodeMirror */
+			min-height: 100px;
 			width: 100%;
+		}
+		.CodeMirror {
+			height: 100px;
 		}
 		textarea {
 			font: inherit;
+		}
+		.flex {
+			display: flex;
+			justify-content: space-between;
+		}
+		textarea {
+			max-width: 49%;
+		}
+		iframe {
+			opacity: 0.8;
+			height: 200px;
 		}
 	</style>
 </head>
@@ -30,7 +43,10 @@
 	</h1>
 
 	<h2><code>&lt;textarea&gt;</code></h2>
-	<textarea>This is a textarea</textarea>
+	<div class="flex">
+		<textarea>This is a textarea</textarea>
+		<textarea>This is a second textarea</textarea>
+	</div>
 
 	<h2><code>&lt;contenteditable&gt;</code></h2>
 	<div contenteditable>This is a <code>contenteditable</code> div</div>
@@ -60,4 +76,8 @@
 	<script>
 		window.ace.edit('ace').setOption("maxLines", 30)
 	</script>
+
+
+	<h2>Fields inside <code>&lt;iframe&gt;</code></h2>
+	<iframe src="http://localhost:3000/demo/" frameborder="0">One level deep, please!</iframe>
 </html>

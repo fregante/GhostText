@@ -1,240 +1,275 @@
-'use strict';
+/* global GThumane */
 
-/**
- * GhostText for Chrome content script.
- *
- * @licence The MIT License (MIT)
- * @author Guido Krömer <mail 64 cacodaemon 46 de>
- * @author Federico Brigante
- */
-var GhostTextContent = {
-    /**
-     * This tab's ID
-     *
-     * @type {Number}
-     */
-    tabId: null,
+const knownElements = new Map();
+const activeFields = new Set();
 
-    /**
-     * @type {*}
-     * @see https://developer.chrome.com/extensions/runtime#type-Port
-     */
-    port: null,
+let isWaitingForActivation = false;
 
-    /**
-     * The field we or the user selected.
-     *
-     * @type IInputArea
-     */
-    currentInputArea: null,
+class ContentEditableWrapper {
+	constructor(el) {
+		this.el = el;
+		this.dataset = el.dataset;
+		this.addEventListener = el.addEventListener.bind(el);
+		this.removeEventListener = el.removeEventListener.bind(el);
+		this.blur = el.blur.bind(el);
+	}
 
-    /**
-     * Handles messages sent from other parts of the extension
-     *
-     * @param  {object} request The request object passed by Chrome
-     * @public
-     * @static
-     */
-    messageHandler: function (request) {
-        console.log('Got message:', request);
-        if (!request || !request.action || !request.tabId) {
-            return;
-        }
+	get value() {
+		return this.el.innerHTML;
+	}
 
-        //Store this tab's id as soon as possible
-        GhostTextContent.tabId = request.tabId;
+	set value(html) {
+		this.el.innerHTML = html;
+	}
+}
 
-        switch (request.action) {
-            case 'select-field':
-                GhostTextContent.selectField();
-                break;
-            case 'enable-field':
-                GhostTextContent.enableField();
-                break;
-            case 'disable-field':
-                GhostTextContent.disableField();
-                break;
-            case 'notify':
-                switch(request.type) {
-                    case 'error':
-                        if (GhostTextContent.currentInputArea !== null) {
-                            GhostTextContent.currentInputArea.unbind();
-                        }
-                        GhostTextContent.alertUser(request.message, request.stay);
-                        break;
-                    default: /*we might support more types eventually, like success! */
-                        GhostTextContent.informUser(request.message, request.stay);
-                        break;
-                }
-                break;
-        }
-    },
+class AdvancedTextWrapper {
+	constructor(el, visualEl) {
+		this.el = el;
+		this.dataset = visualEl.dataset;
+		this.el.addEventListener('gt:input', event => {
+			this._value = event.detail.value;
+		});
+		this.el.dispatchEvent(new CustomEvent('gt:get', {
+			bubbles: true
+		}));
+	}
 
-    /**
-     * Displays the passed message to the user.
-     *
-     * @param  {string}  message Message to display
-     * @param  {boolean} stay    Whether the message will stay on indefinitely
-     * @private
-     * @static
-     */
-    informUser: function (message, stay) {
-        console.info('GhostText:', message);
-        GThumane.remove();
+	blur() {
+		this.el.dispatchEvent(new CustomEvent('gt:blur'));
+	}
 
-        message = message.replace(/\n/g,'<br>');
-        var timeout = stay ? 0 : GhostTextContent.getMessageDisplayTime(message);
-        GThumane.log(message, {
-            timeout: timeout,
-            clickToClose: true
-        });
-    },
+	addEventListener(type, callback) {
+		this.el.addEventListener(`gt:${type}`, callback);
+	}
 
-    /**
-     * Displays the passed message to the user as an error
-     *
-     * @param  {string} message Message to display
-     * @param  {boolean} stay    Whether the message will stay on indefinitely
-     * @private
-     * @static
-     */
-    alertUser: function (message, stay) {
-        console.warn('GhostText:', message);
-        GThumane.remove();
+	removeEventListener(type, callback) {
+		this.el.removeEventListener(`gt:${type}`, callback);
+	}
 
-        message = message.replace(/\n/g,'<br>');
-        var timeout = stay ? 0 : GhostTextContent.getMessageDisplayTime(message);
-        GThumane.log(message, {
-            timeout: timeout,
-            clickToClose: true,
-            addnCls: 'ghost-text-message-error'
-        });
-    },
+	get value() {
+		return this._value;
+	}
 
-    /**
-     * Gets how long a message needs to stay on screen
-     *
-     * @param  {string} message Message to display
-     * @return {number} The duration in milliseconds
-     */
-    getMessageDisplayTime: function (message) {
-        var wpm = 100;//180 is the average words read per minute, make it slower
+	set value(value) {
+		if (this._value !== value) {
+			this._value = value;
+			this.el.setAttribute('gt-value', value);
+			this.el.dispatchEvent(new CustomEvent('gt:transfer'));
+		}
+	}
+}
 
-        return message.split(' ').length / wpm * 60000;
-    },
+function wrapField(field) {
+	if (field.isContentEditable) {
+		return new ContentEditableWrapper(field);
+	}
 
-    /**
-     * Remove listeners from field and shows disconnection message
-     * @private
-     * @static
-     */
-    disableField: function () {
-        console.log('GhostText: disableField()');
+	if (field.classList.contains('ace_text-input')) {
+		const ace = field.parentNode;
+		const visualEl = ace.querySelector('.ace_scroller');
+		return new AdvancedTextWrapper(ace, visualEl);
+	}
 
-        if (GhostTextContent.currentInputArea === null) {
-            return;
-        }
+	const cm = field.closest('.CodeMirror');
+	if (cm) {
+		const visualEl = cm.querySelector('.CodeMirror-sizer');
+		return new AdvancedTextWrapper(cm, visualEl);
+	}
 
-        GhostTextContent.currentInputArea.unbind();
-        GhostTextContent.currentInputArea = null;
-        GhostTextContent.informUser('Disconnected! \n <a href="https://github.com/GhostText/GhostText/issues?state=open" target="_blank">Report issues</a> | <a href="https://chrome.google.com/webstore/detail/sublimetextarea/godiecgffnchndlihlpaajjcplehddca/reviews" target="_blank">Leave review</a>');
-    },
+	return field;
+}
 
-    /**
-     * Look for textarea elements in document and connect to is as soon as possible.
-     *
-     * @private
-     * @static
-     */
-    selectField: function () {
-        console.log('GhostText: selectField()');
+class GhostTextField {
+	constructor(field) {
+		this.field = wrapField(field);
+		this.field.dataset.gtField = '';
+		this.send = this.send.bind(this);
+		this.receive = this.receive.bind(this);
+		this.deactivate = this.deactivate.bind(this);
+		this.tryFocus = this.tryFocus.bind(this);
+		field.addEventListener('focus', this.tryFocus);
+		this.state = 'inactive';
+	}
 
-        var detector = new GhostText.InputArea.Detector();
-        detector.focusEvent(function (inputArea) {
-            console.log('GhostText: detector.focusEvent()');
-            GhostTextContent.currentInputArea = inputArea;
-            GhostTextContent.port = chrome.runtime.connect({name: 'GhostText'});
-            GhostTextContent.reportFieldData(); //Report initial content of field
-        });
+	async activate() {
+		if (this.state === 'active') {
+			return;
+		}
 
-        var countElementsFound = detector.detect(document);
-        if (countElementsFound === 0) {
-            GhostTextContent.alertUser('No textarea elements on this page');
-        } else if (countElementsFound > 1) {
-            GhostTextContent.informUser('There are multiple textarea elements on this page. \n Click on the one you want to use.', true);
-        }
-    },
+		this.state = 'active';
+		activeFields.add(this);
 
-    /**
-     * Connects a HTML textarea to a GhostText server by messaging through the background script
-     * TODO code cleanup needed…
-     *
-     * @public
-     * @static
-     */
-    enableField: function () {
-        console.log('GhostText: enableField()');
+		this.field.dataset.gtField = 'loading';
 
-        var inputArea = GhostTextContent.currentInputArea;
+		this.port = chrome.runtime.connect({name: 'new-field'});
+		this.port.onMessage.addListener(msg => {
+			if (msg.message) {
+				this.receive({data: msg.message});
+			} else if (msg.close) {
+				this.deactivate();
+			} else if (msg.ready) {
+				notify('log', 'Connected! You can switch to your editor');
 
-        GhostTextContent.informUser('Connected! You can switch to your editor');
+				this.field.addEventListener('input', this.send);
+				this.field.dataset.gtField = 'enabled';
 
-        inputArea.textChangedEvent(function () { GhostTextContent.reportFieldData();});
-        inputArea.removeEvent(function () { GhostTextContent.requestServerDisconnection(); });
-        inputArea.unloadEvent(function () { GhostTextContent.requestServerDisconnection();});
-        inputArea.focusEvent(null); //disable
-        inputArea.selectionChangedEvent(null);
+				// Send first value to init tab
+				this.send();
+			}
+		});
 
-        GhostTextContent.port.onMessage.addListener(function (msg) {
-            if (msg.tabId !== GhostTextContent.tabId) {
-                return;
-            }
-            /** @type {{text: {string}, selections: [{start: {number}, end: {number}}]}} */
-            var response = JSON.parse(msg.change);
-            GhostTextContent.currentInputArea.setText(response.text);
-            GhostTextContent.currentInputArea.setSelections(GhostText.InputArea.Selections.fromPlainJS(response.selections));
-        });
-    },
+		updateCount();
+	}
 
-    /**
-     * Sends a text change to the server.
-     *
-     * @private
-     * @static
-     */
-    reportFieldData: function () {
-        console.log('GhostText: reportFieldData()');
+	send() {
+		console.info('sending', this.field.value.length, 'characters');
+		this.port.postMessage(JSON.stringify({
+			title: document.title, // TODO: move to first fetch
+			url: location.host, // TODO: move to first fetch
+			syntax: '', // TODO: move to first fetch
+			text: this.field.value,
+			selections: [
+				{
+					start: this.field.selectionStart || 0,
+					end: this.field.selectionEnd || 0
+				}
+			]
+		}));
+	}
 
-        if (GhostTextContent.currentInputArea === null) {
-            throw 'reportFieldData as been called without initializing currentInputArea!';
-        }
+	receive(event) {
+		const {
+			text,
+			selections
+		} = JSON.parse(event.data);
+		if (this.field.value !== text) {
+			this.field.value = text;
+		}
 
-        if (GhostTextContent.port === null) {
-            throw 'reportFieldData as been called without initializing port!';
-        }
+		this.field.selectionStart = selections[0].start;
+		this.field.selectionEnd = selections[0].end;
+	}
 
-        /** @type TextChange */
-        var textChange = GhostTextContent.currentInputArea.buildChange();
-        GhostTextContent.port.postMessage({
-            change: JSON.stringify(textChange),
-            tabId: GhostTextContent.tabId
-        });
-    },
+	deactivate() {
+		if (this.state === 'inactive') {
+			return;
+		}
 
-    /**
-     * Ask the background script to close the connection
-     *
-     * @private
-     * @static
-     */
-    requestServerDisconnection: function () {
-        console.log('GhostText: requestServerDisconnection()');
+		this.state = 'inactive';
+		console.log('Disabling field');
+		activeFields.delete(this);
+		this.port.disconnect();
+		this.field.removeEventListener('input', this.send);
+		this.field.dataset.gtField = '';
+		updateCount();
+	}
 
-        chrome.extension.sendMessage({
-            action: 'close-connection',
-            tabId: GhostTextContent.tabId
-        });
-    }
-};
+	tryFocus() {
+		if (isWaitingForActivation && this.state === 'inactive') {
+			this.activate();
+			isWaitingForActivation = false;
+			document.body.classList.remove('GT--waiting');
+		}
+	}
 
-chrome.runtime.onMessage.addListener(GhostTextContent.messageHandler);
+	static deactivateAll() {
+		for (const field of activeFields) {
+			field.deactivate();
+		}
+	}
+}
+
+function updateCount() {
+	chrome.runtime.sendMessage({
+		code: 'connection-count',
+		count: activeFields.size
+	});
+
+	if (activeFields.size === 0) {
+		notify('log', 'Disconnected! \n <a href="https://github.com/GhostText/GhostText/issues" target="_blank">Report issues</a>');
+	}
+}
+
+const selector = `
+	textarea,
+	[contenteditable=""],
+	[contenteditable="true"]
+`;
+function registerElements() {
+	for (const element of document.querySelectorAll(selector)) {
+		// TODO: Only handle areas that are visible
+		//  && element.getBoundingClientRect().width > 20
+		if (!knownElements.has(element)) {
+			knownElements.set(element, new GhostTextField(element));
+		}
+	}
+}
+
+function getMessageDisplayTime(message) {
+	const wpm = 100; // 180 is the average words read per minute, make it slower
+	return message.split(' ').length / wpm * 60000;
+}
+
+function notify(type, message, stay) {
+	console[type]('GhostText:', message);
+	GThumane.remove();
+	message = message.replace(/\n/g, '<br>');
+	const timeout = stay ? 0 : getMessageDisplayTime(message);
+	GThumane.log(message, {
+		timeout,
+		clickToClose: true,
+		addnCls: type === 'log' ? '' : 'ghost-text-message-error'
+	});
+}
+
+function startGT() {
+	registerElements();
+	console.info(knownElements.size + ' elements on the page');
+	if (knownElements.size === 0) {
+		notify('warn', 'No supported elements found!');
+		return;
+	}
+
+	// Blur focused element to allow selection with a click/focus
+	const focused = knownElements.get(document.activeElement);
+	if (focused) {
+		focused.field.blur();
+	}
+
+	// If there's one element and it's not active, activate.
+	// If it's one and active, do nothing
+	if (knownElements.size === 1) {
+		if (activeFields.size === 0) {
+			const [field] = knownElements.values();
+			field.activate();
+		}
+	} else {
+		isWaitingForActivation = true;
+		document.body.classList.add('GT--waiting');
+
+		if (activeFields.size === 0) {
+			notify('log', 'Click on the desired element to activate it.', true);
+		} else {
+			notify('log', 'Click on the desired element to activate it or right-click the GhostText icon to stop the connection.', true);
+		}
+		// TODO: waiting timeout
+	}
+}
+
+function stopGT() {
+	GhostTextField.deactivateAll();
+	isWaitingForActivation = false;
+	document.body.classList.remove('GT--waiting');
+}
+
+function init() {
+	const script = document.createElement('script');
+	script.textContent = '(' + window.unsafeMessenger.toString() + ')()';
+	document.head.append(script);
+}
+
+window.startGT = startGT;
+window.stopGT = stopGT;
+
+init();

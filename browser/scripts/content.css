@@ -1,0 +1,12 @@
+[data-gt-field] {
+	transition: box-shadow 1s cubic-bezier(0.25, 2, 0.5, 1);
+}
+.GT--waiting [data-gt-field] {
+	box-shadow: #00F25A 0 0 20px inset;
+}
+[data-gt-field="loading"] {
+	box-shadow: #FFB600 0 0 20px 5px inset;
+}
+[data-gt-field="enabled"] {
+	box-shadow: #00ACEE 0 0 20px 5px inset !important;
+}
