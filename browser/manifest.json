@@ -3,7 +3,7 @@
 	"name": "GhostText",
 	"description": "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser.",
 	"version": "0.0.0",
-	"minimum_chrome_version": "49",
+	"minimum_chrome_version": "86",
 	"author": "Federico Brigante",
 	"icons": {
 		"16": "images/icon_19.png",
@@ -21,7 +21,7 @@
 	"applications": {
 		"gecko": {
 			"id": "ghosttext@bfred.it",
-			"strict_min_version": "45.0"
+			"strict_min_version": "83.0"
 		}
 	},
 	"options_ui": {
