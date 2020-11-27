@@ -48,6 +48,8 @@
 		"scripts": [
 			"vendor/webext-dynamic-content-scripts.js",
 			"vendor/webext-options-sync.js",
+			"vendor/browser-polyfill.min.js",
+			"vendor/one-event.browser.js",
 			"scripts/background.js"
 		]
 	},

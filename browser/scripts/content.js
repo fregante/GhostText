@@ -102,20 +102,18 @@ class GhostTextField {
 
 		this.field.dataset.gtField = 'loading';
 
-		const response = await fetch('http://localhost:4001');
-		const {ProtocolVersion, WebSocketPort} = await response.json();
-		if (ProtocolVersion !== 1) {
-			throw new Error('Incompatible protocol version');
-		}
-		console.log('will open socket');
-		this.socket = new WebSocket('ws://localhost:' + WebSocketPort);
 
-		await oneEvent.promise(this.socket, 'open');
+		this.port = chrome.runtime.connect({name: "new-field"});
+		this.port.onMessage.addListener(msg => {
+			if (msg.message) {
+				this.receive({data: msg.message});
+			} else if (msg.close) {
+				this.deactivate();
+			}
+		});
+
 		notify('log', 'Connected! You can switch to your editor');
 
-		this.socket.addEventListener('close', this.deactivate);
-		this.socket.addEventListener('error', event => console.error('error!', event));
-		this.socket.addEventListener('message', this.receive);
 		this.field.addEventListener('input', this.send);
 		this.field.dataset.gtField = 'enabled';
 
@@ -126,7 +124,7 @@ class GhostTextField {
 
 	send() {
 		console.info('sending', this.field.value.length, 'characters');
-		this.socket.send(JSON.stringify({
+		this.port.postMessage(JSON.stringify({
 			title: document.title, // TODO: move to first fetch
 			url: location.host, // TODO: move to first fetch
 			syntax: '', // TODO: move to first fetch
@@ -159,7 +157,7 @@ class GhostTextField {
 		this.state = 'inactive';
 		console.log('Disabling field');
 		activeFields.delete(this);
-		this.socket.close();
+		this.port.disconnect();
 		this.field.removeEventListener('input', this.send);
 		this.field.dataset.gtField = '';
 		updateCount();

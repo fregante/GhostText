@@ -73,3 +73,5 @@ window.unsafeMessenger = function () {
 		});
 	}
 };
+
+undefined; // Avoids issues with tabs.injectScript
