@@ -109,16 +109,17 @@ class GhostTextField {
 				this.receive({data: msg.message});
 			} else if (msg.close) {
 				this.deactivate();
+			} else if (msg.ready) {
+				notify('log', 'Connected! You can switch to your editor');
+
+				this.field.addEventListener('input', this.send);
+				this.field.dataset.gtField = 'enabled';
+
+				// Send first value to init tab
+				this.send();
 			}
 		});
 
-		notify('log', 'Connected! You can switch to your editor');
-
-		this.field.addEventListener('input', this.send);
-		this.field.dataset.gtField = 'enabled';
-
-		// Send first value to init tab
-		this.send();
 		updateCount();
 	}
 

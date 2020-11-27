@@ -60,14 +60,15 @@ chrome.runtime.onConnect.addListener(async port => {
 	socket.addEventListener('error', event => console.error('error!', event));
 
   port.onMessage.addListener(msg => {
-		console.log('got message from scriot', msg);
+		console.log('got message from script', msg);
 		socket.send(msg);
 	});
 	console.log(port);
 	port.onDisconnect.addListener(() => {
 		socket.removeEventListener('close', onSocketClose);
 		socket.close();
-	})
+	});
+	port.postMessage({ready: true})
 });
 
 function handleMessages({code, count}, {tab}, sendResponse) {
