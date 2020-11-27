@@ -1,0 +1,17 @@
+env: {}
+
+# DO NOT EDIT BELOW, USE: npx ghat fregante/ghatemplates/node --exclude 'jobs.Build' --exclude 'jobs.Test'
+
+name: CI
+on:
+  - pull_request
+  - push
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install
+        run: npm ci || npm install
+      - name: XO
+        run: npx xo
