@@ -1,4 +1,4 @@
-/* global oneEvent, GThumane */
+/* global GThumane */
 
 const knownElements = new Map();
 const activeFields = new Set();
@@ -96,13 +96,13 @@ class GhostTextField {
 		if (this.state === 'active') {
 			return;
 		}
+
 		this.state = 'active';
 		activeFields.add(this);
 
 		this.field.dataset.gtField = 'loading';
 
-
-		this.port = chrome.runtime.connect({name: "new-field"});
+		this.port = chrome.runtime.connect({name: 'new-field'});
 		this.port.onMessage.addListener(msg => {
 			if (msg.message) {
 				this.receive({data: msg.message});
@@ -146,6 +146,7 @@ class GhostTextField {
 		if (this.field.value !== text) {
 			this.field.value = text;
 		}
+
 		this.field.selectionStart = selections[0].start;
 		this.field.selectionEnd = selections[0].end;
 	}
@@ -154,6 +155,7 @@ class GhostTextField {
 		if (this.state === 'inactive') {
 			return;
 		}
+
 		this.state = 'inactive';
 		console.log('Disabling field');
 		activeFields.delete(this);

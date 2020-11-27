@@ -1,12 +1,10 @@
 {
-  "name": "GhostText-browser",
-  "version": "0.0.0",
   "private": true,
   "devDependencies": {
     "chrome-webstore-upload-cli": "^1.0.0",
     "dot-json": "^1.0.3",
     "webext": "^1.9.1-with-submit.1",
-    "xo": "*"
+    "xo": "^0.24.0"
   },
   "scripts": {
     "test": "xo",
@@ -19,14 +17,15 @@
   },
   "xo": {
     "envs": [
-      "browser"
+      "browser",
+      "webextensions"
     ],
     "rules": {
       "import/no-unassigned-import": 0,
       "no-alert": 0
     },
     "globals": [
-      "chrome"
+      "oneEvent"
     ],
     "ignores": [
       "browser/vendor/*"

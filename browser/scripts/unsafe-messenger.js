@@ -74,4 +74,5 @@ window.unsafeMessenger = function () {
 	}
 };
 
+// eslint-disable-next-line no-unused-expressions
 undefined; // Avoids issues with tabs.injectScript

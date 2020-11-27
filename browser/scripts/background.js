@@ -4,6 +4,7 @@ function inCurrentTab(callback) {
 		currentWindow: true
 	}, tabs => callback(tabs[0]));
 }
+
 function handleClose(info, tab) {
 	chrome.tabs.executeScript(tab.id, {
 		code: 'stopGT()'
@@ -16,12 +17,12 @@ async function handleAction({id}) {
 		allFrames: true
 	};
 	const [alreadyInjected] = await browser.tabs.executeScript(id, {...defaults, code: 'typeof window.startGT === "function"'});
-	console.log(alreadyInjected)
+	console.log(alreadyInjected);
 	if (alreadyInjected) {
 		return browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});
 	}
-	try {
 
+	try {
 		await Promise.all([
 			browser.tabs.insertCSS(id, {...defaults, file: '/vendor/humane-ghosttext.css'}),
 			browser.tabs.insertCSS(id, {...defaults, file: '/vendor/humane-ghosttext.css'}),
@@ -30,22 +31,23 @@ async function handleAction({id}) {
 			browser.tabs.executeScript(id, {...defaults, file: '/vendor/humane-ghosttext.min.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/vendor/one-event.browser.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/scripts/unsafe-messenger.js'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/scripts/content.js'}),
+			browser.tabs.executeScript(id, {...defaults, file: '/scripts/content.js'})
 		]);
-	} catch (e) {
-		console.error(e)
+	} catch (error) {
+		console.error(error);
 	}
-		await browser.tabs.executeScript(id, {...defaults, code: 'startGT()'})
 
+	await browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});
 }
 
 chrome.runtime.onConnect.addListener(async port => {
-	console.assert(port.name == 'new-field');
+	console.assert(port.name === 'new-field');
 	const response = await fetch('http://localhost:4001');
 	const {ProtocolVersion, WebSocketPort} = await response.json();
 	if (ProtocolVersion !== 1) {
 		throw new Error('Incompatible protocol version');
 	}
+
 	console.log('will open socket');
 	const socket = new WebSocket('ws://localhost:' + WebSocketPort);
 	const event = await Promise.race([
@@ -56,10 +58,10 @@ chrome.runtime.onConnect.addListener(async port => {
 
 	const onSocketClose = () => port.postMessage({close: true});
 	socket.addEventListener('close', onSocketClose);
-	socket.addEventListener('message', event => port.postMessage({message: event.data}))
+	socket.addEventListener('message', event => port.postMessage({message: event.data}));
 	socket.addEventListener('error', event => console.error('error!', event));
 
-  port.onMessage.addListener(msg => {
+	port.onMessage.addListener(msg => {
 		console.log('got message from script', msg);
 		socket.send(msg);
 	});
@@ -68,10 +70,10 @@ chrome.runtime.onConnect.addListener(async port => {
 		socket.removeEventListener('close', onSocketClose);
 		socket.close();
 	});
-	port.postMessage({ready: true})
+	port.postMessage({ready: true});
 });
 
-function handleMessages({code, count}, {tab}, sendResponse) {
+function handleMessages({code, count}, {tab}) {
 	if (code === 'connection-count') {
 		let text = '';
 		if (count === 1) {
@@ -79,6 +81,7 @@ function handleMessages({code, count}, {tab}, sendResponse) {
 		} else if (count > 1) {
 			text = String(count);
 		}
+
 		chrome.browserAction.setBadgeText({
 			text,
 			tabId: tab.id
