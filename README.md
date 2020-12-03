@@ -1,6 +1,6 @@
 # <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
 
-<img src="promo/demo.gif" alt="Demo screencast" align="right"> 
+<img src="promo/demo.gif" alt="Demo screencast" align="right">
 
 Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
@@ -12,17 +12,27 @@ Use your text editor to write in your browser. Everything you type in the editor
     + [**Sublime Text** extension](https://sublime.wbond.net/packages/GhostText) - [Repo](https://github.com/GhostText/GhostText-for-SublimeText)
     + [**Atom** package](https://github.com/GhostText/GhostText-for-Atom)
     + [**VS Code** extension](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
-    + [**Vim** script](https://github.com/falstro/ghost-text-vim) (Third party)
-    + [**Vim** plugin](https://github.com/pandysong/ghost-text.vim) (Third party)
-    + [**Neovim** plugin](https://github.com/raghur/vim-ghost) (Third party)
     + [**Emacs** package](https://melpa.org/#/atomic-chrome) - [Repo](https://github.com/alpha22jp/atomic-chrome) (Third party)
     + [**Acme** client](https://github.com/fhs/Ghost) (Third party)
+    <details>
+    <summary><b>Vim</b>/<b>Neovim</b> (Third party)</summary>
+    <ul>
+      <li> <a href="https://github.com/falstro/ghost-text-vim">Vim <b>Tcl</b> Script</a><br>
+      (needs Vim compiled with +tcl)<br>
+      <li> <a href="https://github.com/pandysong/ghost-text.vim"><b>Vim-only</b> plugin written in python</a><br>
+      (needs Vim compiled with +python3)<br>
+      <li> <a href="https://github.com/raghur/vim-ghost">Python remote plugin supporting both <b>Vim</b> and <b>Neovim</b></a><br>
+      (needs Vim compiled with +python3 or Neovim with correctly-set-up python connectivity)<br>
+      <li> <a href="https://github.com/subnut/nvim-ghost.nvim"><b>Neovim-only</b> plugin with <b>zero dependencies</b></a><br>
+      (needs nothing except neovim)<br>
+    </ul>
+    </details>
 2. Install your browser extension:
     + [**Chrome** extension](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
     + [**Firefox** add-on](https://addons.mozilla.org/en-US/firefox/addon/ghosttext/)
     + Opera - Use [this](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) to install the Chrome extension.
 
-## Website support 
+## Website support
 
 * `<textarea>` elements
 * [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) areas: like in Gmail
