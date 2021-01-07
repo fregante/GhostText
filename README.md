@@ -17,10 +17,10 @@ Use your text editor to write in your browser. Everything you type in the editor
     + <details>
         <summary><b>Vim</b>/<b>Neovim</b> (Third party)</summary>
         <ul>
-          <li><a href="https://github.com/falstro/ghost-text-vim">Tcl script for Vim</a>
-          <li><a href="https://github.com/pandysong/ghost-text.vim">Python plugin for Vim</a>
-          <li><a href="https://github.com/raghur/vim-ghost">Python plugin for Vim/Neovim</a>
-          <li><a href="https://github.com/subnut/nvim-ghost.nvim">Native Neovim plugin</a>
+          <li><a href="https://github.com/falstro/ghost-text-vim">Vim (written in Tcl)</a>
+          <li><a href="https://github.com/pandysong/ghost-text.vim">Vim (written in Python3)</a>
+          <li><a href="https://github.com/raghur/vim-ghost">Vim/Neovim (written in Python3)</a>
+          <li><a href="https://github.com/subnut/nvim-ghost.nvim">Neovim (written in Vim)</a>
         </ul>
       </details>
 2. Install your browser extension:
