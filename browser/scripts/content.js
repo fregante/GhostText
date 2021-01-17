@@ -231,15 +231,13 @@ function startGT() {
 		return;
 	}
 
-	// Blur focused element to allow selection with a click/focus
+  // If there's one element with focus, activate.
 	const focused = knownElements.get(document.activeElement);
 	if (focused) {
-		focused.field.blur();
-	}
-
+    focused.activate();
+  } else if (knownElements.size === 1) {
 	// If there's one element and it's not active, activate.
 	// If it's one and active, do nothing
-	if (knownElements.size === 1) {
 		if (activeFields.size === 0) {
 			const [field] = knownElements.values();
 			field.activate();
