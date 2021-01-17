@@ -163,6 +163,10 @@ class GhostTextField {
 		this.field.removeEventListener('input', this.send);
 		this.field.dataset.gtField = '';
 		updateCount();
+
+		chrome.runtime.sendMessage({
+			code: 'focus-tab',
+		});
 	}
 
 	tryFocus() {
