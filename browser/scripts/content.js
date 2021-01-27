@@ -165,7 +165,7 @@ class GhostTextField {
 		updateCount();
 
 		chrome.runtime.sendMessage({
-			code: 'focus-tab',
+			code: 'focus-tab'
 		});
 	}
 

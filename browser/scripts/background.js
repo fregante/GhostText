@@ -82,16 +82,16 @@ function handleMessages({code, count}, {tab}) {
 
 		chrome.browserAction.setBadgeText({
 			text,
-      tabId: tab.id,
-    });
-  } else if (code === 'focus-tab') {
-    // We need to query it again because windowId might have changed in the
-    // meanwhile.
-    chrome.tabs.get(tab.id, function (tab) {
-      // Focus window.
-      chrome.windows.update(tab.windowId, { focused: true });
-      // Focus tab.
-      chrome.tabs.update(tab.id, { active: true });
+			tabId: tab.id
+		});
+	} else if (code === 'focus-tab') {
+		// We need to query it again because windowId might have changed in the
+		// meanwhile.
+		chrome.tabs.get(tab.id, tab => {
+			// Focus window.
+			chrome.windows.update(tab.windowId, {focused: true});
+			// Focus tab.
+			chrome.tabs.update(tab.id, {active: true});
 		});
 	}
 }
