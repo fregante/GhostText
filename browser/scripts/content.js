@@ -126,8 +126,7 @@ class GhostTextField {
 	}
 
 	send(event) {
-		if (event && !event.isTrusted) {
-			// This is our own event
+		if (event && event.detail?.ghostTextSyntheticEvent) {
 			return;
 		}
 
@@ -155,11 +154,16 @@ class GhostTextField {
 			this.field.value = text;
 
 			if (this.field.dispatchEvent) {
-				this.field.dispatchEvent(new KeyboardEvent('keydown'));
-				this.field.dispatchEvent(new KeyboardEvent('keypress'));
-				this.field.dispatchEvent(new TextEvent('textInput'));
-				this.field.dispatchEvent(new InputEvent('input'));
-				this.field.dispatchEvent(new KeyboardEvent('keyup'));
+				const init = {
+					detail: {
+						ghostTextSyntheticEvent: true
+					}
+				};
+				this.field.dispatchEvent(new KeyboardEvent('keydown', init));
+				this.field.dispatchEvent(new KeyboardEvent('keypress', init));
+				this.field.dispatchEvent(new CompositionEvent('textInput', init));
+				this.field.dispatchEvent(new InputEvent('input', init));
+				this.field.dispatchEvent(new KeyboardEvent('keyup', init));
 			}
 		}
 
