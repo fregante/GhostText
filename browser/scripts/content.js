@@ -61,10 +61,6 @@ class AdvancedTextWrapper {
 }
 
 function wrapField(field) {
-	if (field.isContentEditable) {
-		return new ContentEditableWrapper(field);
-	}
-
 	if (field.classList.contains('ace_text-input')) {
 		const ace = field.parentNode;
 		const visualEl = ace.querySelector('.ace_scroller');
@@ -75,6 +71,10 @@ function wrapField(field) {
 	if (cm) {
 		const visualEl = cm.querySelector('.CodeMirror-sizer');
 		return new AdvancedTextWrapper(cm, visualEl);
+	}
+
+	if (field.isContentEditable) {
+		return new ContentEditableWrapper(field);
 	}
 
 	return field;
@@ -107,7 +107,8 @@ class GhostTextField {
 			if (msg.message) {
 				this.receive({data: msg.message});
 			} else if (msg.close) {
-				this.deactivate();
+				this.deactivate(false);
+				updateCount();
 			} else if (msg.ready) {
 				notify('log', 'Connected! You can switch to your editor');
 
@@ -116,13 +117,19 @@ class GhostTextField {
 
 				// Send first value to init tab
 				this.send();
+				updateCount();
+			} else if (msg.error) {
+				notify('warn', msg.error);
+				this.deactivate(false);
 			}
 		});
-
-		updateCount();
 	}
 
-	send() {
+	send(event) {
+		if (event && event.detail?.ghostTextSyntheticEvent) {
+			return;
+		}
+
 		console.info('sending', this.field.value.length, 'characters');
 		this.port.postMessage(JSON.stringify({
 			title: document.title, // TODO: move to first fetch
@@ -145,13 +152,26 @@ class GhostTextField {
 		} = JSON.parse(event.data);
 		if (this.field.value !== text) {
 			this.field.value = text;
+
+			if (this.field.dispatchEvent) {
+				// These are in the right order
+				this.field.dispatchEvent(new KeyboardEvent('keydown'));
+				this.field.dispatchEvent(new KeyboardEvent('keypress'));
+				this.field.dispatchEvent(new CompositionEvent('textInput'));
+				this.field.dispatchEvent(new CustomEvent('input', { // InputEvent doesn't support custom data
+					detail: {
+						ghostTextSyntheticEvent: true
+					}
+				}));
+				this.field.dispatchEvent(new KeyboardEvent('keyup'));
+			}
 		}
 
 		this.field.selectionStart = selections[0].start;
 		this.field.selectionEnd = selections[0].end;
 	}
 
-	deactivate() {
+	deactivate(wasSuccessful = true) {
 		if (this.state === 'inactive') {
 			return;
 		}
@@ -162,7 +182,9 @@ class GhostTextField {
 		this.port.disconnect();
 		this.field.removeEventListener('input', this.send);
 		this.field.dataset.gtField = '';
-		updateCount();
+		if (wasSuccessful) {
+			updateCount();
+		}
 	}
 
 	tryFocus() {
