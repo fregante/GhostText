@@ -38,7 +38,22 @@ async function handleAction({id}) {
 	await browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});
 }
 
-chrome.runtime.onConnect.addListener(async port => {
+function handlePortListenerErrors(listener) {
+	return async port => {
+		try {
+			await listener(port);
+		} catch (error) {
+			let {message} = error;
+			if (message === 'Failed to fetch') {
+				message = 'Unable to connect to the editor. Make sure it’s open, the GhostText extension is running in it, and that the port matches (if you changed it)';
+			}
+
+			port.postMessage({error: message});
+		}
+	};
+}
+
+chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	console.assert(port.name === 'new-field');
 	// TODO: read port from config
 	const response = await fetch('http://localhost:4001');
@@ -70,7 +85,7 @@ chrome.runtime.onConnect.addListener(async port => {
 		socket.close();
 	});
 	port.postMessage({ready: true});
-});
+}));
 
 function handleMessages({code, count}, {tab}) {
 	if (code === 'connection-count') {
