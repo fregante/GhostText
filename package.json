@@ -1,7 +1,7 @@
 {
   "private": true,
   "devDependencies": {
-    "xo": "^0.35.0"
+    "xo": "^0.37.1"
   },
   "scripts": {
     "test": "xo"
