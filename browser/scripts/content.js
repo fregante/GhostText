@@ -108,6 +108,7 @@ class GhostTextField {
 				this.receive({data: msg.message});
 			} else if (msg.close) {
 				this.deactivate(false);
+				updateCount();
 			} else if (msg.ready) {
 				notify('log', 'Connected! You can switch to your editor');
 
@@ -192,7 +193,7 @@ class GhostTextField {
 
 	static deactivateAll() {
 		for (const field of activeFields) {
-			field.deactivate(false);
+			field.deactivate();
 		}
 	}
 }
