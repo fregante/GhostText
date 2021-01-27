@@ -26,7 +26,7 @@ async function handleAction({id}) {
 		await Promise.all([
 			browser.tabs.insertCSS(id, {...defaults, file: '/scripts/content.css'}),
 			browser.tabs.insertCSS(id, {...defaults, file: '/vendor/humane-ghosttext.css'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/vendor/humane-ghosttext.min.js'}),
+			browser.tabs.executeScript(id, {...defaults, file: '/vendor/humane-ghosttext.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/vendor/one-event.browser.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/scripts/unsafe-messenger.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/scripts/content.js'})
