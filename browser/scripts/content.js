@@ -154,16 +154,16 @@ class GhostTextField {
 			this.field.value = text;
 
 			if (this.field.dispatchEvent) {
-				const init = {
+				// These are in the right order
+				this.field.dispatchEvent(new KeyboardEvent('keydown'));
+				this.field.dispatchEvent(new KeyboardEvent('keypress'));
+				this.field.dispatchEvent(new CompositionEvent('textInput'));
+				this.field.dispatchEvent(new CustomEvent('input', { // InputEvent doesn't support custom data
 					detail: {
 						ghostTextSyntheticEvent: true
 					}
-				};
-				this.field.dispatchEvent(new KeyboardEvent('keydown', init));
-				this.field.dispatchEvent(new KeyboardEvent('keypress', init));
-				this.field.dispatchEvent(new CompositionEvent('textInput', init));
-				this.field.dispatchEvent(new InputEvent('input', init));
-				this.field.dispatchEvent(new KeyboardEvent('keyup', init));
+				}));
+				this.field.dispatchEvent(new KeyboardEvent('keyup'));
 			}
 		}
 
