@@ -231,11 +231,11 @@ function startGT() {
 		return;
 	}
 
-  // If there's one element with focus, activate.
+	// If there's one element with focus, activate.
 	const focused = knownElements.get(document.activeElement);
 	if (focused) {
-    focused.activate();
-  } else if (knownElements.size === 1) {
+		focused.activate();
+	} else if (knownElements.size === 1) {
 	// If there's one element and it's not active, activate.
 	// If it's one and active, do nothing
 		if (activeFields.size === 0) {
