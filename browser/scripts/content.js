@@ -61,10 +61,6 @@ class AdvancedTextWrapper {
 }
 
 function wrapField(field) {
-	if (field.isContentEditable) {
-		return new ContentEditableWrapper(field);
-	}
-
 	if (field.classList.contains('ace_text-input')) {
 		const ace = field.parentNode;
 		const visualEl = ace.querySelector('.ace_scroller');
@@ -75,6 +71,10 @@ function wrapField(field) {
 	if (cm) {
 		const visualEl = cm.querySelector('.CodeMirror-sizer');
 		return new AdvancedTextWrapper(cm, visualEl);
+	}
+
+	if (field.isContentEditable) {
+		return new ContentEditableWrapper(field);
 	}
 
 	return field;
