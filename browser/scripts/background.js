@@ -24,7 +24,7 @@ async function handleAction({id}) {
 
 	try {
 		await Promise.all([
-			browser.tabs.insertCSS(id, {...defaults, file: '/vendor/humane-ghosttext.css'}),
+			browser.tabs.insertCSS(id, {...defaults, file: '/scripts/content.css'}),
 			browser.tabs.insertCSS(id, {...defaults, file: '/vendor/humane-ghosttext.css'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/vendor/humane-ghosttext.min.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/vendor/one-event.browser.js'}),
@@ -40,6 +40,7 @@ async function handleAction({id}) {
 
 chrome.runtime.onConnect.addListener(async port => {
 	console.assert(port.name === 'new-field');
+	// TODO: read port from config
 	const response = await fetch('http://localhost:4001');
 	const {ProtocolVersion, WebSocketPort} = await response.json();
 	if (ProtocolVersion !== 1) {
