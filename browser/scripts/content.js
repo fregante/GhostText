@@ -150,11 +150,6 @@ class GhostTextField {
 			text,
 			selections
 		} = JSON.parse(event.data);
-		if (!document.hasFocus()) {
-			console.log('Update from editor discarded because the tab is focused');
-			return;
-		}
-
 		if (this.field.value !== text) {
 			this.field.value = text;
 
