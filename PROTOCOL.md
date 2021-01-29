@@ -23,9 +23,9 @@ The Server responds with a `200` and a content type of `application/json`.
 
 The JSON payload is an object with the following properties:
 
-| Property          | Type   | Description |
-|-------------------|--------|-------------|
-| `ProtocolVersion` | Number | The protocol version |
+| Property          | Type   | Description                          |
+| ----------------- | ------ | ------------------------------------ |
+| `ProtocolVersion` | Number | The protocol version                 |
 | `WebSocketPort`   | Number | The port for the listening WebSocket |
 
 #### Example
@@ -53,37 +53,37 @@ Each time the user makes a change in the browser (or on first WebSocket
 connect) the Client sends via the WebSocket a JSON object message with the
 following properties:
 
-| Property     | Value                  | Description |
-|--------------|------------------------|-------------|
-| `title`      | String                 | The title of the document |
-| `url`        | String                 | The URL of the document |
-| `syntax`     | String                 | *Not used* |
-| `text`       | String                 | The value of the textarea/content |
+| Property     | Value                  | Description                                                                                    |
+| ------------ | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `title`      | String                 | The title of the document                                                                      |
+| `url`        | String                 | The URL of the document                                                                        |
+| `syntax`     | String                 | _Not used_                                                                                     |
+| `text`       | String                 | The value of the textarea/content                                                              |
 | `selections` | Array(SelectionObject) | An array of selection objects that describe the user's current cursor selections in the editor |
 
 #### Selection Object
 
 Selection objects have the following properties:
 
-| Property | Value  | Description |
-|----------|--------|-------------|
+| Property | Value  | Description                    |
+| -------- | ------ | ------------------------------ |
 | `start`  | Number | 0-index start of the selection |
-| `end`    | Number | 0-index end of the selection |
+| `end`    | Number | 0-index end of the selection   |
 
 #### Example
 
 ```json
 {
-  "title": "Test Document",
-  "url": "http://example.com/test-document",
-  "syntax": "",
-  "text": "Adipisicing excepturi voluptate nostrum quas veritatis?",
-  "selections": [
-    {
-      "start": 10,
-      "end": 20
-    }
-  ]
+	"title": "Test Document",
+	"url": "http://example.com/test-document",
+	"syntax": "",
+	"text": "Adipisicing excepturi voluptate nostrum quas veritatis?",
+	"selections": [
+		{
+			"start": 10,
+			"end": 20
+		}
+	]
 }
 ```
 
@@ -92,22 +92,22 @@ Selection objects have the following properties:
 Each time the user makes a change in the editor the Server sends via the
 WebSocket a JSON object message with the following properties:
 
-| Property     | Value                  | Description |
-|--------------|------------------------|-------------|
-| `text`       | String                 | The temporary file content |
+| Property     | Value                  | Description                                                                                    |
+| ------------ | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `text`       | String                 | The temporary file content                                                                     |
 | `selections` | Array(SelectionObject) | An array of selection objects that describe the user's current cursor selections in the editor |
 
 #### Example
 
 ```json
 {
-  "text": "Adipisicing ea lorem expedita facere nesciunt",
-  "selections": [
-    {
-      "start": 20,
-      "end": 30
-    }
-  ]
+	"text": "Adipisicing ea lorem expedita facere nesciunt",
+	"selections": [
+		{
+			"start": 20,
+			"end": 30
+		}
+	]
 }
 ```
 

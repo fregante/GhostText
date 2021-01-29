@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>GhostText options</title>
 <style>
 	html {
 		font-family: sans-serif;
 	}
-	label, button, footer {
+	label,
+	button,
+	footer {
 		display: block;
 		margin: 1em 0;
 	}
@@ -15,7 +17,7 @@
 	footer {
 		font-style: italic;
 		font-size: 0.8em;
-		color: gray
+		color: gray;
 	}
 	footer a {
 		color: inherit;
@@ -24,11 +26,21 @@
 <form id="options-form">
 	<label>
 		Server Port
-		<input name="serverPort" type="number" min="1" max="65536" step="1" placeholder="4001" value="4001" required>
+		<input
+			name="serverPort"
+			type="number"
+			min="1"
+			max="65536"
+			step="1"
+			placeholder="4001"
+			value="4001"
+			required
+		/>
 	</label>
 </form>
 <footer>
-	Issues? Let’s fix them on <a href="https://github.com/GhostText/GhostText">GhostText’s GitHub repo</a>!
-</div>
+	Issues? Let’s fix them on
+	<a href="https://github.com/GhostText/GhostText">GhostText’s GitHub repo</a>!
+</footer>
 <script src="vendor/webext-options-sync.js"></script>
 <script src="scripts/options.js"></script>
