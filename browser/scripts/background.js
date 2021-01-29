@@ -16,7 +16,10 @@ async function handleAction({id}) {
 		runAt: 'document_start',
 		allFrames: true
 	};
-	const [alreadyInjected] = await browser.tabs.executeScript(id, {...defaults, code: 'typeof window.startGT === "function"'});
+	const [alreadyInjected] = await browser.tabs.executeScript(id, {
+		...defaults,
+		code: 'typeof window.startGT === "function"'
+	});
 	console.log(alreadyInjected);
 	if (alreadyInjected) {
 		return browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});

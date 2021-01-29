@@ -1,25 +1,25 @@
 {
-  "private": true,
-  "devDependencies": {
-    "xo": "^0.37.1"
-  },
-  "scripts": {
-    "test": "xo"
-  },
-  "xo": {
-    "envs": [
-      "browser",
-      "webextensions"
-    ],
-    "rules": {
-      "unicorn/prevent-abbreviations": 0,
-      "no-alert": 0
-    },
-    "globals": [
-      "oneEvent"
-    ],
-    "ignores": [
-      "browser/vendor/*"
-    ]
-  }
+	"private": true,
+	"scripts": {
+		"test": "xo"
+	},
+	"xo": {
+		"envs": [
+			"browser",
+			"webextensions"
+		],
+		"globals": [
+			"oneEvent"
+		],
+		"ignores": [
+			"browser/vendor/*"
+		],
+		"rules": {
+			"unicorn/prevent-abbreviations": 0,
+			"no-alert": 0
+		}
+	},
+	"devDependencies": {
+		"xo": "^0.37.1"
+	}
 }

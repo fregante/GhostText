@@ -30,9 +30,11 @@ class AdvancedTextWrapper {
 		this.el.addEventListener('gt:input', event => {
 			this._value = event.detail.value;
 		});
-		this.el.dispatchEvent(new CustomEvent('gt:get', {
-			bubbles: true
-		}));
+		this.el.dispatchEvent(
+			new CustomEvent('gt:get', {
+				bubbles: true
+			})
+		);
 	}
 
 	blur() {
@@ -131,25 +133,24 @@ class GhostTextField {
 		}
 
 		console.info('sending', this.field.value.length, 'characters');
-		this.port.postMessage(JSON.stringify({
-			title: document.title, // TODO: move to first fetch
-			url: location.host, // TODO: move to first fetch
-			syntax: '', // TODO: move to first fetch
-			text: this.field.value,
-			selections: [
-				{
-					start: this.field.selectionStart || 0,
-					end: this.field.selectionEnd || 0
-				}
-			]
-		}));
+		this.port.postMessage(
+			JSON.stringify({
+				title: document.title, // TODO: move to first fetch
+				url: location.host, // TODO: move to first fetch
+				syntax: '', // TODO: move to first fetch
+				text: this.field.value,
+				selections: [
+					{
+						start: this.field.selectionStart || 0,
+						end: this.field.selectionEnd || 0
+					}
+				]
+			})
+		);
 	}
 
 	receive(event) {
-		const {
-			text,
-			selections
-		} = JSON.parse(event.data);
+		const {text, selections} = JSON.parse(event.data);
 		if (!document.hasFocus()) {
 			console.log('Update from editor discarded because the tab is focused');
 			return;
