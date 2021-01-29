@@ -15,8 +15,7 @@
 			"browser/vendor/*"
 		],
 		"rules": {
-			"unicorn/prevent-abbreviations": 0,
-			"no-alert": 0
+			"no-alert": "off"
 		}
 	},
 	"devDependencies": {

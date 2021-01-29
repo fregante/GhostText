@@ -78,9 +78,9 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	socket.addEventListener('message', event => port.postMessage({message: event.data}));
 	socket.addEventListener('error', event => console.error('error!', event));
 
-	port.onMessage.addListener(msg => {
-		console.log('got message from script', msg);
-		socket.send(msg);
+	port.onMessage.addListener(message => {
+		console.log('got message from script', message);
+		socket.send(message);
 	});
 	console.log(port);
 	port.onDisconnect.addListener(() => {
