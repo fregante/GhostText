@@ -15,9 +15,7 @@ window.unsafeMessenger = function () {
 	}
 
 	function sendBack(target, value) {
-		target.dispatchEvent(
-			new CustomEvent('gt:input', {detail: {value}})
-		);
+		target.dispatchEvent(new CustomEvent('gt:input', {detail: {value}}));
 	}
 
 	function throttle(interval, callback) {
@@ -37,11 +35,14 @@ window.unsafeMessenger = function () {
 
 		sendBack(target, editor.getValue());
 
-		editor.on('changes', throttle(50, (instance, [{origin}]) => {
-			if (origin !== 'setValue') {
-				sendBack(target, editor.getValue());
-			}
-		}));
+		editor.on(
+			'changes',
+			throttle(50, (instance, [{origin}]) => {
+				if (origin !== 'setValue') {
+					sendBack(target, editor.getValue());
+				}
+			})
+		);
 		target.addEventListener('gt:transfer', () => {
 			editor.setValue(target.getAttribute('gt-value'));
 		});

@@ -1,5 +1,8 @@
 # <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
 
+[link-cws]: https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca 'Version published on Chrome Web Store'
+[link-amo]: https://addons.mozilla.org/en-US/firefox/addon/ghosttext/ 'Version published on Mozilla Add-ons'
+
 <img src="promo/demo.gif" alt="Demo screencast" align="right">
 
 Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
@@ -9,31 +12,33 @@ Use your text editor to write in your browser. Everything you type in the editor
 ## Installation
 
 1. Install your editor extension:
-    + [**Sublime Text** extension](https://sublime.wbond.net/packages/GhostText) - [Repo](https://github.com/GhostText/GhostText-for-SublimeText)
-    + [**Atom** package](https://github.com/GhostText/GhostText-for-Atom)
-    + [**VS Code** extension](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) - [Repo](https://github.com/jtokoph/ghosttext-vscode) (Third party)
-    + [**Emacs** package](https://melpa.org/#/atomic-chrome) - [Repo](https://github.com/alpha22jp/atomic-chrome) (Third party)
-    + [**Acme** client](https://github.com/fhs/Ghost) (Third party)
-    + <details>
-        <summary><b>Vim</b>/<b>Neovim</b> (Third party)</summary>
-        <ul>
-          <li><a href="https://github.com/raghur/vim-ghost"><b>Vim</b> (<tt>+python3</tt>) & <b>Neovim</b> (<tt>pynvim</tt>)</a>
-          <li><a href="https://github.com/falstro/ghost-text-vim"><b>Vim</b> (<tt>+tcl</tt>)</a>
-          <li><a href="https://github.com/pandysong/ghost-text.vim"><b>Vim</b> (<tt>+python3 +channel</tt>)</a>
-          <li><a href="https://github.com/subnut/nvim-ghost.nvim"><b>Neovim</b></a>
-        </ul>
-      </details>
+
+	- [**Sublime Text**](https://sublime.wbond.net/packages/GhostText) ([Repo](https://github.com/GhostText/GhostText-for-SublimeText))
+	- [**Atom**](https://github.com/GhostText/GhostText-for-Atom)
+	- [**VS Code**](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) ([Repo](https://github.com/jtokoph/ghosttext-vscode)) (Third party)
+	- [**Emacs**](https://melpa.org/#/atomic-chrome) ([Repo](https://github.com/alpha22jp/atomic-chrome)) (Third party)
+	- [**Acme**](https://github.com/fhs/Ghost) (Third party)
+	- <details>
+			<summary><b>Vim</b>/<b>Neovim</b> (Third party)</summary>
+			<ul>
+				<li><a href="https://github.com/raghur/vim-ghost"><b>Vim</b> (<tt>+python3</tt>) & <b>Neovim</b> (<tt>pynvim</tt>)</a>
+				<li><a href="https://github.com/falstro/ghost-text-vim"><b>Vim</b> (<tt>+tcl</tt>)</a>
+				<li><a href="https://github.com/pandysong/ghost-text.vim"><b>Vim</b> (<tt>+python3 +channel</tt>)</a>
+				<li><a href="https://github.com/subnut/nvim-ghost.nvim"><b>Neovim</b></a>
+			</ul>
+		</details>
+
 2. Install your browser extension:
-    + [**Chrome** extension](https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca)
-    + [**Firefox** add-on](https://addons.mozilla.org/en-US/firefox/addon/ghosttext/)
-    + Opera - Use [this](https://addons.opera.com/en/extensions/details/download-chrome-extension-9/) to install the Chrome extension.
+
+	 - [**Chrome**][link-cws] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg?label=%20">][link-cws]
+	 - [**Firefox**][link-amo] [<img valign="middle" src="https://img.shields.io/amo/v/ghosttext.svg?label=%20">][link-amo]
 
 ## Website support
 
-* `<textarea>` elements
-* [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) areas: like in Gmail
-* [CodeMirror](http://codemirror.net/) editors: used on CodePen, JSFiddle, JS Bin, …
-* [Ace](http://ace.c9.io/) editor: used on Tumblr, …
+- `<textarea>` elements
+- [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) areas: like in Gmail
+- [CodeMirror](http://codemirror.net/) editors: used on CodePen, JSFiddle, JS Bin, …
+- [Ace](http://ace.c9.io/) editor: used on Tumblr, …
 
 ## Usage
 
@@ -51,24 +56,24 @@ or
 [like this in Firefox](https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox).
 
 <table>
-  <tr>
-    <th>OS</th>
-    <th>Shortcut</th>
-  </tr>
-  <tr>
-    <td>Windows</td>
-    <td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
-  </tr>
-  <tr>
-    <td>Linux</td>
-    <td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>H</kbd></td>
-  </tr>
-  <tr>
-    <td>Mac</td>
-    <td><kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
-  </tr>
+	<tr>
+		<th>OS</th>
+		<th>Shortcut</th>
+	</tr>
+	<tr>
+		<td>Windows</td>
+		<td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
+	</tr>
+	<tr>
+		<td>Linux</td>
+		<td><kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>H</kbd></td>
+	</tr>
+	<tr>
+		<td>Mac</td>
+		<td><kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>K</kbd></td>
+	</tr>
 </table>
 
 ## License
 
-MIT © [Federico Brigante](http://twitter.com/bfred_it), Guido Krömer
+MIT © [Federico Brigante](https://fregante.com)

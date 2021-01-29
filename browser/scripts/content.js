@@ -6,12 +6,12 @@ const activeFields = new Set();
 let isWaitingForActivation = false;
 
 class ContentEditableWrapper {
-	constructor(el) {
-		this.el = el;
-		this.dataset = el.dataset;
-		this.addEventListener = el.addEventListener.bind(el);
-		this.removeEventListener = el.removeEventListener.bind(el);
-		this.blur = el.blur.bind(el);
+	constructor(element) {
+		this.el = element;
+		this.dataset = element.dataset;
+		this.addEventListener = element.addEventListener.bind(element);
+		this.removeEventListener = element.removeEventListener.bind(element);
+		this.blur = element.blur.bind(element);
 	}
 
 	get value() {
@@ -24,15 +24,17 @@ class ContentEditableWrapper {
 }
 
 class AdvancedTextWrapper {
-	constructor(el, visualEl) {
-		this.el = el;
-		this.dataset = visualEl.dataset;
+	constructor(element, visualElement) {
+		this.el = element;
+		this.dataset = visualElement.dataset;
 		this.el.addEventListener('gt:input', event => {
 			this._value = event.detail.value;
 		});
-		this.el.dispatchEvent(new CustomEvent('gt:get', {
-			bubbles: true
-		}));
+		this.el.dispatchEvent(
+			new CustomEvent('gt:get', {
+				bubbles: true
+			})
+		);
 	}
 
 	blur() {
@@ -63,14 +65,14 @@ class AdvancedTextWrapper {
 function wrapField(field) {
 	if (field.classList.contains('ace_text-input')) {
 		const ace = field.parentNode;
-		const visualEl = ace.querySelector('.ace_scroller');
-		return new AdvancedTextWrapper(ace, visualEl);
+		const visualElement = ace.querySelector('.ace_scroller');
+		return new AdvancedTextWrapper(ace, visualElement);
 	}
 
 	const cm = field.closest('.CodeMirror');
 	if (cm) {
-		const visualEl = cm.querySelector('.CodeMirror-sizer');
-		return new AdvancedTextWrapper(cm, visualEl);
+		const visualElement = cm.querySelector('.CodeMirror-sizer');
+		return new AdvancedTextWrapper(cm, visualElement);
 	}
 
 	if (field.isContentEditable) {
@@ -103,13 +105,13 @@ class GhostTextField {
 		this.field.dataset.gtField = 'loading';
 
 		this.port = chrome.runtime.connect({name: 'new-field'});
-		this.port.onMessage.addListener(msg => {
-			if (msg.message) {
-				this.receive({data: msg.message});
-			} else if (msg.close) {
+		this.port.onMessage.addListener(message => {
+			if (message.message) {
+				this.receive({data: message.message});
+			} else if (message.close) {
 				this.deactivate(false);
 				updateCount();
-			} else if (msg.ready) {
+			} else if (message.ready) {
 				notify('log', 'Connected! You can switch to your editor');
 
 				this.field.addEventListener('input', this.send);
@@ -118,8 +120,8 @@ class GhostTextField {
 				// Send first value to init tab
 				this.send();
 				updateCount();
-			} else if (msg.error) {
-				notify('warn', msg.error);
+			} else if (message.error) {
+				notify('warn', message.error);
 				this.deactivate(false);
 			}
 		});
@@ -131,25 +133,25 @@ class GhostTextField {
 		}
 
 		console.info('sending', this.field.value.length, 'characters');
-		this.port.postMessage(JSON.stringify({
-			title: document.title, // TODO: move to first fetch
-			url: location.host, // TODO: move to first fetch
-			syntax: '', // TODO: move to first fetch
-			text: this.field.value,
-			selections: [
-				{
-					start: this.field.selectionStart || 0,
-					end: this.field.selectionEnd || 0
-				}
-			]
-		}));
+		this.port.postMessage(
+			JSON.stringify({
+				title: document.title, // TODO: move to first fetch
+				url: location.host, // TODO: move to first fetch
+				syntax: '', // TODO: move to first fetch
+				text: this.field.value,
+				selections: [
+					{
+						start: this.field.selectionStart || 0,
+						end: this.field.selectionEnd || 0
+					}
+				]
+			})
+		);
 	}
 
 	receive(event) {
-		const {
-			text,
-			selections
-		} = JSON.parse(event.data);
+		const {text, selections} = JSON.parse(event.data);
+
 		if (this.field.value !== text) {
 			this.field.value = text;
 

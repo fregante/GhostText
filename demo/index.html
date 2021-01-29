@@ -1,45 +1,52 @@
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>GhostText test page</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css">
-	<style>
-		html {
-			font-family: sans-serif;
-			max-width: 600px;
-			color: #333;
-			margin: auto;
-		}
-		iframe,
-		textarea,
-		[contenteditable],
-		#ace {
-			border: solid 1px silver;
-			border-radius: 3px;
-			min-height: 100px;
-			width: 100%;
-		}
-		.CodeMirror {
-			height: 100px;
-		}
-		textarea {
-			font: inherit;
-		}
-		.flex {
-			display: flex;
-			justify-content: space-between;
-		}
-		textarea {
-			max-width: 49%;
-		}
-		iframe {
-			opacity: 0.8;
-			height: 200px;
-		}
-	</style>
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<title>GhostText test page</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css"
+		/>
+		<style>
+			html {
+				font-family: sans-serif;
+				max-width: 600px;
+				color: #333;
+				margin: auto;
+			}
+			iframe,
+			textarea,
+			[contenteditable],
+			#ace {
+				border: solid 1px silver;
+				border-radius: 3px;
+				min-height: 100px;
+				width: 100%;
+			}
+			.CodeMirror {
+				height: 100px;
+			}
+			textarea {
+				font: inherit;
+			}
+			.flex {
+				display: flex;
+				justify-content: space-between;
+			}
+			textarea {
+				max-width: 49%;
+			}
+			iframe {
+				opacity: 0.8;
+				height: 200px;
+			}
+		</style>
+	</head>
 	<h1>
-		<img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
+		<img
+			src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png"
+			height="60"
+			alt="GhostText"
+		/>
 	</h1>
 
 	<h2><code>&lt;textarea&gt;</code></h2>
@@ -74,9 +81,8 @@
 </pre>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
 	<script>
-		window.ace.edit('ace').setOption("maxLines", 30)
+		window.ace.edit('ace').setOption('maxLines', 30);
 	</script>
-
 
 	<h2>Fields inside <code>&lt;iframe&gt;</code></h2>
 	<iframe src="." frameborder="0">One level deep, please!</iframe>
