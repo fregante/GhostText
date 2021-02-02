@@ -1,3 +1,11 @@
+/* globals OptionsSync */
+const optionsStorage = new OptionsSync();
+optionsStorage.define({
+	defaults: {
+		serverPort: 4001
+	}
+});
+
 function inCurrentTab(callback) {
 	chrome.tabs.query({
 		active: true,
@@ -29,6 +37,7 @@ async function handleAction({id}) {
 		await Promise.all([
 			browser.tabs.insertCSS(id, {...defaults, file: '/scripts/content.css'}),
 			browser.tabs.insertCSS(id, {...defaults, file: '/vendor/humane-ghosttext.css'}),
+			browser.tabs.executeScript(id, {...defaults, file: '/vendor/webext-options-sync.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/vendor/humane-ghosttext.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/vendor/one-event.browser.js'}),
 			browser.tabs.executeScript(id, {...defaults, file: '/scripts/unsafe-messenger.js'}),
@@ -58,8 +67,8 @@ function handlePortListenerErrors(listener) {
 
 chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	console.assert(port.name === 'new-field');
-	// TODO: read port from config
-	const response = await fetch('http://localhost:4001');
+	const {serverPort} = await optionsStorage.getAll();
+	const response = await fetch(`http://localhost:${serverPort}`);
 	const {ProtocolVersion, WebSocketPort} = await response.json();
 	if (ProtocolVersion !== 1) {
 		throw new Error('Incompatible protocol version');
@@ -126,13 +135,6 @@ function init() {
 
 	chrome.browserAction.setBadgeBackgroundColor({
 		color: '#008040'
-	});
-
-	/* globals OptionsSync */
-	new OptionsSync().define({
-		defaults: {
-			serverPort: 4001
-		}
 	});
 }
 
