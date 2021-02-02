@@ -254,36 +254,41 @@ function notify(type, message, stay) {
 
 function startGT() {
 	registerElements();
-	console.info(knownElements.size + ' elements on the page');
+	console.info(knownElements.size + ' fields on the page');
 	if (knownElements.size === 0) {
-		notify('warn', 'No supported elements found!');
+		notify('warn', 'No supported fields found');
 		return;
 	}
 
-	// Blur focused element to allow selection with a click/focus
-	const focused = knownElements.get(document.activeElement);
-	if (focused) {
-		focused.field.blur();
+	if (knownElements.size === activeFields.size) {
+		notify('log', 'All the fields on the page are active. Right-click the GhostText icon if you want to stop the connection');
+		return;
 	}
 
-	// If there's one element and it's not active, activate.
-	// If it's one and active, do nothing
-	if (knownElements.size === 1) {
-		if (activeFields.size === 0) {
-			const [field] = knownElements.values();
-			field.activate();
-		}
+	// Automatically activate the focused field, unless it's already is active
+	const focusedField = knownElements.get(document.activeElement);
+	if (focusedField && !activeFields.has(focusedField)) {
+		focusedField.activate();
+		return;
+	}
+
+	// Automatically activate the only inactive field on the page
+	const inactiveFields = [...knownElements.values()].filter(field => !activeFields.has(field));
+	if (inactiveFields.length === 1 && !document.querySelector('iframe')) {
+		inactiveFields[0].activate();
+		return;
+	}
+
+	isWaitingForActivation = true;
+	document.body.classList.add('GT--waiting');
+
+	if (activeFields.size === 0) {
+		notify('log', 'Click on the desired element to activate it.', true);
 	} else {
-		isWaitingForActivation = true;
-		document.body.classList.add('GT--waiting');
-
-		if (activeFields.size === 0) {
-			notify('log', 'Click on the desired element to activate it.', true);
-		} else {
-			notify('log', 'Click on the desired element to activate it or right-click the GhostText icon to stop the connection.', true);
-		}
-		// TODO: waiting timeout
+		notify('log', 'Click on the desired element to activate it or right-click the GhostText icon to stop the connection.', true);
 	}
+
+	// TODO: waiting timeout
 }
 
 function stopGT() {
