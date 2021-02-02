@@ -1,6 +1,8 @@
 env: {}
 
-# DO NOT EDIT BELOW, USE: npx ghat fregante/ghatemplates/node --exclude 'jobs.Build' --exclude 'jobs.Test'
+# FILE GENERATED WITH: npx ghat fregante/ghatemplates/node
+# SOURCE: https://github.com/fregante/ghatemplates
+# OPTIONS: {"exclude":["jobs.Build","jobs.Test"]}
 
 name: CI
 on:
