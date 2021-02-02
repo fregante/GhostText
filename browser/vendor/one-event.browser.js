@@ -1,2 +1,0 @@
-/*! npm.im/one-event */
-var oneEvent=function(){"use strict";function e(e,n,t,r){e.addEventListener(n,t,r),e.addEventListener(n,function i(){e.removeEventListener(n,t,r),e.removeEventListener(n,i,r)},r)}return e.promise=function(n,t,r){return new Promise(function(i){return e(n,t,i,r)})},e}();

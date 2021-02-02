@@ -44,15 +44,12 @@
 			}
 		}
 	},
+	"content_scripts": [{
+		"matches": ["http://localhost:4001/*"],
+		"js": ["ghost-text.js"],
+		"css": ["ghost-text.css"]
+	}],
 	"background": {
-		"scripts": [
-			"vendor/webext-options-sync.js",
-			"vendor/browser-polyfill.min.js",
-			"vendor/one-event.browser.js",
-			"scripts/background.js"
-		]
-	},
-	"web_accessible_resources": [
-		"scripts/unsafe-messenger.js"
-	]
+		"scripts": ["background.js"]
+	}
 }

@@ -1,24 +1,36 @@
 {
 	"private": true,
 	"scripts": {
-		"test": "xo"
+		"build": "parcel build source/manifest.json --dist-dir distribution --no-cache --detailed-report 0",
+		"lint": "xo",
+		"test": "xo && npm run build",
+		"watch": "parcel watch source/manifest.json --dist-dir distribution --no-cache --no-hmr"
 	},
+	"browserslist": [
+		"last 1 Chrome version",
+		"last 1 Firefox version"
+	],
 	"xo": {
 		"envs": [
 			"browser",
 			"webextensions"
 		],
-		"globals": [
-			"oneEvent"
-		],
 		"ignores": [
-			"browser/vendor/*"
+			"source/humane-ghosttext.js"
 		],
 		"rules": {
 			"no-alert": "off"
 		}
 	},
+	"dependencies": {
+		"one-event": "^3.0.0",
+		"webext-options-sync": "^2.0.1",
+		"webextension-polyfill": "^0.7.0"
+	},
 	"devDependencies": {
+		"@parcel/config-webextension": "^2.0.0-nightly.2186",
+		"@parcel/transformer-webextension": "^2.0.0-nightly.2186",
+		"parcel": "^2.0.0-nightly.562",
 		"xo": "^0.37.1"
 	}
 }

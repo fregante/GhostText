@@ -1,6 +1,8 @@
-/* globals OptionsSync */
-const optionsStorage = new OptionsSync();
-optionsStorage.define({
+import browser from 'webextension-polyfill';
+import oneEvent from 'one-event';
+import OptionsSync from 'webext-options-sync';
+
+const optionsStorage = new OptionsSync({
 	defaults: {
 		serverPort: 4001
 	}
@@ -35,13 +37,8 @@ async function handleAction({id}) {
 
 	try {
 		await Promise.all([
-			browser.tabs.insertCSS(id, {...defaults, file: '/scripts/ghost-text.css'}),
-			browser.tabs.insertCSS(id, {...defaults, file: '/vendor/humane-ghosttext.css'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/vendor/webext-options-sync.js'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/vendor/humane-ghosttext.js'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/vendor/one-event.browser.js'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/scripts/unsafe-messenger.js'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/scripts/ghost-text.js'})
+			browser.tabs.insertCSS(id, {...defaults, file: '/ghost-text.css'}),
+			browser.tabs.executeScript(id, {...defaults, file: '/ghost-text.js'})
 		]);
 	} catch (error) {
 		console.error(error);
@@ -77,8 +74,8 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	console.log('will open socket');
 	const socket = new WebSocket('ws://localhost:' + WebSocketPort);
 	const event = await Promise.race([
-		oneEvent.promise(socket, 'open'),
-		oneEvent.promise(socket, 'error')
+		oneEvent(socket, 'open'),
+		oneEvent(socket, 'error')
 	]);
 	console.log(event);
 
