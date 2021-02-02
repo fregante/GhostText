@@ -104,14 +104,8 @@ function handleMessages({code, count}, {tab}) {
 			tabId: tab.id
 		});
 	} else if (code === 'focus-tab') {
-		// We need to query it again because windowId might have changed in the
-		// meanwhile.
-		chrome.tabs.get(tab.id, tab => {
-			// Focus window.
-			chrome.windows.update(tab.windowId, {focused: true});
-			// Focus tab.
-			chrome.tabs.update(tab.id, {active: true});
-		});
+		chrome.tabs.update(tab.id, {active: true});
+		chrome.windows.update(tab.windowId, {focused: true});
 	}
 }
 
