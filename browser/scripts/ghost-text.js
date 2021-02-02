@@ -4,6 +4,7 @@ const knownElements = new Map();
 const activeFields = new Set();
 
 let isWaitingForActivation = false;
+const startTimeout = 15000;
 
 class ContentEditableWrapper {
 	constructor(element) {
@@ -244,11 +245,10 @@ function getMessageDisplayTime(message) {
 	return message.split(' ').length / wpm * 60000;
 }
 
-function notify(type, message, stay) {
+function notify(type, message, timeout = getMessageDisplayTime(message)) {
 	console[type]('GhostText:', message);
 	GThumane.remove();
 	message = message.replace(/\n/g, '<br>');
-	const timeout = stay ? 0 : getMessageDisplayTime(message);
 	const notification = GThumane.log(message, {
 		timeout,
 		addnCls: type === 'log' ? '' : 'ghost-text-message-error'
@@ -257,6 +257,8 @@ function notify(type, message, stay) {
 }
 
 function startGT() {
+	clearTimeout(stopGT);
+
 	registerElements();
 	console.info(knownElements.size + ' fields on the page');
 	if (knownElements.size === 0) {
@@ -287,12 +289,12 @@ function startGT() {
 	document.body.classList.add('GT--waiting');
 
 	if (activeFields.size === 0) {
-		notify('log', 'Click on the desired element to activate it.', true);
+		notify('log', 'Click on the desired element to activate it.', startTimeout);
 	} else {
-		notify('log', 'Click on the desired element to activate it or right-click the GhostText icon to stop the connection.', true);
+		notify('log', 'Click on the desired element to activate it or right-click the GhostText icon to stop the connection.', startTimeout);
 	}
 
-	// TODO: waiting timeout
+	setTimeout(stopGT, startTimeout);
 }
 
 function stopGT() {
