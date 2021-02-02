@@ -249,11 +249,11 @@ function notify(type, message, stay) {
 	GThumane.remove();
 	message = message.replace(/\n/g, '<br>');
 	const timeout = stay ? 0 : getMessageDisplayTime(message);
-	GThumane.log(message, {
+	const notification = GThumane.log(message, {
 		timeout,
-		clickToClose: true,
 		addnCls: type === 'log' ? '' : 'ghost-text-message-error'
 	});
+	document.addEventListener('click', () => notification.remove(), {once: true});
 }
 
 function startGT() {
