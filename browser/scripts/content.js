@@ -274,7 +274,7 @@ function startGT() {
 
 	// Automatically activate the only inactive field on the page
 	const inactiveFields = [...knownElements.values()].filter(field => !activeFields.has(field));
-	if (inactiveFields.length === 1) {
+	if (inactiveFields.length === 1 && !document.querySelector('iframe')) {
 		inactiveFields[0].activate();
 		return;
 	}
