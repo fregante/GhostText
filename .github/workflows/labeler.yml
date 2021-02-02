@@ -1,6 +1,7 @@
 env: {}
 
-# DO NOT EDIT BELOW, USE: npx ghat fregante/title-to-labels-action/workflow
+# FILE GENERATED WITH: npx ghat fregante/title-to-labels-action/workflow
+# SOURCE: https://github.com/fregante/title-to-labels-action
 
 name: Labeler
 
