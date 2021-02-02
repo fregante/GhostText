@@ -103,6 +103,9 @@ function handleMessages({code, count}, {tab}) {
 			text,
 			tabId: tab.id
 		});
+	} else if (code === 'focus-tab') {
+		chrome.tabs.update(tab.id, {active: true});
+		chrome.windows.update(tab.windowId, {focused: true});
 	}
 }
 
