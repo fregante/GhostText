@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"scripts": {
-		"build": "parcel build source/manifest.json --dist-dir distribution --no-cache --detailed-report 0 --no-source-maps",
+		"build": "parcel build source/manifest.json --no-source-maps --no-optimize --dist-dir distribution --no-cache --detailed-report 0",
 		"lint": "xo",
 		"pack:safari": "xcodebuild -project 'safari/GhostText.xcodeproj'",
 		"start:safari": "open 'safari/build/Release/GhostText.app'",

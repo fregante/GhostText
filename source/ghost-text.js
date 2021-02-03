@@ -6,6 +6,7 @@ const activeFields = new Set();
 
 let isWaitingForActivation = false;
 const startTimeout = 15000;
+let timeoutHandle;
 
 class ContentEditableWrapper {
 	constructor(element) {
@@ -202,6 +203,7 @@ class GhostTextField {
 
 	tryFocus() {
 		if (isWaitingForActivation && this.state === 'inactive') {
+			clearTimeout(timeoutHandle);
 			this.activate();
 			isWaitingForActivation = false;
 			document.body.classList.remove('GT--waiting');
@@ -258,7 +260,7 @@ function notify(type, message, timeout = getMessageDisplayTime(message)) {
 }
 
 function startGT() {
-	clearTimeout(stopGT);
+	clearTimeout(timeoutHandle);
 
 	registerElements();
 	console.info(knownElements.size + ' fields on the page');
@@ -295,7 +297,8 @@ function startGT() {
 		notify('log', 'Click on the desired element to activate it or right-click the GhostText icon to stop the connection.', startTimeout);
 	}
 
-	setTimeout(stopGT, startTimeout);
+	clearTimeout(timeoutHandle);
+	timeoutHandle = setTimeout(stopGT, startTimeout);
 }
 
 function stopGT() {
