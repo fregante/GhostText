@@ -1,0 +1,546 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F92803125CA3273008B74DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F92803025CA3273008B74DB /* AppDelegate.swift */; };
+		1F92803425CA3273008B74DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F92803225CA3273008B74DB /* Main.storyboard */; };
+		1F92803625CA3273008B74DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F92803525CA3273008B74DB /* ViewController.swift */; };
+		1F92803825CA3274008B74DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F92803725CA3274008B74DB /* Assets.xcassets */; };
+		1F92803F25CA3274008B74DB /* GhostText Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1F92803E25CA3274008B74DB /* GhostText Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1F92804425CA3274008B74DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F92804325CA3274008B74DB /* Cocoa.framework */; };
+		1F92804725CA3274008B74DB /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F92804625CA3274008B74DB /* SafariWebExtensionHandler.swift */; };
+		1F92806325CA3274008B74DB /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805525CA3274008B74DB /* background.js */; };
+		1F92806425CA3274008B74DB /* images in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805625CA3274008B74DB /* images */; };
+		1F92806525CA3274008B74DB /* ghost-text.css in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805725CA3274008B74DB /* ghost-text.css */; };
+		1F92806625CA3274008B74DB /* options.766689a5.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805825CA3274008B74DB /* options.766689a5.js */; };
+		1F92806725CA3274008B74DB /* ghost-text.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805A25CA3274008B74DB /* ghost-text.js */; };
+		1F92806825CA3274008B74DB /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805D25CA3274008B74DB /* manifest.json */; };
+		1F92806925CA3274008B74DB /* unsafe-messenger.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805E25CA3274008B74DB /* unsafe-messenger.js */; };
+		1F92806A25CA3274008B74DB /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805F25CA3274008B74DB /* options.html */; };
+		1F92806B25CA3274008B74DB /* options.09b850fa.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92806125CA3274008B74DB /* options.09b850fa.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1F92804025CA3274008B74DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F92802425CA3272008B74DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F92803D25CA3274008B74DB;
+			remoteInfo = "GhostText Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1F92804F25CA3274008B74DB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1F92803F25CA3274008B74DB /* GhostText Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1F92802C25CA3273008B74DB /* GhostText.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GhostText.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F92802F25CA3273008B74DB /* GhostText.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GhostText.entitlements; sourceTree = "<group>"; };
+		1F92803025CA3273008B74DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1F92803325CA3273008B74DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1F92803525CA3273008B74DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1F92803725CA3274008B74DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1F92803925CA3274008B74DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F92803E25CA3274008B74DB /* GhostText Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "GhostText Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F92804325CA3274008B74DB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		1F92804625CA3274008B74DB /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		1F92804825CA3274008B74DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F92804925CA3274008B74DB /* GhostText_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GhostText_Extension.entitlements; sourceTree = "<group>"; };
+		1F92805425CA3274008B74DB /* ghost-text.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = "ghost-text.js.map"; path = "../../distribution/ghost-text.js.map"; sourceTree = "<group>"; };
+		1F92805525CA3274008B74DB /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../distribution/background.js; sourceTree = "<group>"; };
+		1F92805625CA3274008B74DB /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../../distribution/images; sourceTree = "<group>"; };
+		1F92805725CA3274008B74DB /* ghost-text.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "ghost-text.css"; path = "../../distribution/ghost-text.css"; sourceTree = "<group>"; };
+		1F92805825CA3274008B74DB /* options.766689a5.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = options.766689a5.js; path = ../../distribution/options.766689a5.js; sourceTree = "<group>"; };
+		1F92805925CA3274008B74DB /* options.766689a5.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = options.766689a5.js.map; path = ../../distribution/options.766689a5.js.map; sourceTree = "<group>"; };
+		1F92805A25CA3274008B74DB /* ghost-text.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "ghost-text.js"; path = "../../distribution/ghost-text.js"; sourceTree = "<group>"; };
+		1F92805B25CA3274008B74DB /* options.09b850fa.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = options.09b850fa.js.map; path = ../../distribution/options.09b850fa.js.map; sourceTree = "<group>"; };
+		1F92805C25CA3274008B74DB /* ghost-text.css.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = "ghost-text.css.map"; path = "../../distribution/ghost-text.css.map"; sourceTree = "<group>"; };
+		1F92805D25CA3274008B74DB /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../distribution/manifest.json; sourceTree = "<group>"; };
+		1F92805E25CA3274008B74DB /* unsafe-messenger.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "unsafe-messenger.js"; path = "../../distribution/unsafe-messenger.js"; sourceTree = "<group>"; };
+		1F92805F25CA3274008B74DB /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = ../../distribution/options.html; sourceTree = "<group>"; };
+		1F92806025CA3274008B74DB /* background.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = background.js.map; path = ../../distribution/background.js.map; sourceTree = "<group>"; };
+		1F92806125CA3274008B74DB /* options.09b850fa.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = options.09b850fa.js; path = ../../distribution/options.09b850fa.js; sourceTree = "<group>"; };
+		1F92806225CA3274008B74DB /* unsafe-messenger.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = "unsafe-messenger.js.map"; path = "../../distribution/unsafe-messenger.js.map"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1F92802925CA3273008B74DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F92803B25CA3274008B74DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F92804425CA3274008B74DB /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1F92802325CA3272008B74DB = {
+			isa = PBXGroup;
+			children = (
+				1F92802E25CA3273008B74DB /* GhostText */,
+				1F92804525CA3274008B74DB /* GhostText Extension */,
+				1F92804225CA3274008B74DB /* Frameworks */,
+				1F92802D25CA3273008B74DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1F92802D25CA3273008B74DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F92802C25CA3273008B74DB /* GhostText.app */,
+				1F92803E25CA3274008B74DB /* GhostText Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F92802E25CA3273008B74DB /* GhostText */ = {
+			isa = PBXGroup;
+			children = (
+				1F92802F25CA3273008B74DB /* GhostText.entitlements */,
+				1F92803025CA3273008B74DB /* AppDelegate.swift */,
+				1F92803225CA3273008B74DB /* Main.storyboard */,
+				1F92803525CA3273008B74DB /* ViewController.swift */,
+				1F92803725CA3274008B74DB /* Assets.xcassets */,
+				1F92803925CA3274008B74DB /* Info.plist */,
+			);
+			path = GhostText;
+			sourceTree = "<group>";
+		};
+		1F92804225CA3274008B74DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F92804325CA3274008B74DB /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F92804525CA3274008B74DB /* GhostText Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1F92805325CA3274008B74DB /* Resources */,
+				1F92804625CA3274008B74DB /* SafariWebExtensionHandler.swift */,
+				1F92804825CA3274008B74DB /* Info.plist */,
+				1F92804925CA3274008B74DB /* GhostText_Extension.entitlements */,
+			);
+			path = "GhostText Extension";
+			sourceTree = "<group>";
+		};
+		1F92805325CA3274008B74DB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1F92805425CA3274008B74DB /* ghost-text.js.map */,
+				1F92805525CA3274008B74DB /* background.js */,
+				1F92805625CA3274008B74DB /* images */,
+				1F92805725CA3274008B74DB /* ghost-text.css */,
+				1F92805825CA3274008B74DB /* options.766689a5.js */,
+				1F92805925CA3274008B74DB /* options.766689a5.js.map */,
+				1F92805A25CA3274008B74DB /* ghost-text.js */,
+				1F92805B25CA3274008B74DB /* options.09b850fa.js.map */,
+				1F92805C25CA3274008B74DB /* ghost-text.css.map */,
+				1F92805D25CA3274008B74DB /* manifest.json */,
+				1F92805E25CA3274008B74DB /* unsafe-messenger.js */,
+				1F92805F25CA3274008B74DB /* options.html */,
+				1F92806025CA3274008B74DB /* background.js.map */,
+				1F92806125CA3274008B74DB /* options.09b850fa.js */,
+				1F92806225CA3274008B74DB /* unsafe-messenger.js.map */,
+			);
+			name = Resources;
+			path = "GhostText Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1F92802B25CA3273008B74DB /* GhostText */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F92805025CA3274008B74DB /* Build configuration list for PBXNativeTarget "GhostText" */;
+			buildPhases = (
+				1F92802825CA3273008B74DB /* Sources */,
+				1F92802925CA3273008B74DB /* Frameworks */,
+				1F92802A25CA3273008B74DB /* Resources */,
+				1F92804F25CA3274008B74DB /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1F92804125CA3274008B74DB /* PBXTargetDependency */,
+			);
+			name = GhostText;
+			productName = GhostText;
+			productReference = 1F92802C25CA3273008B74DB /* GhostText.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1F92803D25CA3274008B74DB /* GhostText Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F92804C25CA3274008B74DB /* Build configuration list for PBXNativeTarget "GhostText Extension" */;
+			buildPhases = (
+				1F92803A25CA3274008B74DB /* Sources */,
+				1F92803B25CA3274008B74DB /* Frameworks */,
+				1F92803C25CA3274008B74DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GhostText Extension";
+			productName = "GhostText Extension";
+			productReference = 1F92803E25CA3274008B74DB /* GhostText Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1F92802425CA3272008B74DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1220;
+				LastUpgradeCheck = 1220;
+				TargetAttributes = {
+					1F92802B25CA3273008B74DB = {
+						CreatedOnToolsVersion = 12.2;
+					};
+					1F92803D25CA3274008B74DB = {
+						CreatedOnToolsVersion = 12.2;
+					};
+				};
+			};
+			buildConfigurationList = 1F92802725CA3272008B74DB /* Build configuration list for PBXProject "GhostText" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1F92802325CA3272008B74DB;
+			productRefGroup = 1F92802D25CA3273008B74DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1F92802B25CA3273008B74DB /* GhostText */,
+				1F92803D25CA3274008B74DB /* GhostText Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1F92802A25CA3273008B74DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F92803825CA3274008B74DB /* Assets.xcassets in Resources */,
+				1F92803425CA3273008B74DB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F92803C25CA3274008B74DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F92806725CA3274008B74DB /* ghost-text.js in Resources */,
+				1F92806625CA3274008B74DB /* options.766689a5.js in Resources */,
+				1F92806425CA3274008B74DB /* images in Resources */,
+				1F92806A25CA3274008B74DB /* options.html in Resources */,
+				1F92806925CA3274008B74DB /* unsafe-messenger.js in Resources */,
+				1F92806B25CA3274008B74DB /* options.09b850fa.js in Resources */,
+				1F92806525CA3274008B74DB /* ghost-text.css in Resources */,
+				1F92806825CA3274008B74DB /* manifest.json in Resources */,
+				1F92806325CA3274008B74DB /* background.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1F92802825CA3273008B74DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F92803625CA3273008B74DB /* ViewController.swift in Sources */,
+				1F92803125CA3273008B74DB /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F92803A25CA3274008B74DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F92804725CA3274008B74DB /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1F92804125CA3274008B74DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F92803D25CA3274008B74DB /* GhostText Extension */;
+			targetProxy = 1F92804025CA3274008B74DB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1F92803225CA3273008B74DB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F92803325CA3273008B74DB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1F92804A25CA3274008B74DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1F92804B25CA3274008B74DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		1F92804D25CA3274008B74DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "GhostText Extension/GhostText_Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "GhostText Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fregante.GhostText.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1F92804E25CA3274008B74DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "GhostText Extension/GhostText_Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "GhostText Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fregante.GhostText.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1F92805125CA3274008B74DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GhostText/GhostText.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = GhostText/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fregante.GhostText;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1F92805225CA3274008B74DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GhostText/GhostText.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = GhostText/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fregante.GhostText;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F92802725CA3272008B74DB /* Build configuration list for PBXProject "GhostText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F92804A25CA3274008B74DB /* Debug */,
+				1F92804B25CA3274008B74DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F92804C25CA3274008B74DB /* Build configuration list for PBXNativeTarget "GhostText Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F92804D25CA3274008B74DB /* Debug */,
+				1F92804E25CA3274008B74DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F92805025CA3274008B74DB /* Build configuration list for PBXNativeTarget "GhostText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F92805125CA3274008B74DB /* Debug */,
+				1F92805225CA3274008B74DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1F92802425CA3272008B74DB /* Project object */;
+}
