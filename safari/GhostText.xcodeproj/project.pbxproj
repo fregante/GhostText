@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,7 +21,6 @@
 		1F92806825CA3274008B74DB /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805D25CA3274008B74DB /* manifest.json */; };
 		1F92806A25CA3274008B74DB /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805F25CA3274008B74DB /* options.html */; };
 		1F92806B25CA3274008B74DB /* options.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92806125CA3274008B74DB /* options.js */; };
-		1FA6620625CA421D00076F52 /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1FA6620525CA421D00076F52 /* Shared.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +57,7 @@
 		1F92803925CA3274008B74DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F92803E25CA3274008B74DB /* GhostText Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "GhostText Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F92804325CA3274008B74DB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		1F92804625CA3274008B74DB /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		1F92804625CA3274008B74DB /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; usesTabs = 0; };
 		1F92804825CA3274008B74DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F92804925CA3274008B74DB /* GhostText_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GhostText_Extension.entitlements; sourceTree = "<group>"; };
 		1F92805525CA3274008B74DB /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../distribution/background.js; sourceTree = "<group>"; };
@@ -203,7 +202,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					1F92802B25CA3273008B74DB = {
 						CreatedOnToolsVersion = 12.2;
@@ -214,7 +213,7 @@
 				};
 			};
 			buildConfigurationList = 1F92802725CA3272008B74DB /* Build configuration list for PBXProject "GhostText" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -237,7 +236,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FA6620625CA421D00076F52 /* Shared.xcconfig in Resources */,
 				1F92803825CA3274008B74DB /* Assets.xcassets in Resources */,
 				1F92803425CA3273008B74DB /* Main.storyboard in Resources */,
 			);
@@ -301,7 +299,7 @@
 /* Begin XCBuildConfiguration section */
 		1F92804A25CA3274008B74DB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3916F37254B228B0048E94C /* Shared.xcconfig */;
+			baseConfigurationReference = 1FA6620525CA421D00076F52 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -363,6 +361,7 @@
 		};
 		1F92804B25CA3274008B74DB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FA6620525CA421D00076F52 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -419,6 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "GhostText Extension/GhostText_Extension.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "GhostText Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -426,7 +426,6 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fregante.GhostText.Extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -438,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "GhostText Extension/GhostText_Extension.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "GhostText Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -445,7 +445,6 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fregante.GhostText.Extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -460,6 +459,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GhostText/GhostText.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GhostText/Info.plist;
@@ -467,7 +467,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fregante.GhostText;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -481,6 +480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GhostText/GhostText.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GhostText/Info.plist;
@@ -488,7 +488,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fregante.GhostText;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
