@@ -21,6 +21,7 @@
 		1F92806825CA3274008B74DB /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805D25CA3274008B74DB /* manifest.json */; };
 		1F92806A25CA3274008B74DB /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805F25CA3274008B74DB /* options.html */; };
 		1F92806B25CA3274008B74DB /* options.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92806125CA3274008B74DB /* options.js */; };
+		1FA6620625CA421D00076F52 /* Shared.xconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1FA6620525CA421D00076F52 /* Shared.xconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		1F92805D25CA3274008B74DB /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../distribution/manifest.json; sourceTree = "<group>"; };
 		1F92805F25CA3274008B74DB /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = ../../distribution/options.html; sourceTree = "<group>"; };
 		1F92806125CA3274008B74DB /* options.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = options.js; path = ../../distribution/options.js; sourceTree = "<group>"; };
+		1FA6620525CA421D00076F52 /* Shared.xconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Shared.xconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		1F92802325CA3272008B74DB = {
 			isa = PBXGroup;
 			children = (
+				1FA6620525CA421D00076F52 /* Shared.xconfig */,
 				1F92802E25CA3273008B74DB /* GhostText */,
 				1F92804525CA3274008B74DB /* GhostText Extension */,
 				1F92804225CA3274008B74DB /* Frameworks */,
@@ -234,6 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FA6620625CA421D00076F52 /* Shared.xconfig in Resources */,
 				1F92803825CA3274008B74DB /* Assets.xcassets in Resources */,
 				1F92803425CA3273008B74DB /* Main.storyboard in Resources */,
 			);
