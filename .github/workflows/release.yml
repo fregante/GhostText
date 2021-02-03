@@ -1,5 +1,5 @@
 env:
-  DIRECTORY: browser
+  DIRECTORY: distribution
 
 # FILE GENERATED WITH: npx ghat fregante/ghatemplates/webext/release.yml
 # SOURCE: https://github.com/fregante/ghatemplates

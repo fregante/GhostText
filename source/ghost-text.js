@@ -1,4 +1,5 @@
-/* global GThumane */
+import GThumane from './humane-ghosttext.js';
+import unsafeMessenger from './unsafe-messenger.js';
 
 const knownElements = new Map();
 const activeFields = new Set();
@@ -305,7 +306,7 @@ function stopGT() {
 
 function init() {
 	const script = document.createElement('script');
-	script.textContent = '(' + window.unsafeMessenger.toString() + ')()';
+	script.textContent = '(' + unsafeMessenger.toString() + ')()';
 	document.head.append(script);
 }
 

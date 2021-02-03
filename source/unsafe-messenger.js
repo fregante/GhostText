@@ -3,7 +3,7 @@
  * as "unsafe" code, bridging the extension's sandbox and the website's libraries.
  */
 
-window.unsafeMessenger = function () {
+export default function unsafeMessenger() {
 	document.body.addEventListener('gt:get', listener);
 
 	function listener({target}) {
@@ -73,7 +73,7 @@ window.unsafeMessenger = function () {
 			editor.blur();
 		});
 	}
-};
+}
 
 // eslint-disable-next-line no-unused-expressions
 undefined; // Avoids issues with tabs.injectScript
