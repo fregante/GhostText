@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  GhostText
-//
-//  Created by Rico on 2/2/21.
-//
-
 import Cocoa
 
 @main

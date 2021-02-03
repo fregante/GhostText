@@ -1,10 +1,3 @@
-//
-//  SafariWebExtensionHandler.swift
-//  GhostText Extension
-//
-//  Created by Rico on 2/2/21.
-//
-
 import SafariServices
 import os.log
 

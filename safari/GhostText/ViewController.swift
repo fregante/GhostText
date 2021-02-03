@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  GhostText
-//
-//  Created by Rico on 2/2/21.
-//
-
 import Cocoa
 import SafariServices.SFSafariApplication
 import SafariServices.SFSafariExtensionManager
