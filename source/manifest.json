@@ -46,7 +46,7 @@
 	},
 	"content_scripts": [{
 		"matches": ["http://localhost:4001/*"],
-		"js": ["ghost-text.js"],
+		"js": ["ghost-text.js", "options.js"],
 		"css": ["ghost-text.css"]
 	}],
 	"background": {
