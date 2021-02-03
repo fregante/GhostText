@@ -19,7 +19,6 @@
 		1F92806525CA3274008B74DB /* ghost-text.css in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805725CA3274008B74DB /* ghost-text.css */; };
 		1F92806725CA3274008B74DB /* ghost-text.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805A25CA3274008B74DB /* ghost-text.js */; };
 		1F92806825CA3274008B74DB /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805D25CA3274008B74DB /* manifest.json */; };
-		1F92806925CA3274008B74DB /* unsafe-messenger.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805E25CA3274008B74DB /* unsafe-messenger.js */; };
 		1F92806A25CA3274008B74DB /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805F25CA3274008B74DB /* options.html */; };
 		1F92806B25CA3274008B74DB /* options.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92806125CA3274008B74DB /* options.js */; };
 /* End PBXBuildFile section */
@@ -66,7 +65,6 @@
 		1F92805725CA3274008B74DB /* ghost-text.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "ghost-text.css"; path = "../../distribution/ghost-text.css"; sourceTree = "<group>"; };
 		1F92805A25CA3274008B74DB /* ghost-text.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "ghost-text.js"; path = "../../distribution/ghost-text.js"; sourceTree = "<group>"; };
 		1F92805D25CA3274008B74DB /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../distribution/manifest.json; sourceTree = "<group>"; };
-		1F92805E25CA3274008B74DB /* unsafe-messenger.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "unsafe-messenger.js"; path = "../../distribution/unsafe-messenger.js"; sourceTree = "<group>"; };
 		1F92805F25CA3274008B74DB /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = ../../distribution/options.html; sourceTree = "<group>"; };
 		1F92806125CA3274008B74DB /* options.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = options.js; path = ../../distribution/options.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,7 +147,6 @@
 				1F92805725CA3274008B74DB /* ghost-text.css */,
 				1F92805A25CA3274008B74DB /* ghost-text.js */,
 				1F92805D25CA3274008B74DB /* manifest.json */,
-				1F92805E25CA3274008B74DB /* unsafe-messenger.js */,
 				1F92805F25CA3274008B74DB /* options.html */,
 				1F92806125CA3274008B74DB /* options.js */,
 			);
@@ -249,7 +246,6 @@
 				1F92806725CA3274008B74DB /* ghost-text.js in Resources */,
 				1F92806425CA3274008B74DB /* images in Resources */,
 				1F92806A25CA3274008B74DB /* options.html in Resources */,
-				1F92806925CA3274008B74DB /* unsafe-messenger.js in Resources */,
 				1F92806B25CA3274008B74DB /* options.js in Resources */,
 				1F92806525CA3274008B74DB /* ghost-text.css in Resources */,
 				1F92806825CA3274008B74DB /* manifest.json in Resources */,
