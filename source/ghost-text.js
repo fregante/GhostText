@@ -89,15 +89,11 @@ class GhostTextField {
 	constructor(field) {
 		this.field = wrapField(field);
 		this.field.dataset.gtField = '';
-		this.send = this.send.bind(this);
-		this.receive = this.receive.bind(this);
-		this.deactivate = this.deactivate.bind(this);
-		this.tryFocus = this.tryFocus.bind(this);
 		field.addEventListener('focus', this.tryFocus);
 		this.state = 'inactive';
 	}
 
-	async activate() {
+	activate = async () => {
 		if (this.state === 'active') {
 			return;
 		}
@@ -130,7 +126,7 @@ class GhostTextField {
 		});
 	}
 
-	send(event) {
+	send = (event) => {
 		if (event && event.detail?.ghostTextSyntheticEvent) {
 			return;
 		}
@@ -152,7 +148,7 @@ class GhostTextField {
 		);
 	}
 
-	receive(event) {
+	receive = (event) => {
 		const {text, selections} = JSON.parse(event.data);
 
 		if (this.field.value !== text) {
@@ -180,7 +176,7 @@ class GhostTextField {
 		}
 	}
 
-	deactivate(wasSuccessful = true) {
+	deactivate = (wasSuccessful = true) => {
 		if (this.state === 'inactive') {
 			return;
 		}
@@ -201,7 +197,7 @@ class GhostTextField {
 		}
 	}
 
-	tryFocus() {
+	tryFocus = () => {
 		if (isWaitingForActivation && this.state === 'inactive') {
 			clearTimeout(timeoutHandle);
 			this.activate();
