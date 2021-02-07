@@ -15,7 +15,7 @@
 		1F92804425CA3274008B74DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F92804325CA3274008B74DB /* Cocoa.framework */; };
 		1F92804725CA3274008B74DB /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F92804625CA3274008B74DB /* SafariWebExtensionHandler.swift */; };
 		1F92806325CA3274008B74DB /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805525CA3274008B74DB /* background.js */; };
-		1F92806425CA3274008B74DB /* images in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805625CA3274008B74DB /* images */; };
+		1F92806425CA3274008B74DB /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805625CA3274008B74DB /* icons */; };
 		1F92806525CA3274008B74DB /* ghost-text.css in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805725CA3274008B74DB /* ghost-text.css */; };
 		1F92806725CA3274008B74DB /* ghost-text.js in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805A25CA3274008B74DB /* ghost-text.js */; };
 		1F92806825CA3274008B74DB /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F92805D25CA3274008B74DB /* manifest.json */; };
@@ -61,7 +61,7 @@
 		1F92804825CA3274008B74DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F92804925CA3274008B74DB /* GhostText_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GhostText_Extension.entitlements; sourceTree = "<group>"; };
 		1F92805525CA3274008B74DB /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../distribution/background.js; sourceTree = "<group>"; };
-		1F92805625CA3274008B74DB /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../../distribution/images; sourceTree = "<group>"; };
+		1F92805625CA3274008B74DB /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../distribution/icons; sourceTree = "<group>"; };
 		1F92805725CA3274008B74DB /* ghost-text.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "ghost-text.css"; path = "../../distribution/ghost-text.css"; sourceTree = "<group>"; };
 		1F92805A25CA3274008B74DB /* ghost-text.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "ghost-text.js"; path = "../../distribution/ghost-text.js"; sourceTree = "<group>"; };
 		1F92805D25CA3274008B74DB /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../distribution/manifest.json; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				1F92805525CA3274008B74DB /* background.js */,
-				1F92805625CA3274008B74DB /* images */,
+				1F92805625CA3274008B74DB /* icons */,
 				1F92805725CA3274008B74DB /* ghost-text.css */,
 				1F92805A25CA3274008B74DB /* ghost-text.js */,
 				1F92805D25CA3274008B74DB /* manifest.json */,
@@ -246,7 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F92806725CA3274008B74DB /* ghost-text.js in Resources */,
-				1F92806425CA3274008B74DB /* images in Resources */,
+				1F92806425CA3274008B74DB /* icons in Resources */,
 				1F92806A25CA3274008B74DB /* options.html in Resources */,
 				1F92806B25CA3274008B74DB /* options.js in Resources */,
 				1F92806525CA3274008B74DB /* ghost-text.css in Resources */,
