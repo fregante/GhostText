@@ -33,5 +33,13 @@
 		"@parcel/transformer-webextension": "^2.0.0-nightly.2186",
 		"parcel": "^2.0.0-nightly.562",
 		"xo": "^0.37.1"
+	},
+	"webExt": {
+		"sourceDir": "distribution",
+		"run": {
+			"startUrl": [
+				"https://ghosttext.github.io/GhostText/demo/"
+			]
+		}
 	}
 }
