@@ -35,13 +35,6 @@ Use your text editor to write in your browser. Everything you type in the editor
 	- [**Firefox**][link-firefox] [<img valign="middle" src="https://img.shields.io/amo/v/ghosttext.svg?label=%20">][link-firefox]
 	- [**Safari**][link-safari] [<img valign="middle" src="https://img.shields.io/itunes/v/1552641506.svg?label=%20">][link-safari]
 
-## Website support
-
-- `<textarea>` elements
-- [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) areas: like in Gmail
-- [CodeMirror](http://codemirror.net/) editors: used on CodePen, JSFiddle, JS Bin, …
-- [Ace](http://ace.c9.io/) editor: used on Tumblr, …
-
 ## Usage
 
 1. Open your editor
@@ -50,7 +43,43 @@ Use your text editor to write in your browser. Everything you type in the editor
 
 Notice: in some editors you’ll need to run the _Enable GhostText_ command after step 1. Refer to your editor’s GhostText extension readme. Sublime Text does this automatically.
 
-### Keyboard shortcuts
+## How it works
+
+GhostText is split in two parts:
+
+- a HTTP and WebSocket server in the text editor
+- a client in the browser
+
+When you activate GhostText by clicking the button, the browser will try contacting the server in the text editor (at the port specified in the options) and open a WebSocket connection. Every change will be transmitted to the other side. Each side can close the socket and the session will be over.
+
+## Troubleshooting
+
+You can verify whether it works by visiting the [testing page](https://ghosttext.github.io/GhostText/demo/).
+
+### No supported fields found
+
+GhostText supports the following types of fields:
+
+- `<textarea>` elements
+- [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_Editable) areas: like in Gmail
+- [CodeMirror](http://codemirror.net/) editors: used on CodePen, JSFiddle, JS Bin, …
+- [Ace](http://ace.c9.io/) editor: used on AWS, Khan Academy, Wikipedia, …
+
+If the website you activate it on doesn't have any of the above, it's not compatible.
+
+### Unable to connect to the editor
+
+Ensure that:
+
+- Your editor is open
+- Its GhostText extension is installed
+- The GhostText server is running (in most editor extensions this is opened automatically)
+- The server port matches (it's 4001 by default, it can be changed in the options)
+- There are no other servers using the port
+
+If it still doesn't work, try again in [Sublime Text](https://www.sublimetext.com), it's the main supported editor of GhostText.
+
+## Keyboard shortcuts
 
 You can use a keyboard shortcut instead of clicking the button. The shortcut can be changed or disabled,
 [like this in Chrome](http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121)
