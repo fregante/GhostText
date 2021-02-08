@@ -27,7 +27,7 @@ Then load or reload it into the browser to see the changes.
 The built extension will be in the `distribution` folder.
 
 - [Load it manually in Chrome](https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/#google-chrome-opera-vivaldi)
-- [Load it manually in Firefox](https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/#mozilla-firefox).
+- [Load it manually in Firefox](https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/#mozilla-firefox)
 
 Or use [web-ext](https://github.com/mozilla/web-ext) to load it automatically and watch for updates:
 
