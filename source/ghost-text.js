@@ -265,7 +265,7 @@ function startGT() {
 	registerElements();
 	console.info(knownElements.size + ' fields on the page');
 	if (knownElements.size === 0) {
-		notify('warn', 'No supported fields found');
+		notify('warn', 'No supported fields found. <a href="https://github.com/GhostText/GhostText/blob/master/readme.md#troubleshooting">Need help?</a>');
 		return;
 	}
 
