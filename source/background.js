@@ -53,8 +53,12 @@ function handlePortListenerErrors(listener) {
 			await listener(port);
 		} catch (error) {
 			let {message} = error;
-			if (message === 'Failed to fetch') {
-				message = 'Unable to connect to the editor. Make sure it’s open, the GhostText extension is running in it, and that the port matches (if you changed it)';
+			if ([
+				'Failed to fetch',
+				'NetworkError when attempting to fetch resource.',
+				'Could not connect to the server'
+			].includes(message)) {
+				message = 'Unable to connect to the editor. <a href="https://github.com/GhostText/GhostText/blob/master/readme.md#troubleshooting">Need help?</a>';
 			}
 
 			port.postMessage({error: message});
