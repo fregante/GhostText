@@ -164,6 +164,7 @@ class GhostTextField {
 				this.field.dispatchEvent(new KeyboardEvent('keypress'));
 				this.field.dispatchEvent(new CompositionEvent('textInput'));
 				this.field.dispatchEvent(new CustomEvent('input', { // InputEvent doesn't support custom data
+					bubbles: true,
 					detail: {
 						ghostTextSyntheticEvent: true
 					}
