@@ -1,7 +1,8 @@
 # <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
 
-[link-cws]: https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca 'Version published on Chrome Web Store'
-[link-amo]: https://addons.mozilla.org/en-US/firefox/addon/ghosttext/ 'Version published on Mozilla Add-ons'
+[link-chrome]: https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca 'Version published on Chrome Web Store'
+[link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/ghosttext/ 'Version published on Mozilla Add-ons'
+[link-safari]: https://apps.apple.com/app/ghosttext/id1552641506 'Version published on the Mac App Store'
 
 <img src="promo/demo.gif" alt="Demo screencast" align="right">
 
@@ -30,8 +31,9 @@ Use your text editor to write in your browser. Everything you type in the editor
 
 2. Install your browser extension:
 
-	 - [**Chrome**][link-cws] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg?label=%20">][link-cws]
-	 - [**Firefox**][link-amo] [<img valign="middle" src="https://img.shields.io/amo/v/ghosttext.svg?label=%20">][link-amo]
+	- [**Chrome**][link-chrome] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg?label=%20">][link-chrome]
+	- [**Firefox**][link-firefox] [<img valign="middle" src="https://img.shields.io/amo/v/ghosttext.svg?label=%20">][link-firefox]
+	- [**Safari**][link-safari] [<img valign="middle" src="https://img.shields.io/itunes/v/1552641506.svg?label=%20">][link-safari]
 
 ## Usage
 

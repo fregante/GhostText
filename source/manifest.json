@@ -1,16 +1,17 @@
 {
 	"manifest_version": 2,
 	"name": "GhostText",
-	"description": "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser.",
+	"description": "Write in the browser with your text editor.",
 	"version": "0.0.0",
 	"minimum_chrome_version": "86",
 	"author": "Federico Brigante",
 	"icons": {
-		"16": "images/icon_19.png",
-		"19": "images/icon_19.png",
-		"38": "images/icon_48.png",
-		"48": "images/icon_48.png",
-		"128": "images/icon_128.png"
+		"16": "icons/icon16.png",
+		"32": "icons/icon32.png",
+		"48": "icons/icon48.png",
+		"64": "icons/icon64.png",
+		"128": "icons/icon128.png",
+		"256": "icons/icon256.png"
 	},
 	"permissions": [
 		"activeTab",
@@ -31,8 +32,12 @@
 	"browser_action": {
 		"default_title": "GhostText",
 		"default_icon": {
-			"19": "images/icon_19.png",
-			"38": "images/icon_48.png"
+			"16": "icons/icon16.png",
+			"32": "icons/icon32.png",
+			"48": "icons/icon48.png",
+			"64": "icons/icon64.png",
+			"128": "icons/icon128.png",
+			"256": "icons/icon256.png"
 		}
 	},
 	"commands": {
@@ -44,12 +49,23 @@
 			}
 		}
 	},
-	"content_scripts": [{
-		"matches": ["http://localhost:4001/*"],
-		"js": ["ghost-text.js"],
-		"css": ["ghost-text.css"]
-	}],
+	"content_scripts": [
+		{
+			"matches": [
+				"http://localhost:4001/*"
+			],
+			"js": [
+				"ghost-text.js",
+				"options.js"
+			],
+			"css": [
+				"ghost-text.css"
+			]
+		}
+	],
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": [
+			"background.js"
+		]
 	}
 }

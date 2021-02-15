@@ -104,7 +104,7 @@ function handleMessages({code, count}, {tab}) {
 	if (code === 'connection-count') {
 		let text = '';
 		if (count === 1) {
-			text = /os x/i.test(navigator.userAgent) ? '✓' : 'ON';
+			text = '\u2713'; // ✓ checkmark. Safari encoding issue https://developer.apple.com/forums/thread/660798
 		} else if (count > 1) {
 			text = String(count);
 		}
