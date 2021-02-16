@@ -4,7 +4,7 @@ Use your text editor to write in your browser (Firefox, Chrome, Opera). Everythi
 
 <ul>
     <li>Sublime Text - <a href="https://packagecontrol.io/packages/GhostText">Install extension</a></li>
-    <li>Atom - <a href="https://github.com/GhostText/GhostText-for-Atom">Install extension</a></li>
+    <li>Atom - <a href="https://github.com/fregante/GhostText-for-Atom">Install extension</a></li>
     <li>VS Code - <a href="https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext">Install extension</a></li>
     <li>Vim - <a href="https://github.com/falstro/ghost-text-vim">Install extension</a></li>
 </ul>

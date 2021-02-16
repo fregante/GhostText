@@ -224,7 +224,7 @@ function updateCount() {
 	});
 
 	if (activeFields.size === 0) {
-		notify('log', 'Disconnected! \n <a href="https://github.com/GhostText/GhostText/issues" target="_blank">Report issues</a>');
+		notify('log', 'Disconnected! \n <a href="https://github.com/fregante/GhostText/issues" target="_blank">Report issues</a>');
 	}
 }
 
@@ -265,7 +265,7 @@ function startGT() {
 	registerElements();
 	console.info(knownElements.size + ' fields on the page');
 	if (knownElements.size === 0) {
-		notify('warn', 'No supported fields found. <a href="https://github.com/GhostText/GhostText/blob/master/readme.md#troubleshooting">Need help?</a>');
+		notify('warn', 'No supported fields found. <a href="https://github.com/fregante/GhostText/blob/main/readme.md#troubleshooting">Need help?</a>');
 		return;
 	}
 

@@ -9,7 +9,7 @@
 First clone:
 
 ```sh
-git clone https://github.com/GhostText/GhostText
+git clone https://github.com/fregante/GhostText
 cd GhostText
 npm install
 ```

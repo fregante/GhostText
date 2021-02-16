@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/GhostText/GhostText/master/promo/gt_banner.png" height="60" alt="GhostText">
+# <img src="https://raw.githubusercontent.com/fregante/GhostText/main/promo/gt_banner.png" height="60" alt="GhostText">
 
 [link-chrome]: https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca 'Version published on Chrome Web Store'
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/ghosttext/ 'Version published on Mozilla Add-ons'
