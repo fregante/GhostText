@@ -27,7 +27,7 @@
 .ghost-text-message ul {
   margin: 0;
   padding: 0;
-	list-style: none;
+  list-style: none;
 }
 .ghost-text-message.ghost-text-message-error {
   background-color: #e74c3c;
