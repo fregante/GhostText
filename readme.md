@@ -1,6 +1,8 @@
 # [<img src="https://raw.githubusercontent.com/fregante/GhostText/main/promo/gt_banner.png" height="60" alt="GhostText">](https://ghosttext.fregante.com)
 
-Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa). Visit the [GhostText.fregante.com](https://ghosttext.fregante.com) for more details and troubleshooting.
+Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
+
+Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more details and troubleshooting.
 
 ## Installation
 
