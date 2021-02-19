@@ -9,8 +9,9 @@
 		"watch": "parcel watch source/manifest.json --dist-dir distribution --no-cache --no-hmr"
 	},
 	"browserslist": [
-		"last 1 Chrome version",
-		"last 1 Firefox version"
+		"Chrome >= 86",
+		"Firefox >= 83",
+		"Safari >= 14"
 	],
 	"xo": {
 		"envs": [
@@ -35,6 +36,10 @@
 		"@parcel/transformer-webextension": "^2.0.0-nightly.2186",
 		"parcel": "^2.0.0-nightly.562",
 		"xo": "^0.37.1"
+	},
+	"engines": {
+		"node": ">=15",
+		"npm": ">=7"
 	},
 	"webExt": {
 		"sourceDir": "distribution",
