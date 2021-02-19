@@ -32,7 +32,7 @@ Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more deta
 
 ## Demo
 
-<img src="promo/demo.gif" alt="Demo screencast" width="300" align="right">
+<img src="promo/demo.gif" alt="Demo screencast">
 
 ## License
 
