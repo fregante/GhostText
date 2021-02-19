@@ -3,6 +3,7 @@ import unsafeMessenger from './unsafe-messenger.js';
 
 const knownElements = new Map();
 const activeFields = new Set();
+const eventOptions = {bubbles: true};
 
 let isWaitingForActivation = false;
 const startTimeout = 15000;
@@ -160,15 +161,16 @@ class GhostTextField {
 
 			if (this.field.dispatchEvent) {
 				// These are in the right order
-				this.field.dispatchEvent(new KeyboardEvent('keydown'));
-				this.field.dispatchEvent(new KeyboardEvent('keypress'));
-				this.field.dispatchEvent(new CompositionEvent('textInput'));
+				this.field.dispatchEvent(new KeyboardEvent('keydown'), eventOptions);
+				this.field.dispatchEvent(new KeyboardEvent('keypress'), eventOptions);
+				this.field.dispatchEvent(new CompositionEvent('textInput'), eventOptions);
 				this.field.dispatchEvent(new CustomEvent('input', { // InputEvent doesn't support custom data
+					...eventOptions,
 					detail: {
 						ghostTextSyntheticEvent: true
 					}
 				}));
-				this.field.dispatchEvent(new KeyboardEvent('keyup'));
+				this.field.dispatchEvent(new KeyboardEvent('keyup'), eventOptions);
 			}
 		}
 
