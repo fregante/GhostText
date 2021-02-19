@@ -3,7 +3,7 @@ import unsafeMessenger from './unsafe-messenger.js';
 
 const knownElements = new Map();
 const activeFields = new Set();
-const eventOptions = { bubbles: true };
+const eventOptions = {bubbles: true};
 
 let isWaitingForActivation = false;
 const startTimeout = 15000;
