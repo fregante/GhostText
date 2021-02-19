@@ -15,15 +15,8 @@ Use your text editor to write in your browser. Everything you type in the editor
 	- [**VS Code**](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) ([Repo](https://github.com/jtokoph/ghosttext-vscode)) (Third party)
 	- [**Emacs**](https://melpa.org/#/atomic-chrome) ([Repo](https://github.com/alpha22jp/atomic-chrome)) (Third party)
 	- [**Acme**](https://github.com/fhs/Ghost) (Third party)
-	- <details>
-			<summary><b>Vim</b>/<b>Neovim</b> (Third party)</summary>
-			<ul>
-				<li><a href="https://github.com/raghur/vim-ghost"><b>Vim</b> (<tt>+python3</tt>) & <b>Neovim</b> (<tt>pynvim</tt>)</a>
-				<li><a href="https://github.com/falstro/ghost-text-vim"><b>Vim</b> (<tt>+tcl</tt>)</a>
-				<li><a href="https://github.com/pandysong/ghost-text.vim"><b>Vim</b> (<tt>+python3 +channel</tt>)</a>
-				<li><a href="https://github.com/subnut/nvim-ghost.nvim"><b>Neovim</b></a>
-			</ul>
-		</details>
+	- [**Vim**](https://github.com/raghur/vim-ghost) (Third party)
+	- [**Neovim**](https://github.com/subnut/nvim-ghost.nvim) (Third party)
 
 2. Install your browser extension:
 
