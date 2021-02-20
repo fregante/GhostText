@@ -137,6 +137,21 @@ function init() {
 	chrome.browserAction.setBadgeBackgroundColor({
 		color: '#008040'
 	});
+
+	browser.runtime.onInstalled.addListener(async ({reason}) => {
+		// Only notify on install
+		if (reason === 'install') {
+			const {installType} = await browser.management.getSelf();
+			if (installType === 'development') {
+				return;
+			}
+
+			await browser.tabs.create({
+				url: 'https://ghosttext.fregante.com/welcome/',
+				active: true
+			});
+		}
+	});
 }
 
 init();
