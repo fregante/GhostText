@@ -36,7 +36,7 @@ jobs:
       fail-fast: false
       matrix:
         command:
-          # - firefox
+          - firefox
           - chrome
     runs-on: ubuntu-latest
     steps:
