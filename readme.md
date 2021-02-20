@@ -2,7 +2,7 @@
 
 Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
-Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more details and troubleshooting.
+Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more details and [troubleshooting](https://ghosttext.fregante.com/troubleshooting/).
 
 [<img src="https://raw.githubusercontent.com/iamcal/emoji-data/08ec822c38e0b7a6fea0b92a9c42e02b6ba24a84/img-apple-160/1f99a.png" width="48" valign="middle">](https://github.com/sponsors/fregante) _If you love GhostText, consider [sponsoring or hiring](https://github.com/sponsors/fregante) the maintainer [@fregante](https://twitter.com/fregante)_
 
@@ -32,7 +32,7 @@ Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more deta
 
 ## Troubleshooting
 
-Visit the [Troubleshooting page](https://ghosttext.fregante.com/troubleshooting/#unable-to-connect) on the GhostText site.
+Visit the [Troubleshooting page](https://ghosttext.fregante.com/troubleshooting/) on the GhostText site.
 
 ## Demo
 
