@@ -3,6 +3,7 @@ import unsafeMessenger from './unsafe-messenger.js';
 
 const knownElements = new Map();
 const activeFields = new Set();
+const eventOptions = {bubbles: true};
 
 let isWaitingForActivation = false;
 const startTimeout = 15000;
@@ -160,15 +161,16 @@ class GhostTextField {
 
 			if (this.field.dispatchEvent) {
 				// These are in the right order
-				this.field.dispatchEvent(new KeyboardEvent('keydown'));
-				this.field.dispatchEvent(new KeyboardEvent('keypress'));
-				this.field.dispatchEvent(new CompositionEvent('textInput'));
+				this.field.dispatchEvent(new KeyboardEvent('keydown'), eventOptions);
+				this.field.dispatchEvent(new KeyboardEvent('keypress'), eventOptions);
+				this.field.dispatchEvent(new CompositionEvent('textInput'), eventOptions);
 				this.field.dispatchEvent(new CustomEvent('input', { // InputEvent doesn't support custom data
+					...eventOptions,
 					detail: {
 						ghostTextSyntheticEvent: true
 					}
 				}));
-				this.field.dispatchEvent(new KeyboardEvent('keyup'));
+				this.field.dispatchEvent(new KeyboardEvent('keyup'), eventOptions);
 			}
 		}
 
@@ -265,7 +267,7 @@ function startGT() {
 	registerElements();
 	console.info(knownElements.size + ' fields on the page');
 	if (knownElements.size === 0) {
-		notify('warn', 'No supported fields found. <a href="https://github.com/fregante/GhostText/blob/main/readme.md#troubleshooting">Need help?</a>');
+		notify('warn', 'No supported fields found. <a href="https://ghosttext.fregante.com/troubleshooting/#no-supported-fields">Need help?</a>');
 		return;
 	}
 
