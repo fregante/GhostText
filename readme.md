@@ -30,6 +30,10 @@ Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more deta
 	[<img src="https://ghosttext.fregante.com/icons/neovim.svg" width="48" height="48" alt="Neovim">](https://github.com/subnut/nvim-ghost.nvim) 
 	[<img src="https://ghosttext.fregante.com/icons/acme.png" width="48" height="48" alt="Acme">](https://github.com/fhs/Ghost)
 
+## Troubleshooting
+
+Visit the [Troubleshooting page](https://ghosttext.fregante.com/troubleshooting/#unable-to-connect) on the GhostText site.
+
 ## Demo
 
 <img src="promo/demo.gif" alt="Demo screencast">
