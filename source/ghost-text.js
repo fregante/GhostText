@@ -267,7 +267,7 @@ function startGT() {
 	registerElements();
 	console.info(knownElements.size + ' fields on the page');
 	if (knownElements.size === 0) {
-		notify('warn', 'No supported fields found. <a href="https://github.com/fregante/GhostText/blob/main/readme.md#troubleshooting">Need help?</a>');
+		notify('warn', 'No supported fields found. <a href="https://ghosttext.fregante.com/troubleshooting/#no-supported-fields">Need help?</a>');
 		return;
 	}
 
