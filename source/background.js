@@ -56,7 +56,7 @@ function handlePortListenerErrors(listener) {
 			if ([
 				'Failed to fetch',
 				'NetworkError when attempting to fetch resource.',
-				'Could not connect to the server'
+				'Could not connect to the server.'
 			].includes(message)) {
 				message = 'Unable to connect to the editor. <a href="https://ghosttext.fregante.com/troubleshooting/#unable-to-connect">Need help?</a>';
 			}
