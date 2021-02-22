@@ -1,5 +1,17 @@
 Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).
 
-It supports Sublime Text, VS Code, Emacs, Acme, Vim/Neovim. Each editor also requires its own GhostText extension. Search and install from their extension stores (or GhostText’s GitHub repository)
+Whenever you’re writing more than a little snippet of code anywhere on the web, activate GhostText to open your preferred text editor and enjoy your own development environment.
 
-When you're on a page with a supported field (a plain text area, a contenteditable block, CodeMirror, Ace editor, …), click the GhostText button that appears in Safari. The extension will connect the field to your editor, as long as it's open and has its own GhostText extension.
+GhostText is a browser extension that connects to your editor via its own extension. Install both extensions and, if necessary, start the GhostText server in the editor’s extension.
+
+Supported editors:
+
+• Sublime Text
+• VS Code
+• Atom
+• Emacs
+• Vim
+• Neovim
+• ACME Editor
+
+You can find more information by following the Website link below on this page.
