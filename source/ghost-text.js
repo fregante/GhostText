@@ -75,6 +75,11 @@ function wrapField(field) {
 
 	const cm = field.closest('.CodeMirror');
 	if (cm) {
+		const lw = field.closest('.CodeMirror-linewidget');
+		if (lw?.closest('.CodeMirror') === cm) {
+			return field;
+		}
+
 		const visualElement = cm.querySelector('.CodeMirror-sizer');
 		return new AdvancedTextWrapper(cm, visualElement);
 	}
