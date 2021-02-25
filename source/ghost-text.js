@@ -73,13 +73,9 @@ function wrapField(field) {
 		return new AdvancedTextWrapper(ace, visualElement);
 	}
 
-	const cm = field.closest('.CodeMirror');
-	if (cm) {
-		const lw = field.closest('.CodeMirror-linewidget');
-		if (lw?.closest('.CodeMirror') === cm) {
-			return field;
-		}
-
+	// Stop at a linewidget to avoid connecting a nested field to the enclosing CodeMirror.
+	const cm = field.closest('.CodeMirror, .CodeMirror-linewidget');
+	if (cm && cm.matches('.CodeMirror')) {
 		const visualElement = cm.querySelector('.CodeMirror-sizer');
 		return new AdvancedTextWrapper(cm, visualElement);
 	}
