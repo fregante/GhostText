@@ -73,7 +73,7 @@ function wrapField(field) {
 		return new AdvancedTextWrapper(ace, visualElement);
 	}
 
-	// Stop at a linewidget to avoid connecting a nested field to the enclosing CodeMirror.
+	// If `field` is inside CodeMirror widget, it should be handled independently of it
 	const cm = field.closest('.CodeMirror, .CodeMirror-linewidget');
 	if (cm && cm.matches('.CodeMirror')) {
 		const visualElement = cm.querySelector('.CodeMirror-sizer');
