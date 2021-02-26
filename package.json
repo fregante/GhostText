@@ -45,7 +45,7 @@
 		"sourceDir": "distribution",
 		"run": {
 			"startUrl": [
-				"https://ghosttext.github.io/GhostText/demo/"
+				"https://ghosttext.fregante.com/test/"
 			]
 		}
 	}
