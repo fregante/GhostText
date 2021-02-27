@@ -14,11 +14,11 @@ Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more deta
 	[link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/ghosttext/ 'Version published on Mozilla Add-ons'
 	[link-safari]: https://apps.apple.com/app/ghosttext/id1552641506 'Version published on the Mac App Store'
 
-	[<img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/chrome/chrome_128x128.png" width="48" alt="Chrome" valign="middle">][link-chrome] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg?label=%20">][link-chrome] also compatible with [<img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/edge/edge_48x48.png" width="24" alt="Edge" valign="middle">][link-chrome] [<img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/opera/opera_48x48.png" width="24" alt="Opera" valign="middle">][link-chrome]
+	[<img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/chrome/chrome.svg" width="48" alt="Chrome" valign="middle">][link-chrome] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/godiecgffnchndlihlpaajjcplehddca.svg?label=%20">][link-chrome] also compatible with [<img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/edge/edge.svg" width="24" alt="Edge" valign="middle">][link-chrome] [<img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/opera/opera.svg" width="24" alt="Opera" valign="middle">][link-chrome]
 
-	[<img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/firefox/firefox_128x128.png" width="48" alt="Firefox" valign="middle">][link-firefox] [<img valign="middle" src="https://img.shields.io/amo/v/ghosttext.svg?label=%20">][link-firefox]
+	[<img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/firefox/firefox.svg" width="48" alt="Firefox" valign="middle">][link-firefox] [<img valign="middle" src="https://img.shields.io/amo/v/ghosttext.svg?label=%20">][link-firefox]
 
-	[<img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/safari/safari_128x128.png" width="48" alt="Safari" valign="middle">][link-safari] [<img valign="middle" src="https://img.shields.io/itunes/v/1552641506.svg?label=%20">][link-safari]
+	[<img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/safari/safari_128x128.png" width="48" alt="Safari" valign="middle">][link-safari] [<img valign="middle" src="https://img.shields.io/itunes/v/1552641506.svg?label=%20">][link-safari]
 
 2. Install your editor extension:
 
