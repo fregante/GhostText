@@ -17,7 +17,11 @@ npm install
 When working on the extension or checking out branches, use this to have it constantly build your changes:
 
 ```sh
-npm run watch # Listen to file changes and automatically rebuild
+# Build once
+npm run build
+
+# or listen to file changes and automatically rebuild
+npm run watch
 ```
 
 Then load or reload it into the browser to see the changes.
@@ -32,13 +36,16 @@ The built extension will be in the `distribution` folder.
 Or use [web-ext](https://github.com/mozilla/web-ext) to load it automatically and watch for updates:
 
 ```sh
+# Install tool globally
 npm install -g web-ext
 ```
 
 ```sh
-npx web-ext run --target=chromium # For Chrome
+# Run extension in Chrome
+web-ext run --target=chromium
 ```
 
 ```sh
-npx web-ext run # For Firefox
+# Run extension in Firefox
+web-ext run
 ```
