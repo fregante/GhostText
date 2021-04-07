@@ -134,6 +134,13 @@ function init() {
 		}
 	});
 
+	chrome.contextMenus.create({
+		id: 'start-gt-editable',
+		title: 'Edit with external text editor',
+		contexts: ['editable'],
+		onclick: handleAction
+	});
+
 	chrome.browserAction.setBadgeBackgroundColor({
 		color: '#008040'
 	});
