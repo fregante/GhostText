@@ -136,7 +136,7 @@ function init() {
 
 	chrome.contextMenus.create({
 		id: 'start-gt-editable',
-		title: 'Edit with external text editor',
+		title: 'Activate GhostText on field',
 		contexts: ['editable'],
 		onclick: handleAction
 	});
