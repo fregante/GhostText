@@ -34,7 +34,7 @@
 	"devDependencies": {
 		"@parcel/config-webextension": "^2.0.0-nightly.2259",
 		"parcel": "^2.0.0-nightly.635",
-		"xo": "^0.37.1"
+		"xo": "^0.38.2"
 	},
 	"engines": {
 		"node": ">=15",
