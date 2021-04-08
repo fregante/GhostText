@@ -134,6 +134,13 @@ function init() {
 		}
 	});
 
+	chrome.contextMenus.create({
+		id: 'start-gt-editable',
+		title: 'Activate GhostText on field',
+		contexts: ['editable'],
+		onclick: handleAction
+	});
+
 	chrome.browserAction.setBadgeBackgroundColor({
 		color: '#008040'
 	});
