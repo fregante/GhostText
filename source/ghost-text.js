@@ -172,6 +172,7 @@ class GhostTextField {
 					}
 				}));
 				this.field.dispatchEvent(new KeyboardEvent('keyup'), eventOptions);
+				this.field.dispatchEvent(new Event('change', eventOptions));
 			}
 		}
 
