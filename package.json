@@ -9,8 +9,8 @@
 		"watch": "parcel watch source/manifest.json --dist-dir distribution --no-cache --no-hmr"
 	},
 	"browserslist": [
-		"Chrome >= 86",
-		"Firefox >= 83",
+		"Chrome >= 91",
+		"Firefox >= 89",
 		"Safari >= 14"
 	],
 	"xo": {

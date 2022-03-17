@@ -1,3 +1,4 @@
-import OptionsSync from 'webext-options-sync';
+import(chrome.runtime.getURL('shared.js')).then(({OptionsSync}) => {
+	new OptionsSync().syncForm(document.querySelector('form'));
+});
 
-new OptionsSync().syncForm(document.querySelector('form'));
