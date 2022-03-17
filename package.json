@@ -4,6 +4,7 @@
 		"build": "parcel build source/manifest.json --dist-dir distribution --no-cache --no-content-hash --no-source-maps --detailed-report 0",
 		"lint": "xo",
 		"pack:safari": "xcodebuild -project 'safari/GhostText.xcodeproj'",
+		"prepare:safari": "bash safari/prepare-release.sh",
 		"start:safari": "open 'safari/build/Release/GhostText.app'",
 		"test": "xo && npm run build",
 		"watch": "parcel watch source/manifest.json --dist-dir distribution --no-cache --no-hmr"

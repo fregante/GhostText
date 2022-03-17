@@ -3,3 +3,4 @@ yarn.lock
 distribution
 .cache
 .parcel-cache
+LocalOverrides.xcconfig
