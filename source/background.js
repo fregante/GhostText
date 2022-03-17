@@ -4,31 +4,31 @@ import OptionsSync from 'webext-options-sync';
 
 const optionsStorage = new OptionsSync({
 	defaults: {
-		serverPort: 4001
-	}
+		serverPort: 4001,
+	},
 });
 
 function inCurrentTab(callback) {
 	chrome.tabs.query({
 		active: true,
-		currentWindow: true
+		currentWindow: true,
 	}, tabs => callback(tabs[0]));
 }
 
 function handleClose(info, tab) {
 	chrome.tabs.executeScript(tab.id, {
-		code: 'stopGT()'
+		code: 'stopGT()',
 	});
 }
 
 async function handleAction({id}) {
 	const defaults = {
 		runAt: 'document_start',
-		allFrames: true
+		allFrames: true,
 	};
 	const [alreadyInjected] = await browser.tabs.executeScript(id, {
 		...defaults,
-		code: 'typeof window.startGT === "function"'
+		code: 'typeof window.startGT === "function"',
 	});
 	console.log(alreadyInjected);
 	if (alreadyInjected) {
@@ -38,7 +38,7 @@ async function handleAction({id}) {
 	try {
 		await Promise.all([
 			browser.tabs.insertCSS(id, {...defaults, file: '/ghost-text.css'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/ghost-text.js'})
+			browser.tabs.executeScript(id, {...defaults, file: '/ghost-text.js'}),
 		]);
 	} catch (error) {
 		console.error(error);
@@ -56,7 +56,7 @@ function handlePortListenerErrors(listener) {
 			if ([
 				'Failed to fetch',
 				'NetworkError when attempting to fetch resource.',
-				'Could not connect to the server.'
+				'Could not connect to the server.',
 			].includes(message)) {
 				message = 'Unable to connect to the editor. <a href="https://ghosttext.fregante.com/troubleshooting/#unable-to-connect">Need help?</a>';
 			}
@@ -79,7 +79,7 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	const socket = new WebSocket('ws://localhost:' + WebSocketPort);
 	const event = await Promise.race([
 		oneEvent(socket, 'open'),
-		oneEvent(socket, 'error')
+		oneEvent(socket, 'error'),
 	]);
 	console.log(event);
 
@@ -111,7 +111,7 @@ function handleMessages({code, count}, {tab}) {
 
 		chrome.browserAction.setBadgeText({
 			text,
-			tabId: tab.id
+			tabId: tab.id,
 		});
 	} else if (code === 'focus-tab') {
 		chrome.tabs.update(tab.id, {active: true});
@@ -126,7 +126,7 @@ function init() {
 		id: 'stop-gt',
 		title: 'Disconnect GhostText on this page',
 		contexts: ['browser_action'],
-		onclick: handleClose
+		onclick: handleClose,
 	});
 	chrome.commands.onCommand.addListener(command => {
 		if (command === 'open') {
@@ -138,11 +138,11 @@ function init() {
 		id: 'start-gt-editable',
 		title: 'Activate GhostText on field',
 		contexts: ['editable'],
-		onclick: handleAction
+		onclick: handleAction,
 	});
 
 	chrome.browserAction.setBadgeBackgroundColor({
-		color: '#008040'
+		color: '#008040',
 	});
 
 	browser.runtime.onInstalled.addListener(async ({reason}) => {
@@ -155,7 +155,7 @@ function init() {
 
 			await browser.tabs.create({
 				url: 'https://ghosttext.fregante.com/welcome/',
-				active: true
+				active: true,
 			});
 		}
 	});

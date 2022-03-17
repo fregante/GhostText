@@ -6,7 +6,7 @@ const activeFields = new Set();
 const eventOptions = {bubbles: true};
 
 let isWaitingForActivation = false;
-const startTimeout = 15000;
+const startTimeout = 15_000;
 let timeoutHandle;
 
 class ContentEditableWrapper {
@@ -37,8 +37,8 @@ class AdvancedTextWrapper {
 		});
 		this.el.dispatchEvent(
 			new CustomEvent('gt:get', {
-				bubbles: true
-			})
+				bubbles: true,
+			}),
 		);
 	}
 
@@ -148,10 +148,10 @@ class GhostTextField {
 				selections: [
 					{
 						start: this.field.selectionStart || 0,
-						end: this.field.selectionEnd || 0
-					}
-				]
-			})
+						end: this.field.selectionEnd || 0,
+					},
+				],
+			}),
 		);
 	}
 
@@ -169,8 +169,8 @@ class GhostTextField {
 				this.field.dispatchEvent(new CustomEvent('input', { // InputEvent doesn't support custom data
 					...eventOptions,
 					detail: {
-						ghostTextSyntheticEvent: true
-					}
+						ghostTextSyntheticEvent: true,
+					},
 				}));
 				this.field.dispatchEvent(new KeyboardEvent('keyup'), eventOptions);
 			}
@@ -197,7 +197,7 @@ class GhostTextField {
 		this.field.dataset.gtField = '';
 
 		chrome.runtime.sendMessage({
-			code: 'focus-tab'
+			code: 'focus-tab',
 		});
 
 		if (wasSuccessful) {
@@ -224,7 +224,7 @@ class GhostTextField {
 function updateCount() {
 	chrome.runtime.sendMessage({
 		code: 'connection-count',
-		count: activeFields.size
+		count: activeFields.size,
 	});
 
 	if (activeFields.size === 0) {
@@ -249,7 +249,7 @@ function registerElements() {
 
 function getMessageDisplayTime(message) {
 	const wpm = 100; // 180 is the average words read per minute, make it slower
-	return message.split(' ').length / wpm * 60000;
+	return message.split(' ').length / wpm * 60_000;
 }
 
 function notify(type, message, timeout = getMessageDisplayTime(message)) {
@@ -258,7 +258,7 @@ function notify(type, message, timeout = getMessageDisplayTime(message)) {
 	message = message.replace(/\n/g, '<br>');
 	const notification = GThumane.log(message, {
 		timeout,
-		addnCls: type === 'log' ? '' : 'ghost-text-message-error'
+		addnCls: type === 'log' ? '' : 'ghost-text-message-error',
 	});
 	document.addEventListener('click', () => notification.remove(), {once: true});
 }

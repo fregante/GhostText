@@ -41,7 +41,7 @@ export default function unsafeMessenger() {
 				if (origin !== 'setValue') {
 					sendBack(target, editor.getValue());
 				}
-			})
+			}),
 		);
 		target.addEventListener('gt:transfer', () => {
 			editor.setValue(target.getAttribute('gt-value'));
