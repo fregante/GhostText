@@ -28,14 +28,14 @@
 	},
 	"dependencies": {
 		"one-event": "^3.0.0",
-		"webext-base-css": "^1.4.0",
-		"webext-options-sync": "^3.0.1",
-		"webextension-polyfill": "^0.8.0"
+		"webext-base-css": "^1.4.1",
+		"webext-options-sync": "^3.1.0",
+		"webextension-polyfill": "^0.9.0"
 	},
 	"devDependencies": {
-		"@parcel/config-webextension": "^2.3.2",
-		"parcel": "^2.3.2",
-		"xo": "^0.48.0"
+		"@parcel/config-webextension": "^2.6.2",
+		"parcel": "^2.6.2",
+		"xo": "^0.50.0"
 	},
 	"engines": {
 		"node": ">=15",

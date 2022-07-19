@@ -15,20 +15,30 @@ jobs:
       version: ${{ steps.daily-version.outputs.version }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 20
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
       - name: install
         run: npm ci || npm install
       - run: npm test
-      - uses: fregante/daily-version-action@v1
+      - uses: fregante/daily-version-action@v2
         name: Create tag if necessary
         id: daily-version
-      - uses: fregante/release-with-changelog@v3
-        if: steps.daily-version.outputs.created
+      - if: steps.daily-version.outputs.created
+        name: Create release
+        uses: actions/github-script@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          exclude: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: >
+            await github.request(`POST /repos/${{ github.repository
+            }}/releases`, {
+              tag_name: "${{ steps.daily-version.outputs.version }}",
+              generate_release_notes: true
+            });
   Submit:
     needs: Version
     if: github.event_name == 'workflow_dispatch' || needs.Version.outputs.created
@@ -40,7 +50,11 @@ jobs:
           - chrome
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
       - name: install
         run: npm ci || npm install
       - run: npm run build --if-present
@@ -52,10 +66,10 @@ jobs:
         run: |
           case ${{ matrix.command }} in
             chrome)
-              cd $DIRECTORY && npx chrome-webstore-upload-cli@1 upload --auto-publish
+              cd $DIRECTORY && npx chrome-webstore-upload-cli@2 upload --auto-publish
               ;;
             firefox)
-              cd $DIRECTORY && npx web-ext-submit@5
+              cd $DIRECTORY && npx web-ext-submit@7
               ;;
           esac
         env:
