@@ -67,5 +67,9 @@
 		"scripts": [
 			"background.js"
 		]
-	}
+	},
+	"web_accessible_resources": [
+		"ghost-text.js",
+		"ghost-text.css"
+	]
 }
