@@ -48,5 +48,10 @@
 				"https://ghosttext.fregante.com/test/"
 			]
 		}
+	},
+	"@parcel/bundler-default": {
+		"minBundles": 10000000,
+		"minBundleSize": 3000,
+		"maxParallelRequests": 20
 	}
 }

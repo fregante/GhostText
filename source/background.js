@@ -1,12 +1,6 @@
 import browser from 'webextension-polyfill';
 import oneEvent from 'one-event';
-import OptionsSync from 'webext-options-sync';
-
-const optionsStorage = new OptionsSync({
-	defaults: {
-		serverPort: 4001,
-	},
-});
+import optionsStorage from './options-storage.js';
 
 function inCurrentTab(callback) {
 	chrome.tabs.query({
