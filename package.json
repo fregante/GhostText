@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"scripts": {
-		"build": "parcel build source/manifest.json --dist-dir distribution --no-cache --no-content-hash --no-source-maps --detailed-report 0",
+		"build": "parcel build source/manifest.json --dist-dir distribution --no-cache",
 		"lint": "xo",
 		"pack:safari": "xcodebuild -project 'safari/GhostText.xcodeproj'",
 		"prepare:safari": "bash safari/prepare-release.sh",
@@ -48,5 +48,9 @@
 				"https://ghosttext.fregante.com/test/"
 			]
 		}
+	},
+	"@parcel/bundler-default-bug": "https://github.com/parcel-bundler/parcel/issues/8071",
+	"@parcel/bundler-default": {
+		"minBundles": 10000000
 	}
 }

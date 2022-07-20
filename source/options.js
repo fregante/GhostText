@@ -1,3 +1,3 @@
-import OptionsSync from 'webext-options-sync';
+import optionsStorage from './options-storage.js';
 
-new OptionsSync().syncForm(document.querySelector('form'));
+optionsStorage.syncForm(document.querySelector('form'));
