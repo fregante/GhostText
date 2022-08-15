@@ -49,3 +49,20 @@ web-ext run --target=chromium
 # Run extension in Firefox
 web-ext run
 ```
+
+## Adding support for more editors
+
+"Support" is made of 2 parts:
+
+- [detection]([url](https://github.com/fregante/GhostText/blob/a3ac72db5c05edbe0d4e2cef70c1a4fd5cdfd11b/source/ghost-text.js#L71-L88)) (it _could_ be URL-based if it's a custom editor, but ideally it's attribute-based)
+- text read/write
+
+If the value an be set via DOM, like for a standard `contentEditable`, the second point would be easy:
+
+https://github.com/fregante/GhostText/blob/a3ac72db5c05edbe0d4e2cef70c1a4fd5cdfd11b/source/ghost-text.js#L12-L29
+
+In the more likely case where you have to access the website’s own script data, you'd have to go through the `AdvancedTextWrapper`, which communicates with the [`unsafe-messenger` script](https://github.com/fregante/GhostText/blob/main/source/unsafe-messenger.js) to get and set the text:
+
+https://github.com/fregante/GhostText/blob/a3ac72db5c05edbe0d4e2cef70c1a4fd5cdfd11b/source/unsafe-messenger.js#L33-L52
+
+You can see the above piece of code uses a local `CodeMirror` property and then sends the value via events.
