@@ -6,12 +6,14 @@
 export default function unsafeMessenger() {
 	document.body.addEventListener('gt:get', listener);
 
+	// Add a new condition to check for the existence of the monaco object
 	function listener({target}) {
 		if (target.CodeMirror) {
 			codeMirror(target);
+		} else if (monaco) {
+			monacoEditor(target);
 		} else {
 			ace(target);
-		}
 	}
 
 	function sendBack(target, value) {
@@ -71,6 +73,28 @@ export default function unsafeMessenger() {
 		});
 		target.addEventListener('gt:blur', () => {
 			editor.blur();
+		});
+	}
+
+	// Add a new function to handle the Monaco editor
+	function monacoEditor(target) {
+		const editor = monaco.editor.getModels()[0];
+
+		sendBack(target, editor.getValue());
+
+		editor.onDidChangeContent(() => {
+			sendBack(target, editor.getValue());
+		});
+		target.addEventListener('gt:transfer', () => {
+			editor.setValue(target.getAttribute('gt-value'));
+		});
+		target.addEventListener('gt:blur', () => {
+			// If the Monaco editor is in an iframe, you'll need to access it through the iframe's contentWindow
+			if (editor.container.contentWindow) {
+				editor.container.contentWindow.document.activeElement.blur();
+			} else {
+				editor.container.document.activeElement.blur();
+			}
 		});
 	}
 }
