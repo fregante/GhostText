@@ -76,20 +76,26 @@ export default function unsafeMessenger() {
 		});
 	}
 
-	// Add a new function to handle the Monaco editor
 	function monacoEditor(target) {
 		const editor = monaco.editor.getModels()[0];
+		let currentValue = editor.getValue();
+		sendBack(target, currentValue);
 
-		sendBack(target, editor.getValue());
-
-		editor.onDidChangeContent(() => {
-			sendBack(target, editor.getValue());
+		editor.onDidChangeContent((e) => {
+			// Check if the change was made by the user
+			if (e.isUserChange) {
+				// Check if the current value is different from the previous value
+				if (currentValue !== editor.getValue()) {
+					currentValue = editor.getValue();
+					throttle(50, sendBack)(target, currentValue);
+				}
+			}
 		});
+	
 		target.addEventListener('gt:transfer', () => {
 			editor.setValue(target.getAttribute('gt-value'));
 		});
 		target.addEventListener('gt:blur', () => {
-			// If the Monaco editor is in an iframe, you'll need to access it through the iframe's contentWindow
 			if (editor.container.contentWindow) {
 				editor.container.contentWindow.document.activeElement.blur();
 			} else {
@@ -97,6 +103,7 @@ export default function unsafeMessenger() {
 			}
 		});
 	}
+	
 }
 
 // eslint-disable-next-line no-unused-expressions
