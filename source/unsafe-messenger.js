@@ -6,11 +6,10 @@
 export default function unsafeMessenger() {
 	document.body.addEventListener('gt:get', listener);
 
-	// Add a new condition to check for the existence of the monaco object
 	function listener({target}) {
 		if (target.CodeMirror) {
 			codeMirror(target);
-		} else if (monaco) {
+		} else if (target.hasAttribute("data-uri")) {
 			monacoEditor(target);
 		} else {
 			ace(target);
@@ -77,17 +76,16 @@ export default function unsafeMessenger() {
 	}
 
 	function monacoEditor(target) {
-		const editor = monaco.editor.getModels()[0];
+		const data_uri = target.getAttribute("data-uri");
+		const editor = monaco.editor.getModels(data_uri)[0];
 		let currentValue = editor.getValue();
 		sendBack(target, currentValue);
+		const throttledSend = throttle(50, sendBack);
 
 		editor.onDidChangeContent((e) => {
-			// Check if the change was made by the user
 			if (e.isUserChange) {
-				// Check if the current value is different from the previous value
 				if (currentValue !== editor.getValue()) {
-					currentValue = editor.getValue();
-					throttle(50, sendBack)(target, currentValue);
+					throttledSend(target, editor.getValue());
 				}
 			}
 		});
