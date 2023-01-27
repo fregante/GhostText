@@ -77,7 +77,7 @@ export default function unsafeMessenger() {
 
 	function monacoEditor(target) {
 		const data_uri = target.getAttribute("data-uri");
-		const editor = monaco.editor.getModels(data_uri)[0];
+		const editor = monaco.editor.getModel(data_uri);
 		let currentValue = editor.getValue();
 		sendBack(target, currentValue);
 		const throttledSend = throttle(50, sendBack);
