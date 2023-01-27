@@ -13,6 +13,7 @@ export default function unsafeMessenger() {
 			monacoEditor(target);
 		} else {
 			ace(target);
+		}
 	}
 
 	function sendBack(target, value) {
