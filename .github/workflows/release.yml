@@ -1,5 +1,6 @@
 env:
   DIRECTORY: distribution
+  PROJECT_NAME: ghosttext
 
 # FILE GENERATED WITH: npx ghat fregante/ghatemplates/webext/release.yml
 # SOURCE: https://github.com/fregante/ghatemplates
@@ -30,15 +31,17 @@ jobs:
         id: daily-version
       - if: steps.daily-version.outputs.created
         name: Create release
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: >
-            await github.request(`POST /repos/${{ github.repository
-            }}/releases`, {
-              tag_name: "${{ steps.daily-version.outputs.version }}",
-              generate_release_notes: true
-            });
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          cd $DIRECTORY
+
+          FILENAME="$PROJECT_NAME-local-install.zip"
+
+          zip -r "$FILENAME" *
+
+          gh release create "${{ steps.daily-version.outputs.version }}"
+          --generate-notes "$FILENAME"
   Submit:
     needs: Version
     if: github.event_name == 'workflow_dispatch' || needs.Version.outputs.created
