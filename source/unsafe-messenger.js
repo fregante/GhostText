@@ -9,7 +9,7 @@ export default function unsafeMessenger() {
 	function listener({target}) {
 		if (target.CodeMirror) {
 			codeMirror(target);
-		} else if (target.hasAttribute("data-uri")) {
+		} else if (target.classList.has('monaco-editor')) {
 			monacoEditor(target);
 		} else {
 			ace(target);
