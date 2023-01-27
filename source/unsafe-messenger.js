@@ -9,7 +9,7 @@ export default function unsafeMessenger() {
 	function listener({target}) {
 		if (target.CodeMirror) {
 			codeMirror(target);
-		} else if (target.classList.has('monaco-editor')) {
+		} else if (target.classList.contains('monaco-editor')) {
 			monacoEditor(target);
 		} else {
 			ace(target);
@@ -77,20 +77,17 @@ export default function unsafeMessenger() {
 	}
 
 	function monacoEditor(target) {
-		const data_uri = target.getAttribute("data-uri");
-		const editor = monaco.editor.getModel(data_uri);
-		let currentValue = editor.getValue();
+		const editor = globalThis.monaco.editor.getModel(target.dataset.uri);
+		const currentValue = editor.getValue();
 		sendBack(target, currentValue);
 		const throttledSend = throttle(50, sendBack);
 
-		editor.onDidChangeContent((e) => {
-			if (e.isUserChange) {
-				if (currentValue !== editor.getValue()) {
-					throttledSend(target, editor.getValue());
-				}
+		editor.onDidChangeContent(event => {
+			if (event.isUserChange && currentValue !== editor.getValue()) {
+				throttledSend(target, editor.getValue());
 			}
 		});
-	
+
 		target.addEventListener('gt:transfer', () => {
 			editor.setValue(target.getAttribute('gt-value'));
 		});
@@ -102,7 +99,6 @@ export default function unsafeMessenger() {
 			}
 		});
 	}
-	
 }
 
 // eslint-disable-next-line no-unused-expressions
