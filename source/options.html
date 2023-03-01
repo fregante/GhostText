@@ -3,18 +3,20 @@
 <title>GhostText options</title>
 <link rel="stylesheet" href="npm:webext-base-css">
 <form id="options-form">
-	<label>
+	<label for="serverPort">
 		Server Port
-		<input
-			name="serverPort"
-			type="number"
-			min="1"
-			max="65536"
-			step="1"
-			placeholder="4001"
-			value="4001"
-			required
-		/>
+	</label>
+	<input
+		name="serverPort"
+		id="serverPort"
+		type="number"
+		min="1"
+		max="65536"
+		step="1"
+		placeholder="4001"
+		value="4001"
+		required
+	/>
 	</label>
 </form>
 <p>You can find information on how GhostText works and how to troubleshoot any issues on <a href="https://github.com/fregante/GhostText">its repo</a>.</p>
