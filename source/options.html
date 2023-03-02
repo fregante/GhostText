@@ -6,22 +6,23 @@
 	@import './options.css';
 </style>
 <form id="options-form">
-	<label for="serverPort">
-		Server Port
-	</label>
-	<input
-		name="serverPort"
-		id="serverPort"
-		type="number"
-		min="1"
-		max="65536"
-		step="1"
-		placeholder="4001"
-		value="4001"
-		required
-	/>
-	<br>
-	<div class="field">
+	<p class="field">
+		<label for="serverPort">
+			Server Port
+		</label>
+		<input
+			name="serverPort"
+			id="serverPort"
+			type="number"
+			min="1"
+			max="65536"
+			step="1"
+			placeholder="4001"
+			value="4001"
+			required
+		/>
+	</p>
+	<p class="field">
 		<input
 			name="notifyOnConnect"
 			id="notifyOnConnect"
@@ -31,9 +32,8 @@
 		<label for="notifyOnConnect">
 			Display notifications when connected and disconnected
 		</label>
-	</div>
-	<br>
-	<div class="field">
+	</p>
+	<p class="field">
 		<input
 			name="focusOnDisconnect"
 			id="focusOnDisconnect"
@@ -41,12 +41,13 @@
 			checked
 		/>
 		<label for="focusOnDisconnect">
-			Bring the focus back to the browser when disconnected (some OS bring the browser to the foreground, others 'flash' the browser icon in the taskbar)
+			Bring the focus back to the browser when disconnected. <br>
+			some OS bring the browser to the foreground, others 'flash' the browser icon in the taskbar.
 		</label>
-	</div>
+	</p>
 </form>
-<p>You can find information on how GhostText works and how to troubleshoot any issues on <a href="https://github.com/fregante/GhostText">its repo</a>.</p>
 <hr>
+<p>You can find information on how GhostText works and how to troubleshoot any issues on <a href="https://github.com/fregante/GhostText">its repo</a>.</p>
 <p>If you find this useful, consider supporting its development by <a href="https://github.com/sponsors/fregante">donating or sponsoring me on GitHub</a>.</p>
 <p>Made with 🍕 by <a href="https://fregante.com">fregante</a>.</p>
 <script type="module" src="options.js"></script>

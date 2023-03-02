@@ -1,4 +1,14 @@
 .field {
 	display: flex;
-	align-items: start;
+	align-items: baseline;
+	gap: 0.7em
+}
+
+[type='checkbox'] {
+	margin: 0;
+	align-self: start;
+}
+
+#serverPort {
+	width: 7em;
 }
