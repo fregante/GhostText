@@ -62,8 +62,8 @@ function handlePortListenerErrors(listener) {
 
 chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	console.assert(port.name === 'new-field');
-	const {serverPort} = await optionsStorage.getAll();
-	const response = await fetch(`http://localhost:${serverPort}`);
+	const options = await optionsStorage.getAll();
+	const response = await fetch(`http://localhost:${options.serverPort}`);
 	const {ProtocolVersion, WebSocketPort} = await response.json();
 	if (ProtocolVersion !== 1) {
 		throw new Error('Incompatible protocol version');

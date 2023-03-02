@@ -1,9 +1,11 @@
 import GThumane from './humane-ghosttext.js';
 import unsafeMessenger from './unsafe-messenger.js';
+import optionsStorage from './options-storage.js';
 
 const knownElements = new Map();
 const activeFields = new Set();
 const eventOptions = {bubbles: true};
+const optionsPromise = optionsStorage.getAll();
 
 let isWaitingForActivation = false;
 const startTimeout = 15_000;
@@ -111,14 +113,17 @@ class GhostTextField {
 		this.field.dataset.gtField = 'loading';
 
 		this.port = chrome.runtime.connect({name: 'new-field'});
-		this.port.onMessage.addListener(message => {
+		this.port.onMessage.addListener(async message => {
 			if (message.message) {
 				this.receive({data: message.message});
 			} else if (message.close) {
 				this.deactivate(false);
 				updateCount();
 			} else if (message.ready) {
-				notify('log', 'Connected! You can switch to your editor');
+				const options = await optionsPromise;
+				if (options.notifyOnConnect) {
+					notify('log', 'Connected! You can switch to your editor');
+				}
 
 				this.field.addEventListener('input', this.send);
 				this.field.dataset.gtField = 'enabled';
@@ -184,7 +189,7 @@ class GhostTextField {
 		}
 	}
 
-	deactivate(wasSuccessful = true) {
+	async deactivate(wasSuccessful = true) {
 		if (this.state === 'inactive') {
 			return;
 		}
@@ -196,9 +201,12 @@ class GhostTextField {
 		this.field.removeEventListener('input', this.send);
 		this.field.dataset.gtField = '';
 
-		chrome.runtime.sendMessage({
-			code: 'focus-tab',
-		});
+		const options = await optionsPromise;
+		if (options.focusOnDisconnect) {
+			chrome.runtime.sendMessage({
+				code: 'focus-tab',
+			});
+		}
 
 		if (wasSuccessful) {
 			updateCount();
@@ -221,14 +229,17 @@ class GhostTextField {
 	}
 }
 
-function updateCount() {
+async function updateCount() {
 	chrome.runtime.sendMessage({
 		code: 'connection-count',
 		count: activeFields.size,
 	});
 
 	if (activeFields.size === 0) {
-		notify('log', 'Disconnected! \n <a href="https://github.com/fregante/GhostText/issues" target="_blank">Report issues</a>');
+		const options = await optionsPromise;
+		if (options.notifyOnConnect) {
+			notify('log', 'Disconnected! \n <a href="https://github.com/fregante/GhostText/issues" target="_blank">Report issues</a>');
+		}
 	}
 }
 
