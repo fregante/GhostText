@@ -62,7 +62,7 @@ function handlePortListenerErrors(listener) {
 
 chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	console.assert(port.name === 'new-field');
-	const {serverPort, focusOnDisconnect} = await optionsStorage.getAll();
+	const {serverPort, notifyOnConnect, focusOnDisconnect} = await optionsStorage.getAll();
 	const response = await fetch(`http://localhost:${serverPort}`);
 	const {ProtocolVersion, WebSocketPort} = await response.json();
 	if (ProtocolVersion !== 1) {

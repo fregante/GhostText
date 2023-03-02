@@ -113,14 +113,17 @@ class GhostTextField {
 		this.field.dataset.gtField = 'loading';
 
 		this.port = chrome.runtime.connect({name: 'new-field'});
-		this.port.onMessage.addListener(message => {
+		this.port.onMessage.addListener(async message => {
 			if (message.message) {
 				this.receive({data: message.message});
 			} else if (message.close) {
 				this.deactivate(false);
 				updateCount();
 			} else if (message.ready) {
-				notify('log', 'Connected! You can switch to your editor');
+				const options = await extOptions;
+				if (options.notifyOnConnect) {
+					notify('log', 'Connected! You can switch to your editor');
+				}
 
 				this.field.addEventListener('input', this.send);
 				this.field.dataset.gtField = 'enabled';
@@ -226,14 +229,17 @@ class GhostTextField {
 	}
 }
 
-function updateCount() {
+async function updateCount() {
 	chrome.runtime.sendMessage({
 		code: 'connection-count',
 		count: activeFields.size,
 	});
 
 	if (activeFields.size === 0) {
-		notify('log', 'Disconnected! \n <a href="https://github.com/fregante/GhostText/issues" target="_blank">Report issues</a>');
+		const options = await extOptions;
+		if (options.notifyOnConnect) {
+			notify('log', 'Disconnected! \n <a href="https://github.com/fregante/GhostText/issues" target="_blank">Report issues</a>');
+		}
 	}
 }
 
