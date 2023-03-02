@@ -5,7 +5,7 @@ import optionsStorage from './options-storage.js';
 const knownElements = new Map();
 const activeFields = new Set();
 const eventOptions = {bubbles: true};
-const extOptions = optionsStorage.getAll();
+const optionsPromise = optionsStorage.getAll();
 
 let isWaitingForActivation = false;
 const startTimeout = 15_000;
@@ -120,7 +120,7 @@ class GhostTextField {
 				this.deactivate(false);
 				updateCount();
 			} else if (message.ready) {
-				const options = await extOptions;
+				const options = await optionsPromise;
 				if (options.notifyOnConnect) {
 					notify('log', 'Connected! You can switch to your editor');
 				}
@@ -201,7 +201,7 @@ class GhostTextField {
 		this.field.removeEventListener('input', this.send);
 		this.field.dataset.gtField = '';
 
-		const options = await extOptions;
+		const options = await optionsPromise;
 		if (options.focusOnDisconnect) {
 			chrome.runtime.sendMessage({
 				code: 'focus-tab',
@@ -236,7 +236,7 @@ async function updateCount() {
 	});
 
 	if (activeFields.size === 0) {
-		const options = await extOptions;
+		const options = await optionsPromise;
 		if (options.notifyOnConnect) {
 			notify('log', 'Disconnected! \n <a href="https://github.com/fregante/GhostText/issues" target="_blank">Report issues</a>');
 		}

@@ -2,8 +2,8 @@
 <meta charset="UTF-8" />
 <title>GhostText options</title>
 <style>
-	@import "npm:webext-base-css";
-	@import "./options.css";
+	@import 'npm:webext-base-css';
+	@import './options.css';
 </style>
 <form id="options-form">
 	<label for="serverPort">
@@ -21,31 +21,27 @@
 		required
 	/>
 	<br>
-	<div class="field" style="display: flex">
+	<div class="field">
 		<input
 			name="notifyOnConnect"
 			id="notifyOnConnect"
 			type="checkbox"
-			value="notify"
-			checked=true
+			checked
 		/>
 		<label for="notifyOnConnect">
-			Display notification popup on connect/disconnect with the text editor
+			Display notifications when connected and disconnected
 		</label>
 	</div>
 	<br>
-	<div class="field" style="display: flex">
+	<div class="field">
 		<input
 			name="focusOnDisconnect"
 			id="focusOnDisconnect"
 			type="checkbox"
-			value="focus"
-			checked=true
+			checked
 		/>
 		<label for="focusOnDisconnect">
-			Focus browser's tab when text editor is disconnected
-			(some OS bring browser to the foreground,
-			others 'flash' browser in the taskbar)
+			Bring the focus back to the browser when disconnected (some OS bring the browser to the foreground, others 'flash' the browser icon in the taskbar)
 		</label>
 	</div>
 </form>
