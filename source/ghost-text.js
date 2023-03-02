@@ -1,9 +1,11 @@
 import GThumane from './humane-ghosttext.js';
 import unsafeMessenger from './unsafe-messenger.js';
+import optionsStorage from './options-storage.js';
 
 const knownElements = new Map();
 const activeFields = new Set();
 const eventOptions = {bubbles: true};
+const extOptions = optionsStorage.getAll();
 
 let isWaitingForActivation = false;
 const startTimeout = 15_000;
@@ -184,7 +186,7 @@ class GhostTextField {
 		}
 	}
 
-	deactivate(wasSuccessful = true) {
+	async deactivate(wasSuccessful = true) {
 		if (this.state === 'inactive') {
 			return;
 		}
@@ -196,9 +198,12 @@ class GhostTextField {
 		this.field.removeEventListener('input', this.send);
 		this.field.dataset.gtField = '';
 
-		chrome.runtime.sendMessage({
-			code: 'focus-tab',
-		});
+		const options = await extOptions;
+		if (options.focusOnDisconnect) {
+			chrome.runtime.sendMessage({
+				code: 'focus-tab',
+			});
+		}
 
 		if (wasSuccessful) {
 			updateCount();
