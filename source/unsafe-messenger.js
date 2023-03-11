@@ -78,25 +78,19 @@ export default function unsafeMessenger() {
 
 	function monacoEditor(target) {
 		const editor = globalThis.monaco.editor.getModel(target.dataset.uri);
-		const currentValue = editor.getValue();
-		sendBack(target, currentValue);
-		const throttledSend = throttle(50, sendBack);
+		sendBack(target, editor.getValue());
 
-		editor.onDidChangeContent(event => {
-			if (event.isUserChange && currentValue !== editor.getValue()) {
-				throttledSend(target, editor.getValue());
+		editor.onDidChangeContent(throttle(50, event => {
+			if (!event.isFlush) { // Flush === setValue
+				sendBack(target, editor.getValue());
 			}
-		});
+		}));
 
 		target.addEventListener('gt:transfer', () => {
 			editor.setValue(target.getAttribute('gt-value'));
 		});
 		target.addEventListener('gt:blur', () => {
-			if (editor.container.contentWindow) {
-				editor.container.contentWindow.document.activeElement.blur();
-			} else {
-				editor.container.document.activeElement.blur();
-			}
+			target.ownerDocument.activeElement.blur();
 		});
 	}
 }
