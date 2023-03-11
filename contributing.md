@@ -2,7 +2,7 @@
 
 ## Requirements
 
-[Node.js](https://nodejs.org/en/download/) version 15 or later is required.
+[Node.js](https://nodejs.org/en/download/) version 18 or later is required.
 
 ## Workflow
 
@@ -59,10 +59,11 @@ web-ext run
 
 If the value an be set via DOM, like for a standard `contentEditable`, the second point would be easy:
 
-https://github.com/fregante/GhostText/blob/a3ac72db5c05edbe0d4e2cef70c1a4fd5cdfd11b/source/ghost-text.js#L12-L29
+https://github.com/fregante/GhostText/blob/febe6a66146cd3e620ad4458e50954e213bbb629/source/ghost-text.js#L14-L30
 
 In the more likely case where you have to access the website’s own script data, you'd have to go through the `AdvancedTextWrapper`, which communicates with the [`unsafe-messenger` script](https://github.com/fregante/GhostText/blob/main/source/unsafe-messenger.js) to get and set the text:
 
-https://github.com/fregante/GhostText/blob/a3ac72db5c05edbe0d4e2cef70c1a4fd5cdfd11b/source/unsafe-messenger.js#L33-L52
+https://github.com/fregante/GhostText/blob/febe6a66146cd3e620ad4458e50954e213bbb629/source/unsafe-messenger.js#L35-L51
+
 
 You can see the above piece of code uses a local `CodeMirror` property and then sends the value via events.
