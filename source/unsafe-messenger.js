@@ -50,16 +50,13 @@ export default function unsafeMessenger() {
 		// );
 
 		target.addEventListener('gt:transfer', () => {
-			// TODO: Follow https://github.com/codemirror/dev/issues/1108
-			const newContent = target.getAttribute('gt-value');
-			const transaction = cmView.view.state.update({
+			cmView.view.dispatch({
 				changes: {
 					from: 0,
 					to: cmView.view.state.doc.length,
-					insert: newContent,
+					insert: target.getAttribute('gt-value'),
 				},
 			});
-			cmView.view.update([transaction]);
 		});
 	}
 
