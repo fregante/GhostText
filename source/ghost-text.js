@@ -76,6 +76,11 @@ function wrapField(field) {
 		return new AdvancedTextWrapper(monaco, visualElement);
 	}
 
+	const cm6 = field.closest('.cm-content');
+	if (cm6) {
+		return new AdvancedTextWrapper(cm6, cm6);
+	}
+
 	if (field.classList.contains('ace_text-input')) {
 		const ace = field.parentNode;
 		const visualElement = ace.querySelector('.ace_scroller');

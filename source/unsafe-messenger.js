@@ -8,9 +8,11 @@ export default function unsafeMessenger() {
 
 	function listener({target}) {
 		if (target.CodeMirror) {
-			codeMirror(target);
+			codeMirror5(target);
 		} else if (target.classList.contains('monaco-editor')) {
 			monacoEditor(target);
+		} else if (target.cmView) {
+			codeMirror6(target);
 		} else {
 			ace(target);
 		}
@@ -32,7 +34,36 @@ export default function unsafeMessenger() {
 		};
 	}
 
-	function codeMirror(target) {
+	function codeMirror6(target) {
+		const {cmView} = target;
+
+		sendBack(target, cmView.view.state.doc.toString());
+
+		// TODO: https://discuss.codemirror.net/t/listen-to-change-event/5095
+		// cmView.on(
+		// 	'changes',
+		// 	throttle(50, (instance, [{origin}]) => {
+		// 		if (isUserEvent()) {
+		// 			sendBack(target, cmView.view.state.doc.toString());
+		// 		}
+		// 	}),
+		// );
+
+		target.addEventListener('gt:transfer', () => {
+			// TODO: Follow https://github.com/codemirror/dev/issues/1108
+			const newContent = target.getAttribute('gt-value');
+			const transaction = cmView.view.state.update({
+				changes: {
+					from: 0,
+					to: cmView.view.state.doc.length,
+					insert: newContent,
+				},
+			});
+			cmView.view.update([transaction]);
+		});
+	}
+
+	function codeMirror5(target) {
 		const editor = target.CodeMirror;
 
 		sendBack(target, editor.getValue());
