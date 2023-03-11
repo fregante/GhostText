@@ -48,9 +48,6 @@ export default function unsafeMessenger() {
 		target.addEventListener('gt:transfer', () => {
 			editor.setValue(target.getAttribute('gt-value'));
 		});
-		target.addEventListener('gt:blur', () => {
-			editor.getInputField().blur();
-		});
 	}
 
 	function ace(target) {
@@ -71,9 +68,6 @@ export default function unsafeMessenger() {
 				session.setValue(target.getAttribute('gt-value'));
 			}
 		});
-		target.addEventListener('gt:blur', () => {
-			editor.blur();
-		});
 	}
 
 	function monacoEditor(target) {
@@ -88,9 +82,6 @@ export default function unsafeMessenger() {
 
 		target.addEventListener('gt:transfer', () => {
 			editor.setValue(target.getAttribute('gt-value'));
-		});
-		target.addEventListener('gt:blur', () => {
-			target.ownerDocument.activeElement.blur();
 		});
 	}
 }

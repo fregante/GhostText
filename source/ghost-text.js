@@ -18,7 +18,6 @@ class ContentEditableWrapper {
 		this.addEventListener = element.addEventListener.bind(element);
 		this.removeEventListener = element.removeEventListener.bind(element);
 		this.dispatchEvent = element.dispatchEvent.bind(element);
-		this.blur = element.blur.bind(element);
 	}
 
 	get value() {
@@ -42,10 +41,6 @@ class AdvancedTextWrapper {
 				bubbles: true,
 			}),
 		);
-	}
-
-	blur() {
-		this.el.dispatchEvent(new CustomEvent('gt:blur'));
 	}
 
 	addEventListener(type, callback) {
