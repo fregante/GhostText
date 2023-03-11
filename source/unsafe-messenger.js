@@ -9,6 +9,8 @@ export default function unsafeMessenger() {
 	function listener({target}) {
 		if (target.CodeMirror) {
 			codeMirror(target);
+		} else if (target.classList.contains('monaco-editor')) {
+			monacoEditor(target);
 		} else {
 			ace(target);
 		}
@@ -71,6 +73,24 @@ export default function unsafeMessenger() {
 		});
 		target.addEventListener('gt:blur', () => {
 			editor.blur();
+		});
+	}
+
+	function monacoEditor(target) {
+		const editor = globalThis.monaco.editor.getModel(target.dataset.uri);
+		sendBack(target, editor.getValue());
+
+		editor.onDidChangeContent(throttle(50, event => {
+			if (!event.isFlush) { // Flush === setValue
+				sendBack(target, editor.getValue());
+			}
+		}));
+
+		target.addEventListener('gt:transfer', () => {
+			editor.setValue(target.getAttribute('gt-value'));
+		});
+		target.addEventListener('gt:blur', () => {
+			target.ownerDocument.activeElement.blur();
 		});
 	}
 }

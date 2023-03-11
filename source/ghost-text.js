@@ -70,6 +70,12 @@ class AdvancedTextWrapper {
 }
 
 function wrapField(field) {
+	const monaco = field.closest('.monaco-editor');
+	if (monaco) {
+		const visualElement = monaco.querySelector('.monaco-editor-background');
+		return new AdvancedTextWrapper(monaco, visualElement);
+	}
+
 	if (field.classList.contains('ace_text-input')) {
 		const ace = field.parentNode;
 		const visualElement = ace.querySelector('.ace_scroller');
