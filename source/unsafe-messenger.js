@@ -7,12 +7,12 @@ export default function unsafeMessenger() {
 	document.body.addEventListener('gt:get', listener);
 
 	function listener({target}) {
-		if (target.CodeMirror) {
+		if (target.cmView) {
+			codeMirror6(target);
+		} else if (target.CodeMirror) {
 			codeMirror5(target);
 		} else if (target.classList.contains('monaco-editor')) {
 			monacoEditor(target);
-		} else if (target.cmView) {
-			codeMirror6(target);
 		} else {
 			ace(target);
 		}
@@ -39,15 +39,15 @@ export default function unsafeMessenger() {
 
 		sendBack(target, cmView.view.state.doc.toString());
 
-		// TODO: https://discuss.codemirror.net/t/listen-to-change-event/5095
-		// cmView.on(
-		// 	'changes',
-		// 	throttle(50, (instance, [{origin}]) => {
-		// 		if (isUserEvent()) {
-		// 			sendBack(target, cmView.view.state.doc.toString());
-		// 		}
-		// 	}),
-		// );
+		const EditorView = cmView.view.constructor;
+		const updateListenerExtension = EditorView.updateListener.of(throttle(50, (update) => {
+			// TODO: Does this work?
+			if (update.docChanged && update.transactions[0].isUserEvent()) {
+				sendBack(target, cmView.view.state.doc.toString());
+			}
+		}));
+
+		// TODO: Attach updateListenerExtension to the view
 
 		target.addEventListener('gt:transfer', () => {
 			cmView.view.dispatch({
