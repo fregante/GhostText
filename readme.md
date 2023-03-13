@@ -23,7 +23,7 @@ Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more deta
 2. Install your editor extension:
 
 	[<img src="https://ghosttext.fregante.com/icons/sublime-text.svg" width="48" height="48" alt="Sublime Text">](https://sublime.wbond.net/packages/GhostText) 
-	[<img src="https://ghosttext.fregante.com/icons/vscode.svg" width="48" height="48" alt="VS Code">](https://marketplace.visualstudio.com/items?itemName=tokoph.ghosttext) 
+	[<img src="https://ghosttext.fregante.com/icons/vscode.svg" width="48" height="48" alt="VS Code">](https://marketplace.visualstudio.com/items?itemName=fregante.ghost-text) 
 	[<img src="https://ghosttext.fregante.com/icons/atom.svg" width="48" height="48" alt="Atom">](https://github.com/GhostText/GhostText-for-Atom) 
 	[<img src="https://ghosttext.fregante.com/icons/emacs.svg" width="48" height="48" alt="Emacs">](https://melpa.org/#/atomic-chrome) 
 	[<img src="https://ghosttext.fregante.com/icons/vim.svg" width="48" height="48" alt="Vim">](https://github.com/raghur/vim-ghost) 
