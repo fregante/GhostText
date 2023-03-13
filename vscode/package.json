@@ -1,0 +1,27 @@
+{
+  "name": "ghosttext",
+  "displayName": "GhostText",
+  "description": "Write in the browser with VSCode",
+  "version": "0.0.1",
+  "publisher": "fregante",
+  "repository": "TODO",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "scripts": {
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@sindresorhus/tsconfig": "^3.0.1",
+    "@types/node": "^18.15.1",
+    "@types/vscode": "^1.76.0",
+    "tslint": "^5.20.1",
+    "typescript": "^4.9.5"
+  }
+}
