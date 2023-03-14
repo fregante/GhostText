@@ -26,7 +26,7 @@ The JSON payload is an object with the following properties:
 | Property          | Type   | Description                          |
 | ----------------- | ------ | ------------------------------------ |
 | `ProtocolVersion` | Number | The protocol version                 |
-| `WebSocketPort`   | Number | The port for the listening WebSocket |
+| `WebSocketPort`   | Number | The port for the listening WebSocket. This ideally is the same configured HTTP port (default 4001) but it doesn’t have to be. |
 
 #### Example
 
