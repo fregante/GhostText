@@ -79,7 +79,14 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 
 	const onSocketClose = () => port.postMessage({close: true});
 	socket.addEventListener('close', onSocketClose);
-	socket.addEventListener('message', event => port.postMessage({message: event.data}));
+	socket.addEventListener('message', event => {
+		if (JSON.parse(event.data).syntax === 'TODO') {
+			port.postMessage({outdated: true});
+			port.disconnect();
+		} else {
+			port.postMessage({message: event.data});
+		}
+	});
 	socket.addEventListener('error', event => console.error('error!', event));
 
 	port.onMessage.addListener(message => {
