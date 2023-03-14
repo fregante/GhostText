@@ -90,7 +90,7 @@ Selection objects have the following properties:
 ## User makes a change in the editor
 
 Each time the user makes a change in the editor the Server sends via the
-WebSocket a JSON object message with the following properties:
+WebSocket a JSON object message with at least one of the following properties:
 
 | Property     | Value                  | Description                                                                                    |
 | ------------ | ---------------------- | ---------------------------------------------------------------------------------------------- |
@@ -106,6 +106,26 @@ WebSocket a JSON object message with the following properties:
 		{
 			"start": 20,
 			"end": 30
+		}
+	]
+}
+```
+```json
+{
+	"text": "Adipisicing ea lorem expedita facere nesciunt"
+}
+```
+```json
+{
+	"text": "Adipisicing ea lorem expedita facere nesciunt",
+	"selections": [
+		{
+			"start": 20,
+			"end": 30
+		},
+		{
+			"start": 50,
+			"end": 51
 		}
 	]
 }
