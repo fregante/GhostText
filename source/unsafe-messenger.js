@@ -78,8 +78,6 @@ export default function unsafeMessenger() {
 	}
 
 	function codeMirror5(target) {
-		const controller = new AbortController();
-		const {signal} = controller;
 		const editor = target.CodeMirror;
 
 		sendBack(target, editor.getValue());
