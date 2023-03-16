@@ -3,12 +3,20 @@
  * as "unsafe" code, bridging the extension's sandbox and the website's libraries.
  */
 
+/**
+ * @typedef { import('@codemirror/view').EditorView } EditorView
+ */
+
+// Do not write code outside this function, it won't be available because this function is serialized
 export default function unsafeMessenger() {
+	const lastKnownValue = new WeakMap();
 	document.body.addEventListener('gt:get', listener);
 
 	function listener({target}) {
-		if (target.CodeMirror) {
-			codeMirror(target);
+		if (target.cmView) {
+			codeMirror6(target);
+		} else if (target.CodeMirror) {
+			codeMirror5(target);
 		} else if (target.classList.contains('monaco-editor')) {
 			monacoEditor(target);
 		} else {
@@ -32,7 +40,44 @@ export default function unsafeMessenger() {
 		};
 	}
 
-	function codeMirror(target) {
+	function codeMirror6(target) {
+		const controller = new AbortController();
+		const {signal} = controller;
+
+		/** @type {{view: EditorView}}} */
+		const {view} = target.cmView;
+		const fieldValue = view.state.doc.toString();
+		lastKnownValue.set(target, fieldValue);
+		sendBack(target, fieldValue);
+
+		const interval = setInterval(() => {
+			const fieldValue = view.state.doc.toString();
+			if (lastKnownValue.get(target) !== fieldValue) {
+				lastKnownValue.set(target, fieldValue);
+				console.log('Field was updated, sending value to editor');
+				sendBack(target, view.state.doc.toString());
+			}
+		}, 500);
+
+		target.addEventListener('gt:transfer', () => {
+			const receivedFromEditor = target.getAttribute('gt-value');
+			lastKnownValue.set(target, receivedFromEditor);
+			view.dispatch({
+				changes: {
+					from: 0,
+					to: view.state.doc.length,
+					insert: receivedFromEditor,
+				},
+			});
+		}, {signal});
+
+		target.addEventListener('gt:kill', () => {
+			controller.abort();
+			clearInterval(interval);
+		}, {signal});
+	}
+
+	function codeMirror5(target) {
 		const editor = target.CodeMirror;
 
 		sendBack(target, editor.getValue());

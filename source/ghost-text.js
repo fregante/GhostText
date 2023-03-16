@@ -62,6 +62,10 @@ class AdvancedTextWrapper {
 			this.el.dispatchEvent(new CustomEvent('gt:transfer'));
 		}
 	}
+
+	kill() {
+		this.el.dispatchEvent(new CustomEvent('gt:kill'));
+	}
 }
 
 function wrapField(field) {
@@ -69,6 +73,11 @@ function wrapField(field) {
 	if (monaco) {
 		const visualElement = monaco.querySelector('.monaco-editor-background');
 		return new AdvancedTextWrapper(monaco, visualElement);
+	}
+
+	const cm6 = field.closest('.cm-content');
+	if (cm6) {
+		return new AdvancedTextWrapper(cm6, cm6);
 	}
 
 	if (field.classList.contains('ace_text-input')) {
@@ -199,6 +208,7 @@ class GhostTextField {
 		activeFields.delete(this);
 		this.port.disconnect();
 		this.field.removeEventListener('input', this.send);
+		this.field.kill?.();
 		this.field.dataset.gtField = '';
 
 		const options = await optionsPromise;
