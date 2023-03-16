@@ -1,5 +1,5 @@
 import GThumane from './humane-ghosttext.js';
-import unsafeMessenger from './unsafe-messenger.js';
+import advancedEditors from './advanced-editors-messenger.js';
 import optionsStorage from './options-storage.js';
 
 const knownElements = new Map();
@@ -334,7 +334,7 @@ function stopGT() {
 
 function init() {
 	const script = document.createElement('script');
-	script.textContent = '(' + unsafeMessenger.toString() + ')()';
+	script.textContent = '(' + advancedEditors.toString() + ')()';
 	document.head.append(script);
 }
 

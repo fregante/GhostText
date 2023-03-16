@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <meta charset="UTF-8" />
 <title>GhostText options</title>
-<style>
-	@import 'npm:webext-base-css';
-	@import './options.css';
-</style>
+<!-- Don't upset Parcel nor Safari  -->
+<style>@import './options.css';</style>
 <form id="options-form">
 	<p class="field">
 		<label for="serverPort">
@@ -42,7 +40,7 @@
 		/>
 		<label for="focusOnDisconnect">
 			Bring the focus back to the browser when disconnected. <br>
-			some OS bring the browser to the foreground, others 'flash' the browser icon in the taskbar.
+			Some operating systems maybe just 'flash' the browser icon in the taskbar instead.
 		</label>
 	</p>
 </form>

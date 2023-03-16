@@ -8,9 +8,12 @@ CONFIG_FILE=./safari/LocalOverrides.xcconfig
 TAG=$(git describe --tags --abbrev=0)
 
 if [[ $(git describe --tags) != "$TAG" ]]; then
-	echo You’re ahead of the latest tag. Run:
-	echo git checkout "$TAG"
-	exit 1
+	if [[ -z "$SKIP_TAG_CHECK" ]]; then
+		echo You’re ahead of the latest tag. Run:
+		echo git checkout "$TAG"
+		exit 1
+	fi
+	echo You’re ahead of the latest tag. Watch out!
 fi
 
 PROJECT_VERSION=$(sed -n 's/^CURRENT_PROJECT_VERSION = \(.*\)/\1/p' < $CONFIG_FILE)
@@ -18,8 +21,8 @@ NEXT_PROJECT_VERSION=$((PROJECT_VERSION + 1))
 
 echo "Will bump the project version" "$PROJECT_VERSION"
 
-trash distribution
-npm run build
+echo "Run \`npm run watch\` in another shell, close it, then press any key."
+read -r
 npx dot-json distribution/manifest.json version "$TAG"
 
 sed -i '' '/MARKETING_VERSION/d' $CONFIG_FILE

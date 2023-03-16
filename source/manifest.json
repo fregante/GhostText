@@ -72,7 +72,14 @@
 		]
 	},
 	"web_accessible_resources": [
+		"background.js",
+		"ghost-text.css",
 		"ghost-text.js",
-		"ghost-text.css"
+		"humane-ghosttext.css",
+		"humane-ghosttext.js",
+		"icons/*",
+		"options-storage.js",
+		"options.html",
+		"options.js"
 	]
 }

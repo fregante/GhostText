@@ -1,0 +1,20 @@
+env:
+  SCRIPT_NAME: build
+
+# FILE GENERATED WITH: npx ghat fregante/ghatemplates/is-dist-up-to-date
+# SOURCE: https://github.com/fregante/ghatemplates
+
+name: Verify Built Files
+on:
+  - pull_request
+  - push
+jobs:
+  Verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install
+        run: npm ci || npm install
+      - run: npm run ${{ env.SCRIPT_NAME }}
+      - name: verify that built files are up to date
+        run: git diff --exit-code

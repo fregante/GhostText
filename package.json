@@ -1,17 +1,19 @@
 {
 	"private": true,
 	"scripts": {
-		"build": "parcel build source/manifest.json --dist-dir distribution --no-cache",
+		"pre:build": "rm -rf distribution && node pre-build.mjs",
+		"build": "parcel build source/manifest.json --dist-dir distribution --no-cache --no-source-maps",
 		"lint": "xo",
 		"pack:safari": "xcodebuild -project 'safari/GhostText.xcodeproj'",
 		"prepare:safari": "bash safari/prepare-release.sh",
 		"start:safari": "open 'safari/build/Release/GhostText.app'",
 		"test": "xo && npm run build",
+		"pre:watch": "npm run pre:build",
 		"watch": "parcel watch source/manifest.json --dist-dir distribution --no-cache --no-hmr"
 	},
 	"browserslist": [
-		"Chrome >= 86",
-		"Firefox >= 83",
+		"Chrome >= 100",
+		"Firefox >= 100",
 		"Safari >= 14"
 	],
 	"xo": {
@@ -35,6 +37,7 @@
 	"devDependencies": {
 		"@codemirror/view": "^6.9.2",
 		"@parcel/config-webextension": "^2.8.3",
+		"dot-json": "^1.2.2",
 		"parcel": "^2.8.3",
 		"xo": "^0.53.1"
 	},
@@ -49,9 +52,5 @@
 				"https://ghosttext.fregante.com/test/"
 			]
 		}
-	},
-	"@parcel/bundler-default-bug": "https://github.com/parcel-bundler/parcel/issues/8071",
-	"@parcel/bundler-default": {
-		"minBundles": 10000000
 	}
 }

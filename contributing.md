@@ -61,7 +61,7 @@ If the value an be set via DOM, like for a standard `contentEditable`, the secon
 
 https://github.com/fregante/GhostText/blob/febe6a66146cd3e620ad4458e50954e213bbb629/source/ghost-text.js#L14-L30
 
-In the more likely case where you have to access the website’s own script data, you'd have to go through the `AdvancedTextWrapper`, which communicates with the [`unsafe-messenger` script](https://github.com/fregante/GhostText/blob/main/source/unsafe-messenger.js) to get and set the text:
+In the more likely case where you have to access the website’s own script data, you'd have to go through the `AdvancedTextWrapper`, which communicates with the [`advanced-editors-messenger` script](https://github.com/fregante/GhostText/blob/main/source/advanced-editors-messenger.js) to get and set the text:
 
 https://github.com/fregante/GhostText/blob/febe6a66146cd3e620ad4458e50954e213bbb629/source/unsafe-messenger.js#L35-L51
 
