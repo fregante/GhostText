@@ -2,13 +2,6 @@ import browser from 'webextension-polyfill';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
-function inCurrentTab(callback) {
-	chrome.tabs.query({
-		active: true,
-		currentWindow: true,
-	}, tabs => callback(tabs[0]));
-}
-
 function handleClose(info, tab) {
 	chrome.tabs.executeScript(tab.id, {
 		code: 'stopGT()',
@@ -140,9 +133,16 @@ function init() {
 		contexts: ['browser_action'],
 		onclick: handleClose,
 	});
-	chrome.commands.onCommand.addListener(command => {
+	chrome.commands.onCommand.addListener((command, tab) => {
+		if (!tab?.id) {
+			console.warn('No tab information was received for command', {command, tab});
+			return;
+		}
+
 		if (command === 'open') {
-			inCurrentTab(handleAction);
+			handleAction(tab);
+		} else if (command === 'close') {
+			handleClose({}, tab);
 		}
 	});
 

@@ -47,6 +47,9 @@
 				"default": "Ctrl+Shift+K",
 				"linux": "Ctrl+Shift+H"
 			}
+		},
+		"close": {
+			"description": "Disconnect from GhostText"
 		}
 	},
 	"content_scripts": [
