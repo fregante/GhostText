@@ -113,6 +113,23 @@ function handleMessages({code, count}, {tab}) {
 	}
 }
 
+async function saveShortcut() {
+	const storage = await browser.storage.local.get('shortcut');
+	if (storage.shortcut) {
+		// Already saved
+		return;
+	}
+
+	const shortcuts = await browser.commands.getAll();
+	for (const item of shortcuts) {
+		if (item.shortcut) {
+			// eslint-disable-next-line no-await-in-loop -- Intentional
+			await browser.storage.local.set({shortcut: item.shortcut});
+			return;
+		}
+	}
+}
+
 function init() {
 	chrome.browserAction.onClicked.addListener(handleAction);
 	chrome.runtime.onMessage.addListener(handleMessages);
@@ -153,6 +170,8 @@ function init() {
 			});
 		}
 	});
+
+	saveShortcut();
 }
 
 init();
