@@ -113,6 +113,7 @@ function handleMessages({code, count}, {tab}) {
 	}
 }
 
+// Temporary code from https://github.com/fregante/GhostText/pull/267
 async function saveShortcut() {
 	const storage = await browser.storage.local.get('shortcut');
 	if (storage.shortcut) {
