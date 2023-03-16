@@ -114,13 +114,13 @@ class GhostTextField {
 		this.field.dataset.gtField = 'loading';
 
 		this.port = chrome.runtime.connect({name: 'new-field'});
-		this.port.onMessage.addListener(async message => {
-			if (message.message) {
-				this.receive({data: message.message});
-			} else if (message.close) {
+		this.port.onMessage.addListener(async packet => {
+			if (packet.message) {
+				this.receive({data: packet.message});
+			} else if (packet.close) {
 				this.deactivate(false);
 				updateCount();
-			} else if (message.ready) {
+			} else if (packet.ready) {
 				const options = await optionsPromise;
 				if (options.notifyOnConnect) {
 					notify('log', 'Connected! You can switch to your editor');
@@ -132,8 +132,8 @@ class GhostTextField {
 				// Send first value to init tab
 				this.send();
 				updateCount();
-			} else if (message.error) {
-				notify('warn', message.error);
+			} else if (packet.error) {
+				notify('warn', packet.error);
 				this.deactivate(false);
 			}
 		});
@@ -162,10 +162,10 @@ class GhostTextField {
 	}
 
 	receive(event) {
-		const {text, selections} = JSON.parse(event.data);
+		const packet = JSON.parse(event.data);
 
-		if (this.field.value !== text) {
-			this.field.value = text;
+		if ('text' in packet && this.field.value !== packet.text) {
+			this.field.value = packet.text;
 
 			if (this.field.dispatchEvent) {
 				// These are in the right order
@@ -182,11 +182,10 @@ class GhostTextField {
 			}
 		}
 
-		if (selections && typeof selections[0] === 'object') {
-			this.field.selectionStart = selections[0].start;
-			this.field.selectionEnd = selections[0].end;
-		} else {
-			console.warn('GhostText for your editor is not sending the selections. Open an issue on its repository');
+		if (packet.selections && typeof packet.selections[0] === 'object') {
+			this.field.selectionStart = packet.selections[0].start;
+			this.field.selectionEnd = packet.selections[0].end;
+			// TODO: Pass the whole selections array instead and have the field deal with it, they could support multiple selections
 		}
 	}
 
