@@ -67,6 +67,10 @@ class AdvancedTextWrapper {
 			this.el.dispatchEvent(new CustomEvent('gt:transfer'));
 		}
 	}
+
+	kill() {
+		this.el.dispatchEvent(new CustomEvent('gt:kill'));
+	}
 }
 
 function wrapField(field) {
@@ -210,6 +214,7 @@ class GhostTextField {
 		activeFields.delete(this);
 		this.port.disconnect();
 		this.field.removeEventListener('input', this.send);
+		this.field.kill?.();
 		this.field.dataset.gtField = '';
 
 		const options = await optionsPromise;

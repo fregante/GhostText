@@ -3,7 +3,13 @@
  * as "unsafe" code, bridging the extension's sandbox and the website's libraries.
  */
 
+/**
+ * @typedef { import('@codemirror/view').EditorView } EditorView
+ */
+
+// Do not write code outside this function, it won't be available because this function is serialized
 export default function unsafeMessenger() {
+	const lastKnownValue = new WeakMap();
 	document.body.addEventListener('gt:get', listener);
 
 	function listener({target}) {
@@ -35,32 +41,45 @@ export default function unsafeMessenger() {
 	}
 
 	function codeMirror6(target) {
-		const {cmView} = target;
+		const controller = new AbortController();
+		const {signal} = controller;
 
-		sendBack(target, cmView.view.state.doc.toString());
+		/** @type {{view: EditorView}}} */
+		const {view} = target.cmView;
+		const fieldValue = view.state.doc.toString();
+		lastKnownValue.set(target, fieldValue);
+		sendBack(target, fieldValue);
 
-		const EditorView = cmView.view.constructor;
-		const updateListenerExtension = EditorView.updateListener.of(throttle(50, (update) => {
-			// TODO: Does this work?
-			if (update.docChanged && update.transactions[0].isUserEvent()) {
-				sendBack(target, cmView.view.state.doc.toString());
+		const interval = setInterval(() => {
+			const fieldValue = view.state.doc.toString();
+			if (lastKnownValue.get(target) !== fieldValue) {
+				lastKnownValue.set(target, fieldValue);
+				console.log('Field was updated, sending value to editor');
+				sendBack(target, view.state.doc.toString());
 			}
-		}));
-
-		// TODO: Attach updateListenerExtension to the view
+		}, 500);
 
 		target.addEventListener('gt:transfer', () => {
-			cmView.view.dispatch({
+			const receivedFromEditor = target.getAttribute('gt-value');
+			lastKnownValue.set(target, receivedFromEditor);
+			view.dispatch({
 				changes: {
 					from: 0,
-					to: cmView.view.state.doc.length,
-					insert: target.getAttribute('gt-value'),
+					to: view.state.doc.length,
+					insert: receivedFromEditor,
 				},
 			});
-		});
+		}, {signal});
+
+		target.addEventListener('gt:kill', () => {
+			controller.abort();
+			clearInterval(interval);
+		}, {signal});
 	}
 
 	function codeMirror5(target) {
+		const controller = new AbortController();
+		const {signal} = controller;
 		const editor = target.CodeMirror;
 
 		sendBack(target, editor.getValue());
