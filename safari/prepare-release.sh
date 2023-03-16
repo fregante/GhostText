@@ -21,8 +21,9 @@ NEXT_PROJECT_VERSION=$((PROJECT_VERSION + 1))
 
 echo "Will bump the project version" "$PROJECT_VERSION"
 
-echo "Run \`npm run watch\` in another shell, close it, then press any key."
+echo "Run \`npm run watch -- --no-source-maps\` in another shell, close it, then press any key."
 read -r
+gsed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' distribution/*.js
 npx dot-json distribution/manifest.json version "$TAG"
 
 sed -i '' '/MARKETING_VERSION/d' $CONFIG_FILE
