@@ -22,11 +22,11 @@ Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more deta
 
 2. Install your editor extension:
 
-	[<img src="https://ghosttext.fregante.com/icons/sublime-text.svg" width="48" height="48" alt="Sublime Text">](https://sublime.wbond.net/packages/GhostText) 
-	[<img src="https://ghosttext.fregante.com/icons/vscode.svg" width="48" height="48" alt="VS Code">](https://marketplace.visualstudio.com/items?itemName=fregante.ghost-text) 
-	[<img src="https://ghosttext.fregante.com/icons/emacs.svg" width="48" height="48" alt="Emacs">](https://melpa.org/#/atomic-chrome) 
-	[<img src="https://ghosttext.fregante.com/icons/vim.svg" width="48" height="48" alt="Vim">](https://github.com/raghur/vim-ghost) 
-	[<img src="https://ghosttext.fregante.com/icons/neovim.svg" width="48" height="48" alt="Neovim">](https://github.com/subnut/nvim-ghost.nvim) 
+	[<img src="https://ghosttext.fregante.com/icons/sublime-text.svg" width="48" height="48" alt="Sublime Text">](https://sublime.wbond.net/packages/GhostText)
+	[<img src="https://ghosttext.fregante.com/icons/vscode.svg" width="48" height="48" alt="VS Code">](https://marketplace.visualstudio.com/items?itemName=fregante.ghost-text)
+	[<img src="https://ghosttext.fregante.com/icons/emacs.svg" width="48" height="48" alt="Emacs">](https://melpa.org/#/atomic-chrome)
+	[<img src="https://ghosttext.fregante.com/icons/vim.svg" width="48" height="48" alt="Vim">](https://github.com/raghur/vim-ghost)
+	[<img src="https://ghosttext.fregante.com/icons/neovim.svg" width="48" height="48" alt="Neovim">](https://github.com/subnut/nvim-ghost.nvim)
 	[<img src="https://ghosttext.fregante.com/icons/acme.png" width="48" height="48" alt="Acme">](https://github.com/fhs/Ghost)
 
 ## Troubleshooting
@@ -35,7 +35,7 @@ Visit the [Troubleshooting page](https://ghosttext.fregante.com/troubleshooting/
 
 ## Demo
 
-<img src="promo/demo.gif" alt="Demo screencast">
+<img src="https://user-images.githubusercontent.com/1402241/226180991-5be2517c-ef2a-4884-8427-f4080ff0eac8.gif" alt="Demo screencast">
 
 ## License
 
