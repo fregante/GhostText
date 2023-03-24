@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
-function handleClose(info, tab) {
+function stopGT(tab) {
 	chrome.tabs.executeScript(tab.id, {
 		code: 'stopGT()',
 	});
@@ -124,6 +124,11 @@ async function saveShortcut() {
 	}
 }
 
+async function getActiveTab() {
+	const [activeTab] = await browser.tabs.query({active: true, currentWindow: true});
+	return activeTab;
+}
+
 function init() {
 	chrome.browserAction.onClicked.addListener(handleAction);
 	chrome.runtime.onMessage.addListener(handleMessages);
@@ -131,18 +136,13 @@ function init() {
 		id: 'stop-gt',
 		title: 'Disconnect GhostText on this page',
 		contexts: ['browser_action'],
-		onclick: handleClose,
+		onclick: (_, tab) => stopGT(tab.id),
 	});
-	chrome.commands.onCommand.addListener((command, tab) => {
-		if (!tab?.id) {
-			console.warn('No tab information was received for command', {command, tab});
-			return;
-		}
-
+	chrome.commands.onCommand.addListener(async (command, tab = getActiveTab()) => {
 		if (command === 'open') {
-			handleAction(tab);
+			handleAction(await tab);
 		} else if (command === 'close') {
-			handleClose({}, tab);
+			stopGT(await tab);
 		}
 	});
 
