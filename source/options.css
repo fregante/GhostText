@@ -19,3 +19,8 @@
 #serverPort {
 	width: 7em;
 }
+
+html:not(.chrome) .chrome-only,
+html:not(.firefox) .firefox-only {
+	display: none;
+}
