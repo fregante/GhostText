@@ -45,7 +45,7 @@
 			"description": "Connect to GhostText",
 			"suggested_key": {
 				"default": "Ctrl+Shift+K",
-				"linux": "Ctrl+Shift+H"
+				"linux": "Ctrl+Shift+,"
 			}
 		},
 		"close": {
