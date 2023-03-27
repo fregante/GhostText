@@ -270,7 +270,8 @@ function registerElements() {
 
 function getMessageDisplayTime(message) {
 	const wpm = 100; // 180 is the average words read per minute, make it slower
-	return message.split(' ').length / wpm * 60_000;
+	// Add reaction time
+	return 2000 + (message.split(' ').length / wpm * 60_000);
 }
 
 function notify(type, message, timeout = getMessageDisplayTime(message)) {
