@@ -42,6 +42,7 @@ function handlePortListenerErrors(listener) {
 			console.log({message});
 			if ([
 				'Failed to fetch',
+				'Load failed', // Safari
 				'NetworkError when attempting to fetch resource.',
 				'Could not connect to the server.',
 			].includes(message)) {
