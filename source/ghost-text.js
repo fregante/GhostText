@@ -282,7 +282,14 @@ function notify(type, message, timeout = getMessageDisplayTime(message)) {
 		timeout,
 		addnCls: type === 'log' ? '' : 'ghost-text-message-error',
 	});
-	document.addEventListener('click', () => notification.remove(), {once: true});
+	document.addEventListener('click', () => {
+		// Allow selections
+		if (!window.getSelection().isCollapsed) {
+			return;
+		}
+
+		notification.remove();
+	}, {once: true});
 }
 
 function startGT() {
