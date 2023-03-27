@@ -17,7 +17,6 @@ async function handleAction({id}) {
 		...defaults,
 		code: 'typeof window.startGT === "function"',
 	});
-	console.log(alreadyInjected);
 	if (alreadyInjected) {
 		return browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});
 	}
@@ -64,11 +63,10 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 
 	console.log('will open socket');
 	const socket = new WebSocket('ws://localhost:' + WebSocketPort);
-	const event = await Promise.race([
+	await Promise.race([
 		oneEvent(socket, 'open'),
 		oneEvent(socket, 'error'),
 	]);
-	console.log(event);
 
 	const onSocketClose = () => port.postMessage({close: true});
 	socket.addEventListener('close', onSocketClose);
@@ -79,7 +77,6 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 		console.log('got message from script', message);
 		socket.send(message);
 	});
-	console.log(port);
 	port.onDisconnect.addListener(() => {
 		socket.removeEventListener('close', onSocketClose);
 		socket.close();
