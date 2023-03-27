@@ -39,6 +39,7 @@ function handlePortListenerErrors(listener) {
 			await listener(port);
 		} catch (error) {
 			let {message} = error;
+			console.log({message});
 			if ([
 				'Failed to fetch',
 				'Load failed', // Safari

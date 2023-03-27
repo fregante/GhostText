@@ -270,7 +270,8 @@ function registerElements() {
 
 function getMessageDisplayTime(message) {
 	const wpm = 100; // 180 is the average words read per minute, make it slower
-	return message.split(' ').length / wpm * 60_000;
+	// Add reaction time
+	return 2000 + (message.split(' ').length / wpm * 60_000);
 }
 
 function notify(type, message, timeout = getMessageDisplayTime(message)) {
@@ -281,7 +282,14 @@ function notify(type, message, timeout = getMessageDisplayTime(message)) {
 		timeout,
 		addnCls: type === 'log' ? '' : 'ghost-text-message-error',
 	});
-	document.addEventListener('click', () => notification.remove(), {once: true});
+	document.addEventListener('click', () => {
+		// Allow selections
+		if (!window.getSelection().isCollapsed) {
+			return;
+		}
+
+		notification.remove();
+	}, {once: true});
 }
 
 function startGT() {
