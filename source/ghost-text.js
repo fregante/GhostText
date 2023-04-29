@@ -122,7 +122,7 @@ class GhostTextField {
 
 		this.field.dataset.gtField = 'loading';
 
-		this.port = browser.runtime.connect({name: 'new-field'});
+		this.port = chrome.runtime.connect({name: 'new-field'});
 		this.port.onMessage.addListener(async packet => {
 			if (packet.message) {
 				this.receive({data: packet.message});
@@ -213,7 +213,7 @@ class GhostTextField {
 
 		const options = await optionsPromise;
 		if (options.focusOnDisconnect) {
-			browser.runtime.sendMessage({
+			chrome.runtime.sendMessage({
 				code: 'focus-tab',
 			});
 		}
@@ -240,7 +240,7 @@ class GhostTextField {
 }
 
 async function updateCount() {
-	browser.runtime.sendMessage({
+	chrome.runtime.sendMessage({
 		code: 'connection-count',
 		count: activeFields.size,
 	});
@@ -258,7 +258,7 @@ function injectCSS(root) {
 	// Injects ghost-text.css into iframe document roots
 	if (!registeredFrames.has(root)) {
 		const cssLink = root.createElement("link")
-		cssLink.href = browser.runtime.getURL('ghost-text.css');
+		cssLink.href = chrome.runtime.getURL('ghost-text.css');
 		cssLink .rel = "stylesheet";
 		cssLink.type = "text/css";
 		registeredFrames.add(root);
