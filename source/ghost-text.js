@@ -122,7 +122,7 @@ class GhostTextField {
 
 		this.field.dataset.gtField = 'loading';
 
-		this.port = chrome.runtime.connect({name: 'new-field'});
+		this.port = browser.runtime.connect({name: 'new-field'});
 		this.port.onMessage.addListener(async packet => {
 			if (packet.message) {
 				this.receive({data: packet.message});
@@ -213,7 +213,7 @@ class GhostTextField {
 
 		const options = await optionsPromise;
 		if (options.focusOnDisconnect) {
-			chrome.runtime.sendMessage({
+			browser.runtime.sendMessage({
 				code: 'focus-tab',
 			});
 		}
@@ -240,7 +240,7 @@ class GhostTextField {
 }
 
 async function updateCount() {
-	chrome.runtime.sendMessage({
+	browser.runtime.sendMessage({
 		code: 'connection-count',
 		count: activeFields.size,
 	});
@@ -253,18 +253,38 @@ async function updateCount() {
 	}
 }
 
+const registeredFrames = new Set([document]);
+function injectCSS(root) {
+	// Injects ghost-text.css into iframe document roots
+	if (!registeredFrames.has(root)) {
+		const cssLink = root.createElement("link")
+		cssLink.href = browser.runtime.getURL('ghost-text.css');
+		cssLink .rel = "stylesheet";
+		cssLink.type = "text/css";
+		registeredFrames.add(root);
+		root.body.appendChild(cssLink);
+	}
+}
+
 const selector = `
 	textarea,
 	[contenteditable=""],
 	[contenteditable="true"]
 `;
-function registerElements() {
-	for (const element of document.querySelectorAll(selector)) {
+
+
+function registerElements(root = document) {
+	injectCSS(root); // only if the CSS hasn't already been injected
+	for (const element of root.querySelectorAll(selector)) {
 		// TODO: Only handle areas that are visible
 		//  && element.getBoundingClientRect().width > 20
 		if (!knownElements.has(element)) {
 			knownElements.set(element, new GhostTextField(element));
 		}
+	}
+	for (const iframe of root.getElementsByTagName("iframe")) {
+		// recursively search for elements inside iframes
+		registerElements(iframe.contentWindow.document)
 	}
 }
 
