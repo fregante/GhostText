@@ -101,7 +101,7 @@ function wrapField(field) {
 }
 
 class GhostTextField {
-	constructor(field) {
+	constructor(field, root) {
 		this.field = wrapField(field);
 		this.field.dataset.gtField = '';
 		this.send = this.send.bind(this);
@@ -110,6 +110,7 @@ class GhostTextField {
 		this.tryFocus = this.tryFocus.bind(this);
 		field.addEventListener('focus', this.tryFocus);
 		this.state = 'inactive';
+		this.root = root;
 	}
 
 	async activate() {
@@ -228,8 +229,12 @@ class GhostTextField {
 			clearTimeout(timeoutHandle);
 			this.activate();
 			isWaitingForActivation = false;
-			document.body.classList.remove('GT--waiting');
+			this.root.body.classList.remove('GT--waiting');
 		}
+	}
+
+	isFocused() {
+		return this.root.activeElement === this.field;
 	}
 
 	static deactivateAll() {
@@ -253,16 +258,15 @@ async function updateCount() {
 	}
 }
 
-const registeredFrames = new Set([document]);
-function injectCSS(root) {
+const registeredFrames = new Set();
+function injectCssOnce(root) {
 	// Injects ghost-text.css into iframe document roots
-	if (!registeredFrames.has(root)) {
-		const cssLink = root.createElement("link")
+	if (!registeredFrames.has(root)) { // If the CSS isn't already injected
+		const cssLink = root.createElement('link');
 		cssLink.href = chrome.runtime.getURL('ghost-text.css');
-		cssLink .rel = "stylesheet";
-		cssLink.type = "text/css";
+		cssLink.rel = 'stylesheet';
 		registeredFrames.add(root);
-		root.body.appendChild(cssLink);
+		root.head.append(cssLink);
 	}
 }
 
@@ -272,19 +276,30 @@ const selector = `
 	[contenteditable="true"]
 `;
 
+function iframeSearchDomain() {
+	// Returns whether iframes should be searched every time we
+	// registerElements on this domain
+	const hasTiddlywikiVersion = document.querySelector('meta[name="tiddlywiki-version"]')?.content;
+	// See tiddlywiki.com
+	return hasTiddlywikiVersion !== undefined;
+}
 
 function registerElements(root = document) {
-	injectCSS(root); // only if the CSS hasn't already been injected
 	for (const element of root.querySelectorAll(selector)) {
 		// TODO: Only handle areas that are visible
 		//  && element.getBoundingClientRect().width > 20
 		if (!knownElements.has(element)) {
-			knownElements.set(element, new GhostTextField(element));
+			knownElements.set(element, new GhostTextField(element, root));
 		}
 	}
-	for (const iframe of root.getElementsByTagName("iframe")) {
-		// recursively search for elements inside iframes
-		registerElements(iframe.contentWindow.document)
+
+	if (iframeSearchDomain()) {
+		for (const iframe of root.querySelectorAll('iframe')) {
+			const iframeDocument = iframe.contentWindow.document;
+			injectCssOnce(iframeDocument);
+			// Recursively search for elements inside iframes
+			registerElements(iframeDocument);
+		}
 	}
 }
 
@@ -328,7 +343,7 @@ function startGT() {
 	}
 
 	// Automatically activate the focused field, unless it's already is active
-	const focusedField = knownElements.get(document.activeElement);
+	const focusedField = [...knownElements.values()].find(field => field.isFocused());
 	if (focusedField && !activeFields.has(focusedField)) {
 		focusedField.activate();
 		return;
