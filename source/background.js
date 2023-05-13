@@ -4,7 +4,12 @@ import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
 if (navigator.userAgent.includes('Firefox/')) {
-	addDomainPermissionToggle();
+	// eslint-disable-next-line unicorn/prefer-top-level-await -- I specifically want to not stop the extension in case of errors
+	(async () => {
+		addDomainPermissionToggle({
+			title: 'Grant access to iframes',
+		});
+	})();
 }
 
 function stopGT(tab) {
