@@ -2,7 +2,7 @@ import GThumane from './humane-ghosttext.js';
 import advancedEditors from './advanced-editors-messenger.js';
 import optionsStorage from './options-storage.js';
 
-const knownElements = new Map();
+let knownElements = new Map();
 const activeFields = new Set();
 const eventOptions = {bubbles: true};
 const optionsPromise = optionsStorage.getAll();
@@ -284,13 +284,16 @@ function iframeSearchDomain() {
 	return hasTiddlywikiVersion !== undefined;
 }
 
-function registerElements(root = document) {
+function registerElements(root = document, newKnownElements) {
+	if (newKnownElements === undefined) {
+		newKnownElements = new Map();
+	}
+
 	for (const element of root.querySelectorAll(selector)) {
 		// TODO: Only handle areas that are visible
 		//  && element.getBoundingClientRect().width > 20
-		if (!knownElements.has(element)) {
-			knownElements.set(element, new GhostTextField(element, root));
-		}
+		const ghostField = knownElements[element] ?? new GhostTextField(element, root);
+		newKnownElements.set(element, ghostField);
 	}
 
 	if (iframeSearchDomain()) {
@@ -298,9 +301,11 @@ function registerElements(root = document) {
 			const iframeDocument = iframe.contentWindow.document;
 			injectCssOnce(iframeDocument);
 			// Recursively search for elements inside iframes
-			registerElements(iframeDocument);
+			registerElements(iframeDocument, newKnownElements);
 		}
 	}
+
+	return newKnownElements;
 }
 
 function getMessageDisplayTime(message) {
@@ -330,7 +335,7 @@ function notify(type, message, timeout = getMessageDisplayTime(message)) {
 function startGT() {
 	clearTimeout(timeoutHandle);
 
-	registerElements();
+	knownElements = registerElements();
 	console.info(knownElements.size + ' fields on the page');
 	if (knownElements.size === 0) {
 		notify('warn', 'No supported fields found. <a href="https://ghosttext.fregante.com/troubleshooting/#no-supported-fields">Need help?</a>');
