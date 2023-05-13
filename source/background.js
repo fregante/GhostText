@@ -1,6 +1,11 @@
+import addDomainPermissionToggle from 'webext-domain-permission-toggle';
 import browser from 'webextension-polyfill';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
+
+if (navigator.userAgent.includes('Firefox/')) {
+	addDomainPermissionToggle();
+}
 
 function stopGT(tab) {
 	chrome.tabs.executeScript(tab.id, {

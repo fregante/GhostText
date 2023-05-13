@@ -19,6 +19,9 @@
 		"http://localhost/",
 		"storage"
 	],
+	"optional_permissions": [
+		"*://*/*"
+	],
 	"applications": {
 		"gecko": {
 			"id": "ghosttext@bfred.it",
