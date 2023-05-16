@@ -1,6 +1,19 @@
+import addDomainPermissionToggle from 'webext-domain-permission-toggle';
 import browser from 'webextension-polyfill';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
+
+// Firefox hates iframes on activeTab
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1653408
+// https://github.com/fregante/GhostText/pull/285
+if (navigator.userAgent.includes('Firefox/')) {
+	// eslint-disable-next-line unicorn/prefer-top-level-await -- I specifically want to not stop the extension in case of errors
+	(async () => {
+		addDomainPermissionToggle({
+			title: 'Grant access to iframes',
+		});
+	})();
+}
 
 function stopGT(tab) {
 	chrome.tabs.executeScript(tab.id, {
