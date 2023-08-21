@@ -56,19 +56,23 @@ following properties:
 | Property     | Value                  | Description                                                                                    |
 | ------------ | ---------------------- | ---------------------------------------------------------------------------------------------- |
 | `title`      | String                 | The title of the document                                                                      |
-| `url`        | String                 | The URL of the document                                                                        |
+| `url`        | String                 | The [host][mdn-host] of the document's url                                                     |
 | `syntax`     | String                 | _Not used_                                                                                     |
 | `text`       | String                 | The value of the textarea/content                                                              |
 | `selections` | Array(SelectionObject) | An array of selection objects that describe the user's current cursor selections in the editor |
+
+[mdn-host]: https://developer.mozilla.org/en-US/docs/Web/API/URL/host
 
 #### Selection Object
 
 Selection objects have the following properties:
 
-| Property | Value  | Description                    |
-| -------- | ------ | ------------------------------ |
-| `start`  | Number | 0-index start of the selection |
-| `end`    | Number | 0-index end of the selection   |
+| Property | Value  | Description                                                           |
+| -------- | ------ | --------------------------------------------------------------------- |
+| `start`  | Number | 0-index start of the selection in [UTF-16 code units][mdn-code-units] |
+| `end`    | Number | 0-index end of the selection in [UTF-16 code units][mdn-code-units]   |
+
+[mdn-code-units]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#utf-16_characters_unicode_code_points_and_grapheme_clusters
 
 #### Example
 
