@@ -1,0 +1,36 @@
+name: 🐛 Report a bug
+description: ———
+labels: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for trying out GhostText!
+
+        Before opening an issue:
+
+        - Make sure it's configured correctly by trying it on https://ghosttext.fregante.com/test/
+        - If it doesn't work there, visit the troubleshooting page https://ghosttext.fregante.com/troubleshooting/
+
+        Note that only Sublime Text and VS Code are officially supported. The other plugins are by third parties.
+
+        If you're using a browser other than Chrome, Firefox and Safari, please try GhostText in Chrome first.
+  - id: description
+    type: textarea
+    attributes:
+      label: Description and repro
+      description: Describe the issue and include the steps to reproduce it, including a URL if possible
+    validations:
+      required: true
+  - id: browser
+    type: input
+    attributes:
+      label: Browser(s) tried
+    validations:
+      required: true
+  - id: editor
+    type: input
+    attributes:
+      label: Editor(s) tried
+    validations:
+      required: true
