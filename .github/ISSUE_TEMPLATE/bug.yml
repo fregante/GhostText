@@ -5,9 +5,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Thanks for trying out GhostText and opening this issue!
-        
-        Before opening an issue for a possible bug:
+        ## Thanks for trying out GhostText!
+
+        Before opening an issue:
 
         - Make sure it's configured correctly by trying it on https://ghosttext.fregante.com/test/
         - If it doesn't work there, visit the troubleshooting page https://ghosttext.fregante.com/troubleshooting/
