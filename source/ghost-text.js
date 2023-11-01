@@ -277,7 +277,7 @@ function getMessageDisplayTime(message) {
 function notify(type, message, timeout = getMessageDisplayTime(message)) {
 	console[type]('GhostText:', message);
 	GThumane.remove();
-	message = message.replace(/\n/g, '<br>');
+	message = message.replaceAll('\n', '<br>');
 	const notification = GThumane.log(message, {
 		timeout,
 		addnCls: type === 'log' ? '' : 'ghost-text-message-error',
