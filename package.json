@@ -40,7 +40,7 @@
 		"dot-json": "^1.2.2",
 		"parcel": "^2.8.3",
 		"webext-domain-permission-toggle": "^4.0.1",
-		"xo": "^0.53.1"
+		"xo": "^0.56.0"
 	},
 	"engines": {
 		"node": ">=18",
