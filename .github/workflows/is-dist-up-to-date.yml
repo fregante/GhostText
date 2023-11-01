@@ -12,7 +12,7 @@ jobs:
   Verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: install
         run: npm ci || npm install
       - run: npm run ${{ env.SCRIPT_NAME }}
