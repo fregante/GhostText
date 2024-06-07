@@ -1,14 +1,14 @@
 {
 	"private": true,
 	"scripts": {
-		"pre:build": "rm -rf distribution && node pre-build.mjs",
 		"build": "parcel build source/manifest.json --dist-dir distribution --no-cache --no-source-maps",
 		"lint": "xo",
 		"pack:safari": "xcodebuild -project 'safari/GhostText.xcodeproj'",
+		"pre:build": "rm -rf distribution && node pre-build.mjs",
+		"pre:watch": "npm run pre:build",
 		"prepare:safari": "bash safari/prepare-release.sh",
 		"start:safari": "open 'safari/build/Release/GhostText.app'",
 		"test": "xo && npm run build",
-		"pre:watch": "npm run pre:build",
 		"watch": "parcel watch source/manifest.json --dist-dir distribution --no-cache --no-hmr"
 	},
 	"browserslist": [
@@ -44,6 +44,9 @@
 	},
 	"engines": {
 		"node": ">=20"
+	},
+	"@parcel/resolver-default": {
+		"packageExports": true
 	},
 	"webExt": {
 		"sourceDir": "distribution",
