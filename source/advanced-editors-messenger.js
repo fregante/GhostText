@@ -30,13 +30,11 @@ export default function unsafeMessenger() {
 
 	function throttle(interval, callback) {
 		let timer;
-		return (...args) => {
-			if (!timer) {
-				timer = setTimeout(() => {
-					timer = false;
-					callback(...args);
-				}, interval);
-			}
+		return (...arguments_) => {
+			timer ||= setTimeout(() => {
+				timer = false;
+				callback(...arguments_);
+			}, interval);
 		};
 	}
 
