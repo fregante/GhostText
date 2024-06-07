@@ -1,4 +1,4 @@
-import addDomainPermissionToggle from 'webext-domain-permission-toggle';
+import addDomainPermissionToggle from 'webext-permission-toggle';
 import browser from 'webextension-polyfill';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
