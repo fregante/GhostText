@@ -65,6 +65,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
+
+      # Drop after https://github.com/parcel-bundler/parcel/issues/9458
+      - run: npx dot-json@1 manifest.json background.scripts '["background.js"]' --json-value
+        working-directory: artifact
       - run: npx web-ext@8 sign --channel listed
         working-directory: artifact
         env:
