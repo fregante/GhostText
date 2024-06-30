@@ -130,4 +130,4 @@ function unsafeMessenger() {
 
 unsafeMessenger();
 
-console.log('Advanced editors messenger injected!')
+console.log('Advanced editors messenger ready');

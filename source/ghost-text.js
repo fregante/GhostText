@@ -348,4 +348,4 @@ function stopGT() {
 window.startGT = startGT;
 window.stopGT = stopGT;
 
-startGT();
+setTimeout(startGT, 100);
