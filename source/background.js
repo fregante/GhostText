@@ -1,7 +1,8 @@
 import addDomainPermissionToggle from 'webext-permission-toggle';
-import browser from 'webextension-polyfill';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
+
+const browser = globalThis.chrome ?? globalThis.chrome;
 
 // Firefox hates iframes on activeTab
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1653408
@@ -16,34 +17,47 @@ if (navigator.userAgent.includes('Firefox/')) {
 }
 
 function stopGT(tab) {
-	chrome.tabs.executeScript(tab.id, {
-		code: 'stopGT()',
+	chrome.scripting.executeScript({
+		target: {tabId: tab.id},
+		func: () => stopGT(),
 	});
 }
 
 async function handleAction({id}) {
-	const defaults = {
-		runAt: 'document_start',
-		allFrames: true,
-	};
-	const [alreadyInjected] = await browser.tabs.executeScript(id, {
-		...defaults,
-		code: 'typeof window.startGT === "function"',
+	const frames = await chrome.scripting.executeScript({
+		target: {tabId: id, allFrames: true},
+		injectImmediately: true,
+		// eslint-disable-next-line object-shorthand -- Chrome hates it
+		func: () => {
+			try {
+				console.log('Starting GT');
+				// eslint-disable-next-line no-undef -- Different context
+				startGT();
+				return 'ready';
+			} catch {
+				console.log('not ready');
+				return false;
+			}
+		},
 	});
-	if (alreadyInjected) {
-		return browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});
+
+	const virginFrames = frames.filter(({result}) => !result).map(({frameId}) => frameId);
+
+	if (virginFrames.length === 0) {
+		return;
 	}
 
-	try {
-		await Promise.all([
-			browser.tabs.insertCSS(id, {...defaults, file: '/ghost-text.css'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/ghost-text.js'}),
-		]);
-	} catch (error) {
-		console.error(error);
-	}
+	// Firefox won't resolve this Promise, so don't await it
+	chrome.scripting.insertCSS({
+		files: ['/ghost-text.css'],
+		target: {tabId: id, frameIds: virginFrames},
+	});
 
-	await browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});
+	chrome.scripting.executeScript({
+		files: ['/ghost-text.js'],
+		target: {tabId: id, frameIds: virginFrames},
+		injectImmediately: true,
+	});
 }
 
 function handlePortListenerErrors(listener) {
@@ -108,7 +122,7 @@ function handleMessages({code, count}, {tab}) {
 			text = String(count);
 		}
 
-		chrome.browserAction.setBadgeText({
+		chrome.action.setBadgeText({
 			text,
 			tabId: tab.id,
 		});
@@ -142,14 +156,26 @@ async function getActiveTab() {
 }
 
 function init() {
-	chrome.browserAction.onClicked.addListener(handleAction);
+	chrome.action.onClicked.addListener(handleAction);
 	chrome.runtime.onMessage.addListener(handleMessages);
 	chrome.contextMenus.create({
 		id: 'stop-gt',
 		title: 'Disconnect GhostText on this page',
-		contexts: ['browser_action'],
-		onclick: (_, tab) => stopGT(tab.id),
+		contexts: ['action'],
 	});
+	chrome.contextMenus.create({
+		id: 'start-gt-editable',
+		title: 'Activate GhostText on field',
+		contexts: ['editable'],
+	});
+	chrome.contextMenus.onClicked.addListener(({menuItemId}, tab) => {
+		if (menuItemId === 'stop-gt') {
+			stopGT(tab);
+		} else if (menuItemId === 'start-gt-editable') {
+			handleAction(tab);
+		}
+	});
+
 	chrome.commands.onCommand.addListener(async (command, tab = getActiveTab()) => {
 		if (command === 'open') {
 			handleAction(await tab);
@@ -158,14 +184,7 @@ function init() {
 		}
 	});
 
-	chrome.contextMenus.create({
-		id: 'start-gt-editable',
-		title: 'Activate GhostText on field',
-		contexts: ['editable'],
-		onclick: handleAction,
-	});
-
-	chrome.browserAction.setBadgeBackgroundColor({
+	chrome.action.setBadgeBackgroundColor({
 		color: '#008040',
 	});
 

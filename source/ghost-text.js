@@ -350,3 +350,4 @@ window.startGT = startGT;
 window.stopGT = stopGT;
 
 init();
+startGT();

@@ -1,9 +1,10 @@
 {
-	"manifest_version": 2,
+	"$schema": "https://json.schemastore.org/chrome-manifest",
+	"manifest_version": 3,
 	"name": "GhostText",
 	"description": "Write in the browser with your text editor.",
 	"version": "0.0.0",
-	"minimum_chrome_version": "86",
+	"minimum_chrome_version": "120",
 	"author": "Federico Brigante",
 	"icons": {
 		"16": "icons/icon16.png",
@@ -13,26 +14,34 @@
 		"128": "icons/icon128.png",
 		"256": "icons/icon256.png"
 	},
+	"content_security_policy": {
+		"extension_pages": "connect-src 'self' http://localhost:* ws:; script-src 'self';"
+	},
 	"permissions": [
 		"activeTab",
 		"contextMenus",
-		"http://localhost/",
+		"scripting",
 		"storage"
+	],
+	"host_permissions": [
+		"http://localhost/"
 	],
 	"optional_permissions": [
 		"*://*/*"
 	],
-	"applications": {
+	"optional_host_permissions": [
+		"*://*/*"
+	],
+	"browser_specific_settings": {
 		"gecko": {
 			"id": "ghosttext@bfred.it",
-			"strict_min_version": "83.0"
+			"strict_min_version": "120.0"
 		}
 	},
 	"options_ui": {
-		"browser_style": true,
 		"page": "options.html"
 	},
-	"browser_action": {
+	"action": {
 		"default_title": "GhostText",
 		"default_icon": {
 			"16": "icons/icon16.png",
@@ -70,19 +79,25 @@
 		}
 	],
 	"background": {
-		"scripts": [
-			"background.js"
-		]
+		"type": "module",
+		"service_worker": "background.js"
 	},
 	"web_accessible_resources": [
-		"background.js",
-		"ghost-text.css",
-		"ghost-text.js",
-		"humane-ghosttext.css",
-		"humane-ghosttext.js",
-		"icons/*",
-		"options-storage.js",
-		"options.html",
-		"options.js"
+		{
+			"resources": [
+				"background.js",
+				"ghost-text.css",
+				"ghost-text.js",
+				"humane-ghosttext.css",
+				"humane-ghosttext.js",
+				"icons/*",
+				"options-storage.js",
+				"options.html",
+				"options.js"
+			],
+			"matches": [
+				"*://*/*"
+			]
+		}
 	]
 }
