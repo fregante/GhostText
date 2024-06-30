@@ -14,6 +14,9 @@
 		"128": "icons/icon128.png",
 		"256": "icons/icon256.png"
 	},
+	"content_security_policy": {
+		"extension_pages": "connect-src 'self' http://localhost:* ws:; script-src 'self';"
+	},
 	"permissions": [
 		"activeTab",
 		"contextMenus",
