@@ -35,7 +35,7 @@
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "ghosttext@bfred.it",
-			"strict_min_version": "120.0"
+			"strict_min_version": "128.0"
 		}
 	},
 	"options_ui": {
