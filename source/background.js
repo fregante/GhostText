@@ -30,12 +30,10 @@ async function handleAction({id}) {
 		// eslint-disable-next-line object-shorthand -- Chrome hates it
 		func: () => {
 			try {
-				console.log('Starting GT');
 				// eslint-disable-next-line no-undef -- Different context
 				startGT();
-				return 'ready';
+				return true;
 			} catch {
-				console.log('not ready');
 				return false;
 			}
 		},
