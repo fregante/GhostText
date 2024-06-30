@@ -17,34 +17,35 @@ if (navigator.userAgent.includes('Firefox/')) {
 }
 
 function stopGT(tab) {
-	chrome.scripting.executeScript(tab.id, {
-		code: 'stopGT()',
+	chrome.scripting.executeScript({
+		target: {tabId: tab.id},
+		func: () => stopGT(),
 	});
 }
 
 async function handleAction({id}) {
 	const defaults = {
-		runAt: 'document_start',
-		allFrames: true,
+		target: {tabId: id, allFrames: true},
 	};
-	const [alreadyInjected] = await chrome.scripting.executeScript(id, {
+	const [topFrame] = await chrome.scripting.executeScript({
 		...defaults,
-		code: 'typeof window.startGT === "function"',
+		func: () => typeof window.startGT === 'function',
 	});
-	if (alreadyInjected) {
-		return chrome.scripting.executeScript(id, {...defaults, code: 'startGT()'});
+
+	const alreadyInjected = topFrame.result;
+
+	if (!alreadyInjected) {
+		try {
+			await Promise.all([
+				chrome.scripting.insertCSS({...defaults, files: ['/ghost-text.css']}),
+				chrome.scripting.executeScript({...defaults, files: ['/ghost-text.js']}),
+			]);
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
-	try {
-		await Promise.all([
-			chrome.scripting.insertCSS(id, {...defaults, file: '/ghost-text.css'}),
-			chrome.scripting.executeScript(id, {...defaults, file: '/ghost-text.js'}),
-		]);
-	} catch (error) {
-		console.error(error);
-	}
-
-	await chrome.scripting.executeScript(id, {...defaults, code: 'startGT()'});
+	await chrome.scripting.executeScript({...defaults, func: () => startGT()});
 }
 
 function handlePortListenerErrors(listener) {
