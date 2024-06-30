@@ -1,5 +1,6 @@
 {
-	"manifest_version": 2,
+	"$schema": "https://json.schemastore.org/chrome-manifest",
+	"manifest_version": 3,
 	"name": "GhostText",
 	"description": "Write in the browser with your text editor.",
 	"version": "0.0.0",
@@ -16,10 +17,16 @@
 	"permissions": [
 		"activeTab",
 		"contextMenus",
-		"http://localhost/",
-		"storage"
+		"scripting",
+		"http://localhost/"
+	],
+	"host_permissions": [
+		"http://localhost/"
 	],
 	"optional_permissions": [
+		"*://*/*"
+	],
+	"optional_host_permissions": [
 		"*://*/*"
 	],
 	"applications": {
@@ -29,10 +36,9 @@
 		}
 	},
 	"options_ui": {
-		"browser_style": true,
 		"page": "options.html"
 	},
-	"browser_action": {
+	"action": {
 		"default_title": "GhostText",
 		"default_icon": {
 			"16": "icons/icon16.png",
@@ -70,19 +76,25 @@
 		}
 	],
 	"background": {
-		"scripts": [
-			"background.js"
-		]
+		"type": "module",
+		"service_worker": "background.js"
 	},
 	"web_accessible_resources": [
-		"background.js",
-		"ghost-text.css",
-		"ghost-text.js",
-		"humane-ghosttext.css",
-		"humane-ghosttext.js",
-		"icons/*",
-		"options-storage.js",
-		"options.html",
-		"options.js"
+		{
+			"resources": [
+				"background.js",
+				"ghost-text.css",
+				"ghost-text.js",
+				"humane-ghosttext.css",
+				"humane-ghosttext.js",
+				"icons/*",
+				"options-storage.js",
+				"options.html",
+				"options.js"
+			],
+			"matches": [
+				"*://*/*"
+			]
+		}
 	]
 }

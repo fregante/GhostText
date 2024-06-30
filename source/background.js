@@ -1,5 +1,4 @@
 import addDomainPermissionToggle from 'webext-permission-toggle';
-import browser from 'webextension-polyfill';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
@@ -26,24 +25,24 @@ async function handleAction({id}) {
 		runAt: 'document_start',
 		allFrames: true,
 	};
-	const [alreadyInjected] = await browser.tabs.executeScript(id, {
+	const [alreadyInjected] = await chrome.tabs.executeScript(id, {
 		...defaults,
 		code: 'typeof window.startGT === "function"',
 	});
 	if (alreadyInjected) {
-		return browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});
+		return chrome.tabs.executeScript(id, {...defaults, code: 'startGT()'});
 	}
 
 	try {
 		await Promise.all([
-			browser.tabs.insertCSS(id, {...defaults, file: '/ghost-text.css'}),
-			browser.tabs.executeScript(id, {...defaults, file: '/ghost-text.js'}),
+			chrome.tabs.insertCSS(id, {...defaults, file: '/ghost-text.css'}),
+			chrome.tabs.executeScript(id, {...defaults, file: '/ghost-text.js'}),
 		]);
 	} catch (error) {
 		console.error(error);
 	}
 
-	await browser.tabs.executeScript(id, {...defaults, code: 'startGT()'});
+	await chrome.tabs.executeScript(id, {...defaults, code: 'startGT()'});
 }
 
 function handlePortListenerErrors(listener) {
@@ -120,24 +119,24 @@ function handleMessages({code, count}, {tab}) {
 
 // Temporary code from https://github.com/fregante/GhostText/pull/267
 async function saveShortcut() {
-	const storage = await browser.storage.local.get('shortcut');
+	const storage = await chrome.storage.local.get('shortcut');
 	if (storage.shortcut) {
 		// Already saved
 		return;
 	}
 
-	const shortcuts = await browser.commands.getAll();
+	const shortcuts = await chrome.commands.getAll();
 	for (const item of shortcuts) {
 		if (item.shortcut) {
 			// eslint-disable-next-line no-await-in-loop -- Intentional
-			await browser.storage.local.set({shortcut: item.shortcut});
+			await chrome.storage.local.set({shortcut: item.shortcut});
 			return;
 		}
 	}
 }
 
 async function getActiveTab() {
-	const [activeTab] = await browser.tabs.query({active: true, currentWindow: true});
+	const [activeTab] = await chrome.tabs.query({active: true, currentWindow: true});
 	return activeTab;
 }
 
@@ -169,15 +168,15 @@ function init() {
 		color: '#008040',
 	});
 
-	browser.runtime.onInstalled.addListener(async ({reason}) => {
+	chrome.runtime.onInstalled.addListener(async ({reason}) => {
 		// Only notify on install
 		if (reason === 'install') {
-			const {installType} = await browser.management.getSelf();
+			const {installType} = await chrome.management.getSelf();
 			if (installType === 'development') {
 				return;
 			}
 
-			await browser.tabs.create({
+			await chrome.tabs.create({
 				url: 'https://ghosttext.fregante.com/welcome/',
 				active: true,
 			});
