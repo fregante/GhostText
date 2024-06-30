@@ -1,5 +1,4 @@
 import GThumane from './humane-ghosttext.js';
-import advancedEditors from './advanced-editors-messenger.js';
 import optionsStorage from './options-storage.js';
 
 const knownElements = new Map();
@@ -150,6 +149,12 @@ class GhostTextField {
 
 	send(event) {
 		if (event && event.detail?.ghostTextSyntheticEvent) {
+			return;
+		}
+
+		if (this.field.value === undefined) {
+			console.log('field value is undefined');
+			console.log(this.field);
 			return;
 		}
 
@@ -340,14 +345,7 @@ function stopGT() {
 	document.body.classList.remove('GT--waiting');
 }
 
-function init() {
-	const script = document.createElement('script');
-	script.textContent = '(' + advancedEditors.toString() + ')()';
-	document.head.append(script);
-}
-
 window.startGT = startGT;
 window.stopGT = stopGT;
 
-init();
 startGT();

@@ -56,6 +56,13 @@ async function handleAction({id}) {
 		target: {tabId: id, frameIds: virginFrames},
 		injectImmediately: true,
 	});
+
+	chrome.scripting.executeScript({
+		files: ['/advanced-editors-messenger.js'],
+		target: {tabId: id, frameIds: virginFrames},
+		world: 'MAIN',
+		injectImmediately: true,
+	});
 }
 
 function handlePortListenerErrors(listener) {

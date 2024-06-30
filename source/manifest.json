@@ -91,6 +91,7 @@
 				"humane-ghosttext.css",
 				"humane-ghosttext.js",
 				"icons/*",
+				"advanced-editors-messenger.js",
 				"options-storage.js",
 				"options.html",
 				"options.js"
