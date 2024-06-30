@@ -2,10 +2,6 @@ import addDomainPermissionToggle from 'webext-permission-toggle';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
-const browser = globalThis.browser ?? globalThis.chrome;
-
-const browserAction = browser.action ?? browser.browserAction;
-
 // Firefox hates iframes on activeTab
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1653408
 // https://github.com/fregante/GhostText/pull/285
@@ -19,40 +15,47 @@ if (navigator.userAgent.includes('Firefox/')) {
 }
 
 function stopGT(tab) {
-	browser.scripting.executeScript({
+	chrome.scripting.executeScript({
 		target: {tabId: tab.id},
 		func: () => stopGT(),
 	});
 }
 
 async function handleAction({id}) {
-	const defaultTarget = {
+	const frames = await chrome.scripting.executeScript({
 		target: {tabId: id, allFrames: true},
-	};
-	const defaults = {
-		...defaultTarget,
 		injectImmediately: true,
-	};
-
-	const [topFrame] = await browser.scripting.executeScript({
-		...defaults,
-		func: () => typeof window.startGT === 'function',
+		// eslint-disable-next-line object-shorthand -- Chrome hates it
+		func: () => {
+			try {
+				console.log('Starting GT');
+				// eslint-disable-next-line no-undef -- Different context
+				startGT();
+				return 'ready';
+			} catch {
+				console.log('not ready');
+				return false;
+			}
+		},
 	});
 
-	const alreadyInjected = topFrame.result;
+	const virginFrames = frames.filter(({result}) => !result).map(({frameId}) => frameId);
 
-	if (!alreadyInjected) {
-		try {
-			await Promise.all([
-				browser.scripting.insertCSS({...defaultTarget, files: ['/ghost-text.css']}),
-				browser.scripting.executeScript({...defaults, files: ['/ghost-text.js']}),
-			]);
-		} catch (error) {
-			console.error(error);
-		}
+	if (virginFrames.length === 0) {
+		return;
 	}
 
-	await browser.scripting.executeScript({...defaults, func: () => startGT()});
+	// Firefox won't resolve this Promise, so don't await it
+	chrome.scripting.insertCSS({
+		files: ['/ghost-text.css'],
+		target: {tabId: id, frameIds: virginFrames},
+	});
+
+	chrome.scripting.executeScript({
+		files: ['/ghost-text.js'],
+		target: {tabId: id, frameIds: virginFrames},
+		injectImmediately: true,
+	});
 }
 
 function handlePortListenerErrors(listener) {
@@ -76,7 +79,7 @@ function handlePortListenerErrors(listener) {
 	};
 }
 
-browser.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
+chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	console.assert(port.name === 'new-field');
 	const options = await optionsStorage.getAll();
 	const response = await fetch(`http://localhost:${options.serverPort}`);
@@ -117,55 +120,61 @@ function handleMessages({code, count}, {tab}) {
 			text = String(count);
 		}
 
-		browserAction.setBadgeText({
+		chrome.action.setBadgeText({
 			text,
 			tabId: tab.id,
 		});
 	} else if (code === 'focus-tab') {
-		browser.tabs.update(tab.id, {active: true});
-		browser.windows.update(tab.windowId, {focused: true});
+		chrome.tabs.update(tab.id, {active: true});
+		chrome.windows.update(tab.windowId, {focused: true});
 	}
 }
 
 // Temporary code from https://github.com/fregante/GhostText/pull/267
 async function saveShortcut() {
-	const storage = await browser.storage.local.get('shortcut');
+	const storage = await chrome.storage.local.get('shortcut');
 	if (storage.shortcut) {
 		// Already saved
 		return;
 	}
 
-	const shortcuts = await browser.commands.getAll();
+	const shortcuts = await chrome.commands.getAll();
 	for (const item of shortcuts) {
 		if (item.shortcut) {
 			// eslint-disable-next-line no-await-in-loop -- Intentional
-			await browser.storage.local.set({shortcut: item.shortcut});
+			await chrome.storage.local.set({shortcut: item.shortcut});
 			return;
 		}
 	}
 }
 
 async function getActiveTab() {
-	const [activeTab] = await browser.tabs.query({active: true, currentWindow: true});
+	const [activeTab] = await chrome.tabs.query({active: true, currentWindow: true});
 	return activeTab;
 }
 
 function init() {
-	browserAction.onClicked.addListener(handleAction);
-	browser.runtime.onMessage.addListener(handleMessages);
-	browser.contextMenus.create({
+	chrome.action.onClicked.addListener(handleAction);
+	chrome.runtime.onMessage.addListener(handleMessages);
+	chrome.contextMenus.create({
 		id: 'stop-gt',
 		title: 'Disconnect GhostText on this page',
 		contexts: ['action'],
 	});
-	browser.contextMenus.onClicked.addListener(({menuItemId}, tab) => {
+	chrome.contextMenus.create({
+		id: 'start-gt-editable',
+		title: 'Activate GhostText on field',
+		contexts: ['editable'],
+	});
+	chrome.contextMenus.onClicked.addListener(({menuItemId}, tab) => {
 		if (menuItemId === 'stop-gt') {
 			stopGT(tab);
 		} else if (menuItemId === 'start-gt-editable') {
 			handleAction(tab);
 		}
 	});
-	browser.commands.onCommand.addListener(async (command, tab = getActiveTab()) => {
+
+	chrome.commands.onCommand.addListener(async (command, tab = getActiveTab()) => {
 		if (command === 'open') {
 			handleAction(await tab);
 		} else if (command === 'close') {
@@ -173,25 +182,19 @@ function init() {
 		}
 	});
 
-	browser.contextMenus.create({
-		id: 'start-gt-editable',
-		title: 'Activate GhostText on field',
-		contexts: ['editable'],
-	});
-
-	browserAction.setBadgeBackgroundColor({
+	chrome.action.setBadgeBackgroundColor({
 		color: '#008040',
 	});
 
-	browser.runtime.onInstalled.addListener(async ({reason}) => {
+	chrome.runtime.onInstalled.addListener(async ({reason}) => {
 		// Only notify on install
 		if (reason === 'install') {
-			const {installType} = await browser.management.getSelf();
+			const {installType} = await chrome.management.getSelf();
 			if (installType === 'development') {
 				return;
 			}
 
-			await browser.tabs.create({
+			await chrome.tabs.create({
 				url: 'https://ghosttext.fregante.com/welcome/',
 				active: true,
 			});
