@@ -2,6 +2,8 @@ import addDomainPermissionToggle from 'webext-permission-toggle';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
+const browser = globalThis.chrome ??globalThis.chrome;
+
 // Firefox hates iframes on activeTab
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1653408
 // https://github.com/fregante/GhostText/pull/285
@@ -132,24 +134,24 @@ function handleMessages({code, count}, {tab}) {
 
 // Temporary code from https://github.com/fregante/GhostText/pull/267
 async function saveShortcut() {
-	const storage = await chrome.storage.local.get('shortcut');
+	const storage = await browser.storage.local.get('shortcut');
 	if (storage.shortcut) {
 		// Already saved
 		return;
 	}
 
-	const shortcuts = await chrome.commands.getAll();
+	const shortcuts = await browser.commands.getAll();
 	for (const item of shortcuts) {
 		if (item.shortcut) {
 			// eslint-disable-next-line no-await-in-loop -- Intentional
-			await chrome.storage.local.set({shortcut: item.shortcut});
+			await browser.storage.local.set({shortcut: item.shortcut});
 			return;
 		}
 	}
 }
 
 async function getActiveTab() {
-	const [activeTab] = await chrome.tabs.query({active: true, currentWindow: true});
+	const [activeTab] = await browser.tabs.query({active: true, currentWindow: true});
 	return activeTab;
 }
 
@@ -189,12 +191,12 @@ function init() {
 	chrome.runtime.onInstalled.addListener(async ({reason}) => {
 		// Only notify on install
 		if (reason === 'install') {
-			const {installType} = await chrome.management.getSelf();
+			const {installType} = await browser.management.getSelf();
 			if (installType === 'development') {
 				return;
 			}
 
-			await chrome.tabs.create({
+			await browser.tabs.create({
 				url: 'https://ghosttext.fregante.com/welcome/',
 				active: true,
 			});
