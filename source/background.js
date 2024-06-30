@@ -2,6 +2,8 @@ import addDomainPermissionToggle from 'webext-permission-toggle';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
+const browserAction = chrome.action ?? chrome.browserAction;
+
 // Firefox hates iframes on activeTab
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1653408
 // https://github.com/fregante/GhostText/pull/285
@@ -15,7 +17,7 @@ if (navigator.userAgent.includes('Firefox/')) {
 }
 
 function stopGT(tab) {
-	chrome.tabs.executeScript(tab.id, {
+	chrome.scripting.executeScript(tab.id, {
 		code: 'stopGT()',
 	});
 }
@@ -25,24 +27,24 @@ async function handleAction({id}) {
 		runAt: 'document_start',
 		allFrames: true,
 	};
-	const [alreadyInjected] = await chrome.tabs.executeScript(id, {
+	const [alreadyInjected] = await chrome.scripting.executeScript(id, {
 		...defaults,
 		code: 'typeof window.startGT === "function"',
 	});
 	if (alreadyInjected) {
-		return chrome.tabs.executeScript(id, {...defaults, code: 'startGT()'});
+		return chrome.scripting.executeScript(id, {...defaults, code: 'startGT()'});
 	}
 
 	try {
 		await Promise.all([
-			chrome.tabs.insertCSS(id, {...defaults, file: '/ghost-text.css'}),
-			chrome.tabs.executeScript(id, {...defaults, file: '/ghost-text.js'}),
+			chrome.scripting.insertCSS(id, {...defaults, file: '/ghost-text.css'}),
+			chrome.scripting.executeScript(id, {...defaults, file: '/ghost-text.js'}),
 		]);
 	} catch (error) {
 		console.error(error);
 	}
 
-	await chrome.tabs.executeScript(id, {...defaults, code: 'startGT()'});
+	await chrome.scripting.executeScript(id, {...defaults, code: 'startGT()'});
 }
 
 function handlePortListenerErrors(listener) {
@@ -107,7 +109,7 @@ function handleMessages({code, count}, {tab}) {
 			text = String(count);
 		}
 
-		chrome.browserAction.setBadgeText({
+		browserAction.setBadgeText({
 			text,
 			tabId: tab.id,
 		});
@@ -141,13 +143,19 @@ async function getActiveTab() {
 }
 
 function init() {
-	chrome.browserAction.onClicked.addListener(handleAction);
+	browserAction.onClicked.addListener(handleAction);
 	chrome.runtime.onMessage.addListener(handleMessages);
 	chrome.contextMenus.create({
 		id: 'stop-gt',
 		title: 'Disconnect GhostText on this page',
-		contexts: ['browser_action'],
-		onclick: (_, tab) => stopGT(tab.id),
+		contexts: ['action'],
+	});
+	chrome.contextMenus.onClicked.addListener(({menuItemId}, tab) => {
+		if (menuItemId === 'stop-gt') {
+			stopGT(tab);
+		} else if (menuItemId === 'start-gt-editable') {
+			handleAction(tab);
+		}
 	});
 	chrome.commands.onCommand.addListener(async (command, tab = getActiveTab()) => {
 		if (command === 'open') {
@@ -161,10 +169,9 @@ function init() {
 		id: 'start-gt-editable',
 		title: 'Activate GhostText on field',
 		contexts: ['editable'],
-		onclick: handleAction,
 	});
 
-	chrome.browserAction.setBadgeBackgroundColor({
+	browserAction.setBadgeBackgroundColor({
 		color: '#008040',
 	});
 

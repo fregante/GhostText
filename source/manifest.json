@@ -18,7 +18,7 @@
 		"activeTab",
 		"contextMenus",
 		"scripting",
-		"http://localhost/"
+		"storage"
 	],
 	"host_permissions": [
 		"http://localhost/"
@@ -29,10 +29,10 @@
 	"optional_host_permissions": [
 		"*://*/*"
 	],
-	"applications": {
+	"browser_specific_settings": {
 		"gecko": {
 			"id": "ghosttext@bfred.it",
-			"strict_min_version": "83.0"
+			"strict_min_version": "120.0"
 		}
 	},
 	"options_ui": {
