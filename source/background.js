@@ -2,7 +2,7 @@ import addDomainPermissionToggle from 'webext-permission-toggle';
 import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
-const browser = globalThis.chrome ??globalThis.chrome;
+const browser = globalThis.chrome ?? globalThis.chrome;
 
 // Firefox hates iframes on activeTab
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1653408
@@ -188,7 +188,7 @@ function init() {
 		color: '#008040',
 	});
 
-	chrome.runtime.onInstalled.addListener(async ({reason}) => {
+	browser.runtime.onInstalled.addListener(async ({reason}) => {
 		// Only notify on install
 		if (reason === 'install') {
 			const {installType} = await browser.management.getSelf();
