@@ -35,7 +35,7 @@
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "ghosttext@bfred.it",
-			"strict_min_version": "120.0"
+			"strict_min_version": "128.0"
 		}
 	},
 	"options_ui": {
@@ -91,6 +91,7 @@
 				"humane-ghosttext.css",
 				"humane-ghosttext.js",
 				"icons/*",
+				"advanced-editors-messenger.js",
 				"options-storage.js",
 				"options.html",
 				"options.js"

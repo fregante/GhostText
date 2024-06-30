@@ -7,8 +7,7 @@
  * @typedef { import('@codemirror/view').EditorView } EditorView
  */
 
-// Do not write code outside this function, it won't be available because this function is serialized
-export default function unsafeMessenger() {
+function unsafeMessenger() {
 	const lastKnownValue = new WeakMap();
 	document.body.addEventListener('gt:get', listener);
 
@@ -129,5 +128,6 @@ export default function unsafeMessenger() {
 	}
 }
 
-// eslint-disable-next-line no-unused-expressions
-undefined; // Avoids issues with tabs.injectScript
+unsafeMessenger();
+
+console.log('Advanced editors messenger ready');
