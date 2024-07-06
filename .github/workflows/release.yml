@@ -64,8 +64,10 @@ jobs:
     environment: Firefox
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
-      - run: npx web-ext@8 sign --channel listed
+      - run: git archive --output source.zip HEAD ":!test" ":!.github" && unzip -l source.zip
+      - run: npx web-ext@8 sign --channel listed --upload-source-code ../source.zip
         working-directory: artifact
         env:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
