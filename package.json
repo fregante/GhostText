@@ -36,10 +36,10 @@
 	},
 	"devDependencies": {
 		"@codemirror/view": "^6.28.2",
-		"@parcel/config-webextension": "^2.12.0",
+		"@parcel/config-webextension": "^2.12.1-canary.3290",
 		"@types/chrome": "^0.0.268",
 		"dot-json": "^1.3.0",
-		"parcel": "^2.12.0",
+		"parcel": "^2.0.0-canary.1665",
 		"xo": "^0.58.0"
 	},
 	"engines": {
