@@ -97,12 +97,17 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 
 	console.log('will open socket');
 	const socket = new WebSocket('ws://localhost:' + WebSocketPort);
+	let interval; // eslint-disable-line prefer-const -- Ur rong
 	await Promise.race([
 		oneEvent(socket, 'open'),
 		oneEvent(socket, 'error'),
 	]);
 
-	const onSocketClose = () => port.postMessage({close: true});
+	const onSocketClose = () => {
+		port.postMessage({close: true});
+		clearInterval(interval);
+	};
+
 	socket.addEventListener('close', onSocketClose);
 	socket.addEventListener('message', event => port.postMessage({message: event.data}));
 	socket.addEventListener('error', event => console.error('error!', event));
@@ -114,8 +119,15 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	port.onDisconnect.addListener(() => {
 		socket.removeEventListener('close', onSocketClose);
 		socket.close();
+		clearInterval(interval);
 	});
 	port.postMessage({ready: true});
+
+	interval = setInterval(() => {
+		// Keep-alive for MV3 https://github.com/fregante/GhostText/issues/317
+		port.postMessage({ping: true});
+		console.log('ping');
+	}, 5000);
 }));
 
 function handleMessages({code, count}, {tab}) {
