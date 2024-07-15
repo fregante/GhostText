@@ -1,7 +1,9 @@
+name: Verify Built Files
+
 on:
   - pull_request
   - push
 
 jobs:
-  run-verification:
-    uses: fregante/ghatemplates/is-dist-up-to-date/reusable.yml@main
+  Verify:
+    uses: fregante/ghatemplates/.github/workflows/verify-built-files.yml@main
