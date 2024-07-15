@@ -1,9 +1,0 @@
-name: Verify Built Files
-
-on:
-  - pull_request
-  - push
-
-jobs:
-  Verify:
-    uses: fregante/ghatemplates/.github/workflows/verify-built-files.yml@f2268f808704e47b80fd74dc255e88f1bc5c413f
