@@ -80,7 +80,10 @@
 	],
 	"background": {
 		"type": "module",
-		"service_worker": "background.js"
+		"service_worker": "background.js",
+		"scripts": [
+			"background.js"
+		]
 	},
 	"web_accessible_resources": [
 		{
