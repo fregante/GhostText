@@ -6,4 +6,4 @@ on:
 
 jobs:
   Verify:
-    uses: fregante/ghatemplates/.github/workflows/verify-built-files.yml@f2268f8
+    uses: fregante/ghatemplates/.github/workflows/verify-built-files.yml@f2268f808704e47b80fd74dc255e88f1bc5c413f
