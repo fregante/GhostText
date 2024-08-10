@@ -121,7 +121,7 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 	port.postMessage({ready: true});
 }));
 
-// https://github.com/fregante/GhostText/issues/317
+// https://github.com/fregante/GhostText/pull/324
 chrome.runtime.onMessage.addListener(() => {
 	// What is my purpose?
 	// You pass the butter.

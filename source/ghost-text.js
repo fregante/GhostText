@@ -350,7 +350,7 @@ window.stopGT = stopGT;
 
 setTimeout(startGT, 100);
 
-// https://github.com/fregante/GhostText/issues/317
+// https://github.com/fregante/GhostText/pull/324
 window.gtInterval ??= setInterval(() => {
 	chrome.runtime.sendMessage({
 		code: 'Keep alive',
