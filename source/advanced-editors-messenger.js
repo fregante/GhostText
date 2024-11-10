@@ -68,10 +68,10 @@ function unsafeMessenger() {
 			});
 		}, {signal});
 
-		// target.addEventListener('gt:kill', () => {
-		// 	controller.abort();
-		// 	clearInterval(interval);
-		// }, {signal});
+		target.addEventListener('gt:kill', () => {
+			controller.abort();
+			clearInterval(interval);
+		});
 	}
 
 	function codeMirror5(target) {
