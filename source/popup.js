@@ -62,9 +62,22 @@ function updateConnectionsList() {
                 });
             };
 
+            const focusEditorBtn = document.createElement('button');
+            focusEditorBtn.className = 'focus-btn';
+            focusEditorBtn.textContent = 'FocusEditor';
+            focusEditorBtn.onclick = () => {
+                chrome.runtime.sendMessage({
+                    code: 'focus-editor',
+                    connectionId: connection.id
+                }, () => {
+                    window.close();
+                });
+            };
+
             item.appendChild(title);
             item.appendChild(url);
             item.appendChild(focusBtn);
+            item.appendChild(focusEditorBtn);
             item.appendChild(disconnectBtn);
             list.appendChild(item);
         });

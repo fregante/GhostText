@@ -231,6 +231,27 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 			});
 		});
 		return true;
+	} else if (message.code === 'focus-editor') {
+		getTargetTab(sender).then(targetTab => {
+			if (!targetTab) {
+				sendResponse({success: false, error: 'No target tab found'});
+				return;
+			}
+			// 从 content script 获取连接信息
+			chrome.tabs.sendMessage(targetTab.id, {
+				type: 'focus-editor',
+				connectionId: message.connectionId
+			}, response => {
+				if (chrome.runtime.lastError) {
+					console.error('Error getting connections:', chrome.runtime.lastError);
+					sendResponse({success: false, error: chrome.runtime.lastError.message});
+					return;
+				}
+				console.log('Received focus-editor from content script:', response);
+				sendResponse({success: true});
+			});
+		});
+		return true;
 	} else if (message.code === 'handle-action') {
 		handleAction({id: message.id});
 		return true;

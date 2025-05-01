@@ -125,6 +125,7 @@ class GhostTextField {
 
 		this.port = chrome.runtime.connect({name: 'new-field'});
 		this.port.onMessage.addListener(async packet => {
+			console.log('packet', packet);
 			if (packet.message) {
 				this.receive({data: packet.message});
 			} else if (packet.close) {
@@ -151,6 +152,10 @@ class GhostTextField {
 		});
 	}
 
+	bringEditorToFront() {
+		this.port.postMessage(JSON.stringify({type: "bringEditorToFront"}));
+	}
+
 	send(event) {
 		if (event && event.detail?.ghostTextSyntheticEvent) {
 			return;
@@ -163,20 +168,21 @@ class GhostTextField {
 		}
 
 		console.info('sending', this.field.value.length, 'characters');
-		this.port.postMessage(
-			JSON.stringify({
+			const payload = JSON.stringify({
 				title: this.title,
 				url: this.url,
 				syntax: '', // TODO: move to first fetch
 				text: this.field.value,
+				connectionId: this.connectionId,
 				selections: [
 					{
 						start: this.field.selectionStart || 0,
 						end: this.field.selectionEnd || 0,
 					},
 				],
-			}),
-		);
+		});
+		console.log('payload', payload);
+		this.port.postMessage(payload);
 	}
 
 	receive(event) {
@@ -388,6 +394,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		if (field) {
 			console.log('Focusing field:', field);
 			field.field.el.focus();
+			sendResponse(true);
+		} else {
+			sendResponse(false);
+		}
+	} else if (message.type === 'focus-editor') {
+		console.log('Focusing editor:', message);
+		const field = activeFields.get(message.connectionId);
+		if (field) {
+			field.bringEditorToFront();
 			sendResponse(true);
 		} else {
 			sendResponse(false);
