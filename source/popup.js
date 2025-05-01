@@ -50,8 +50,21 @@ function updateConnectionsList() {
                 });
             };
 
+            const focusBtn = document.createElement('button');
+            focusBtn.className = 'focus-btn';
+            focusBtn.textContent = 'Focus';
+            focusBtn.onclick = () => {
+                chrome.runtime.sendMessage({
+                    code: 'focus-fields',
+                    connectionId: connection.id
+                }, () => {
+                    window.close();
+                });
+            };
+
             item.appendChild(title);
             item.appendChild(url);
+            item.appendChild(focusBtn);
             item.appendChild(disconnectBtn);
             list.appendChild(item);
         });
@@ -62,8 +75,7 @@ function updateConnectionsList() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Popup loaded');
     updateConnectionsList();
-    // 每秒更新一次连接列表
-    setInterval(updateConnectionsList, 1000);
+
 
     // 新连接按钮
     document.getElementById('new-connection').addEventListener('click', () => {

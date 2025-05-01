@@ -379,8 +379,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		const field = activeFields.get(message.connectionId);
 		if (field) {
 			field.deactivate();
+			sendResponse(true);
+		} else {
+			sendResponse(false);
 		}
-		sendResponse(true);
+	} else if (message.type === 'focus-fields') {
+		const field = activeFields.get(message.connectionId);
+		if (field) {
+			console.log('Focusing field:', field);
+			field.field.el.focus();
+			sendResponse(true);
+		} else {
+			sendResponse(false);
+		}
 	}
 	return true; // 保持消息通道开放
 });

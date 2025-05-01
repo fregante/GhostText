@@ -63,17 +63,32 @@ h1 {
     display: block;
 }
 
-.disconnect-btn {
-    padding: 4px 8px;
-    background-color: #ff4444;
+.focus-btn {
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 5px 10px;
+    border-radius: 3px;
     cursor: pointer;
+    margin-left: 10px;
+}
+
+.focus-btn:hover {
+    background-color: #45a049;
+}
+
+.disconnect-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 10px;
 }
 
 .disconnect-btn:hover {
-    background-color: #cc0000;
+    background-color: #d32f2f;
 }
 
 .no-connections {
