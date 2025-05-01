@@ -326,13 +326,13 @@ function startGT() {
 
 	// Automatically activate the focused field, unless it's already is active
 	const focusedField = knownElements.get(document.activeElement);
-	if (focusedField && !activeFields.has(focusedField)) {
+	if (focusedField && !activeFields.has(focusedField.connectionId)) {
 		focusedField.activate();
 		return;
 	}
 
 	// Automatically activate the only inactive field on the page
-	const inactiveFields = [...knownElements.values()].filter(field => !activeFields.has(field));
+	const inactiveFields = [...knownElements.values()].filter(field => !activeFields.has(field.connectionId));
 	if (inactiveFields.length === 1 && !document.querySelector('iframe')) {
 		inactiveFields[0].activate();
 		return;

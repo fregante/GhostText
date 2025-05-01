@@ -39,6 +39,7 @@ async function handleAction({id}) {
 			}
 		},
 	});
+	console.log({frames});
 
 	const virginFrames = frames.filter(({result}) => !result).map(({frameId}) => frameId);
 
