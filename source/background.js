@@ -135,39 +135,6 @@ function getTargetTab(sender) {
 }
 
 // 执行页面脚本
-function executeScriptInTab(tabId, func, args = []) {
-	return new Promise((resolve, reject) => {
-		// 先注入 ghost-text.js
-		chrome.scripting.executeScript({
-			target: {tabId},
-			files: ['/ghost-text.js'],
-			injectImmediately: true,
-			world: 'MAIN'
-		}, () => {
-			if (chrome.runtime.lastError) {
-				reject(chrome.runtime.lastError);
-				return;
-			}
-
-			// 然后执行目标函数
-			chrome.scripting.executeScript({
-				target: {tabId},
-				func,
-				args,
-				injectImmediately: true,
-				world: 'MAIN'
-			}, (result) => {
-				if (chrome.runtime.lastError) {
-					reject(chrome.runtime.lastError);
-					return;
-				}
-				resolve(result);
-			});
-		});
-	});
-}
-
-// 添加断开特定连接的功能
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if (message.code === 'disconnect-connection') {
 		getTargetTab(sender).then(targetTab => {
