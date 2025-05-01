@@ -2,7 +2,7 @@ import GThumane from './humane-ghosttext.js';
 import optionsStorage from './options-storage.js';
 
 const knownElements = new Map();
-const activeFields = new Set();
+const activeFields = new Map();
 const eventOptions = {bubbles: true};
 const optionsPromise = optionsStorage.getAll();
 
@@ -109,6 +109,9 @@ class GhostTextField {
 		this.tryFocus = this.tryFocus.bind(this);
 		field.addEventListener('focus', this.tryFocus);
 		this.state = 'inactive';
+		this.connectionId = null;
+		this.title = document.title;
+		this.url = window.location.href;
 	}
 
 	async activate() {
@@ -117,7 +120,6 @@ class GhostTextField {
 		}
 
 		this.state = 'active';
-		activeFields.add(this);
 
 		this.field.dataset.gtField = 'loading';
 
@@ -129,6 +131,8 @@ class GhostTextField {
 				this.deactivate(false);
 				updateCount();
 			} else if (packet.ready) {
+				this.connectionId = packet.connectionId;
+				activeFields.set(this.connectionId, this);
 				const options = await optionsPromise;
 				if (options.notifyOnConnect) {
 					notify('log', 'Connected! You can switch to your editor');
@@ -161,8 +165,8 @@ class GhostTextField {
 		console.info('sending', this.field.value.length, 'characters');
 		this.port.postMessage(
 			JSON.stringify({
-				title: document.title, // TODO: move to first fetch
-				url: location.host, // TODO: move to first fetch
+				title: this.title,
+				url: this.url,
 				syntax: '', // TODO: move to first fetch
 				text: this.field.value,
 				selections: [
@@ -210,7 +214,9 @@ class GhostTextField {
 
 		this.state = 'inactive';
 		console.log('Disabling field');
-		activeFields.delete(this);
+		if (this.connectionId) {
+			activeFields.delete(this.connectionId);
+		}
 		this.port.disconnect();
 		this.field.removeEventListener('input', this.send);
 		this.field.kill?.();
@@ -238,7 +244,7 @@ class GhostTextField {
 	}
 
 	static deactivateAll() {
-		for (const field of activeFields) {
+		for (const field of activeFields.values()) {
 			field.deactivate();
 		}
 	}
@@ -247,7 +253,7 @@ class GhostTextField {
 async function updateCount() {
 	chrome.runtime.sendMessage({
 		code: 'connection-count',
-		count: activeFields.size,
+		count: activeFields.size
 	});
 
 	if (activeFields.size === 0) {
@@ -356,3 +362,25 @@ window.gtInterval ??= setInterval(() => {
 		code: 'Keep alive',
 	});
 }, 5000);
+
+// 添加消息监听
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+	console.log('Received message in content script:', message);
+	if (message.type === 'get-connections') {
+		console.log(activeFields);
+		const connections = Array.from(activeFields.entries()).map(([id, field]) => ({
+			id,
+			url: field.url,
+			title: field.title
+		}));
+		console.log('Sending connections:', connections);
+		sendResponse(connections);
+	} else if (message.type === 'disconnect') {
+		const field = activeFields.get(message.connectionId);
+		if (field) {
+			field.deactivate();
+		}
+		sendResponse(true);
+	}
+	return true; // 保持消息通道开放
+});

@@ -1,0 +1,97 @@
+body {
+    width: 300px;
+    padding: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h1 {
+    font-size: 16px;
+    margin: 0;
+    color: #333;
+}
+
+#connections-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.connection-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.connection-item:last-child {
+    border-bottom: none;
+}
+
+.connection-title {
+    flex: 1;
+    margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.connection-url {
+    display: none;
+    position: absolute;
+    left: 8px;
+    top: 100%;
+    background: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 100;
+    white-space: nowrap;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.connection-item:hover .connection-url {
+    display: block;
+}
+
+.disconnect-btn {
+    padding: 4px 8px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.disconnect-btn:hover {
+    background-color: #cc0000;
+}
+
+.no-connections {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+}
+
+#new-connection {
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#new-connection:hover {
+    background-color: #45a049;
+} 

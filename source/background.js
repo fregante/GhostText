@@ -24,6 +24,7 @@ function stopGT(tab) {
 }
 
 async function handleAction({id}) {
+
 	const frames = await chrome.scripting.executeScript({
 		target: {tabId: id, allFrames: true},
 		injectImmediately: true,
@@ -102,6 +103,8 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 		oneEvent(socket, 'error'),
 	]);
 
+	const connectionId = Date.now().toString();
+
 	const onSocketClose = () => {
 		port.postMessage({close: true});
 	};
@@ -118,8 +121,107 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 		socket.removeEventListener('close', onSocketClose);
 		socket.close();
 	});
-	port.postMessage({ready: true});
+	port.postMessage({ready: true, connectionId});
 }));
+
+// 获取目标标签页
+function getTargetTab(sender) {
+	if (sender.tab) {
+		return Promise.resolve(sender.tab);
+	}
+	return chrome.tabs.query({active: true, currentWindow: true})
+		.then(tabs => tabs[0]);
+}
+
+// 执行页面脚本
+function executeScriptInTab(tabId, func, args = []) {
+	return new Promise((resolve, reject) => {
+		// 先注入 ghost-text.js
+		chrome.scripting.executeScript({
+			target: {tabId},
+			files: ['/ghost-text.js'],
+			injectImmediately: true,
+			world: 'MAIN'
+		}, () => {
+			if (chrome.runtime.lastError) {
+				reject(chrome.runtime.lastError);
+				return;
+			}
+
+			// 然后执行目标函数
+			chrome.scripting.executeScript({
+				target: {tabId},
+				func,
+				args,
+				injectImmediately: true,
+				world: 'MAIN'
+			}, (result) => {
+				if (chrome.runtime.lastError) {
+					reject(chrome.runtime.lastError);
+					return;
+				}
+				resolve(result);
+			});
+		});
+	});
+}
+
+// 添加断开特定连接的功能
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+	if (message.code === 'disconnect-connection') {
+		getTargetTab(sender).then(targetTab => {
+			if (!targetTab) {
+				sendResponse({success: false, error: 'No target tab found'});
+				return;
+			}
+
+			// 通知页面停用特定连接
+			chrome.tabs.sendMessage(targetTab.id, {
+				type: 'disconnect',
+				connectionId: message.connectionId
+			}, response => {
+				if (chrome.runtime.lastError) {
+					console.error('Error sending disconnect message:', chrome.runtime.lastError);
+					sendResponse({success: false, error: chrome.runtime.lastError.message});
+					return;
+				}
+				sendResponse({success: true});
+			});
+		});
+		return true;
+	} else if (message.code === 'get-connections') {
+		getTargetTab(sender).then(targetTab => {
+			if (!targetTab) {
+				sendResponse({connections: []});
+				return;
+			}
+
+			// 从 content script 获取连接信息
+			chrome.tabs.sendMessage(targetTab.id, {
+				type: 'get-connections'
+			}, response => {
+				if (chrome.runtime.lastError) {
+					console.error('Error getting connections:', chrome.runtime.lastError);
+					sendResponse({connections: []});
+					return;
+				}
+				console.log('Received connections from content script:', response);
+				sendResponse({connections: response || []});
+			});
+		});
+		return true;
+	} else if (message.code === 'handle-action') {
+		handleAction({id: message.id});
+		return true;
+	} else if (message.code === 'connection-count') {
+		// 更新图标上的连接数
+		chrome.action.setBadgeText({
+			text: message.count > 0 ? String(message.count) : '',
+			tabId: sender.tab.id
+		});
+		return true;
+	}
+});
 
 // https://github.com/fregante/GhostText/pull/324
 chrome.runtime.onMessage.addListener(() => {
@@ -223,3 +325,17 @@ function init() {
 }
 
 init();
+
+(() => {
+  let ws = new WebSocket('ws://127.0.0.1:8000/.devd.livereload');
+  ws.onmessage = () => {
+    // reload current tab with some delay
+    // require permissions in manifest
+    // chrome.tabs.executeScript(null, {
+    //   code: 'setTimeout(function() { document.location.reload(); }, 200);'
+    // });
+
+    // reload extension
+    chrome.runtime.reload();
+  };
+})();

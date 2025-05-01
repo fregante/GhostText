@@ -21,7 +21,8 @@
 		"activeTab",
 		"contextMenus",
 		"scripting",
-		"storage"
+		"storage",
+		"tabs"
 	],
 	"host_permissions": [
 		"http://localhost/"
@@ -50,7 +51,8 @@
 			"64": "icons/icon64.png",
 			"128": "icons/icon128.png",
 			"256": "icons/icon256.png"
-		}
+		},
+		"default_popup": "popup.html"
 	},
 	"commands": {
 		"open": {
@@ -97,7 +99,9 @@
 				"advanced-editors-messenger.js",
 				"options-storage.js",
 				"options.html",
-				"options.js"
+				"options.js",
+				"popup.html",
+				"popup.js"
 			],
 			"matches": [
 				"*://*/*"
