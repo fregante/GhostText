@@ -64,6 +64,13 @@
 		},
 		"close": {
 			"description": "Disconnect from GhostText"
+		},
+		"toggle": {
+			"description": "Toggle GhostText connection",
+			"suggested_key": {
+				"default": "Ctrl+Shift+T",
+				"linux": "Ctrl+Shift+T"
+			}
 		}
 	},
 	"content_scripts": [

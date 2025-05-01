@@ -309,6 +309,17 @@ function notify(type, message, timeout = getMessageDisplayTime(message)) {
 	}, {once: true});
 }
 
+function getFocusedFieldStatus() {
+	clearTimeout(timeoutHandle);
+
+	registerElements();
+	const focusedField = knownElements.get(document.activeElement);
+	return {
+		isExists: focusedField !== undefined,
+		isActive: focusedField && activeFields.has(focusedField.connectionId)
+	}
+}
+
 function startGT() {
 	clearTimeout(timeoutHandle);
 
@@ -359,6 +370,7 @@ function stopGT() {
 
 window.startGT = startGT;
 window.stopGT = stopGT;
+window.getFocusedFieldStatus = getFocusedFieldStatus;
 
 setTimeout(startGT, 100);
 

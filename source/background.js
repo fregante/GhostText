@@ -316,6 +316,25 @@ async function getActiveTab() {
 	return activeTab;
 }
 
+async function toggleField(tab) {
+	if (!tab) return;
+
+	// 获取当前聚焦的 field 状态
+	const [result] = await chrome.scripting.executeScript({
+		target: {tabId: tab.id},
+		func: () => getFocusedFieldStatus()
+	});
+	console.log('toggleField', result);
+	if (!result.result.isExists) {
+		return;
+	}
+	if (result.result.isActive) {
+		stopGT(tab);
+	} else {
+		handleAction(tab);
+	}
+}
+
 function init() {
 	chrome.action.onClicked.addListener(handleAction);
 	chrome.runtime.onMessage.addListener(handleMessages);
@@ -342,6 +361,8 @@ function init() {
 			handleAction(await tab);
 		} else if (command === 'close') {
 			stopGT(await tab);
+		} else if (command === 'toggle') {
+			toggleField(await tab);
 		}
 	});
 
