@@ -368,11 +368,14 @@ function stopGT() {
 	document.body.classList.remove('GT--waiting');
 }
 
+function dummy() {}
+
 window.startGT = startGT;
 window.stopGT = stopGT;
 window.getFocusedFieldStatus = getFocusedFieldStatus;
+window.dummy = dummy;
 
-setTimeout(startGT, 100);
+// setTimeout(startGT, 100);
 
 // https://github.com/fregante/GhostText/pull/324
 window.gtInterval ??= setInterval(() => {

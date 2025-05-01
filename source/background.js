@@ -17,29 +17,46 @@ if (navigator.userAgent.includes('Firefox/')) {
 }
 
 function stopGT(tab) {
-	chrome.scripting.executeScript({
-		target: {tabId: tab.id},
-		func: () => stopGT(),
-	});
+	injectScripts().then(
+		() => {
+			chrome.scripting.executeScript({
+				target: {tabId: tab.id},
+				func: () => stopGT(),
+			});
+		}
+	);
 }
 
-async function handleAction({id}) {
+function startGT({id}) {
+	injectScripts().then(
+		() => {
+			chrome.scripting.executeScript({
+				target: {tabId: id},
+				func: () => startGT(),
+			});
+		}
+	);
+}
 
+// this function is used to inject scripts into the tab
+// not all iframe are injected, so we need to run it periodically
+async function injectScripts() {
+	console.log('injecting scripts!');
+	const tab = await getActiveTab();
+	const tabId = tab.id;
 	const frames = await chrome.scripting.executeScript({
-		target: {tabId: id, allFrames: true},
+		target: {tabId, allFrames: true},
 		injectImmediately: true,
-		// eslint-disable-next-line object-shorthand -- Chrome hates it
 		func: () => {
+			// if the script is already injected, it will return true
 			try {
-				// eslint-disable-next-line no-undef -- Different context
-				startGT();
+				dummy();
 				return true;
 			} catch {
 				return false;
 			}
 		},
 	});
-	console.log({frames});
 
 	const virginFrames = frames.filter(({result}) => !result).map(({frameId}) => frameId);
 
@@ -50,18 +67,18 @@ async function handleAction({id}) {
 	// Firefox won't resolve this Promise, so don't await it
 	chrome.scripting.insertCSS({
 		files: ['/ghost-text.css'],
-		target: {tabId: id, frameIds: virginFrames},
+		target: {tabId, frameIds: virginFrames},
 	});
 
 	chrome.scripting.executeScript({
 		files: ['/ghost-text.js'],
-		target: {tabId: id, frameIds: virginFrames},
+		target: {tabId, frameIds: virginFrames},
 		injectImmediately: true,
 	});
 
 	chrome.scripting.executeScript({
 		files: ['/advanced-editors-messenger.js'],
-		target: {tabId: id, frameIds: virginFrames},
+		target: {tabId, frameIds: virginFrames},
 		world: 'MAIN',
 		injectImmediately: true,
 	});
@@ -221,7 +238,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		});
 		return true;
 	} else if (message.code === 'handle-action') {
-		handleAction({id: message.id});
+		startGT({id: message.id});
 		return true;
 	} else if (message.code === 'connection-count') {
 		// 更新图标上的连接数
@@ -286,24 +303,24 @@ async function getActiveTab() {
 async function toggleField(tab) {
 	if (!tab) return;
 
+	await injectScripts();
 	// 获取当前聚焦的 field 状态
 	const [result] = await chrome.scripting.executeScript({
 		target: {tabId: tab.id},
 		func: () => getFocusedFieldStatus()
 	});
-	console.log('toggleField', result);
 	if (!result.result.isExists) {
 		return;
 	}
 	if (result.result.isActive) {
 		stopGT(tab);
 	} else {
-		handleAction(tab);
+		startGT(tab);
 	}
 }
 
 function init() {
-	chrome.action.onClicked.addListener(handleAction);
+	chrome.action.onClicked.addListener(startGT);
 	chrome.runtime.onMessage.addListener(handleMessages);
 	chrome.contextMenus.create({
 		id: 'stop-gt',
@@ -319,13 +336,13 @@ function init() {
 		if (menuItemId === 'stop-gt') {
 			stopGT(tab);
 		} else if (menuItemId === 'start-gt-editable') {
-			handleAction(tab);
+			startGT(tab);
 		}
 	});
 
 	chrome.commands.onCommand.addListener(async (command, tab = getActiveTab()) => {
 		if (command === 'open') {
-			handleAction(await tab);
+			startGT(await tab);
 		} else if (command === 'close') {
 			stopGT(await tab);
 		} else if (command === 'toggle') {
