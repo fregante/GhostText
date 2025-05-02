@@ -164,7 +164,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 			// 通知页面停用特定连接
 			chrome.tabs.sendMessage(targetTab.id, {
-				type: 'disconnect',
+				code: 'disconnect-connection',
 				connectionId: message.connectionId
 			}, response => {
 				if (chrome.runtime.lastError) {

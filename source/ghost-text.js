@@ -535,8 +535,6 @@ window.stopGT = stopGT;
 window.getFocusedFieldStatus = getFocusedFieldStatus;
 window.dummy = dummy;
 
-// setTimeout(startGT, 100);
-
 // https://github.com/fregante/GhostText/pull/324
 window.gtInterval ??= setInterval(() => {
 	chrome.runtime.sendMessage({
@@ -547,7 +545,7 @@ window.gtInterval ??= setInterval(() => {
 // 添加消息监听
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	console.log('Received message in content script:', message);
-	if (message.type === 'get-connections') {
+	if (message.code === 'get-connections') {
 		console.log(activeFields);
 		const connections = Array.from(activeFields.entries()).map(([id, field], index) => ({
 			id,
@@ -557,7 +555,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		}));
 		console.log('Sending connections:', connections);
 		sendResponse(connections);
-	} else if (message.type === 'disconnect') {
+	} else if (message.code === 'disconnect-connection') {
 		const field = activeFields.get(message.connectionId);
 		if (field) {
 			field.deactivate();
@@ -565,7 +563,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		} else {
 			sendResponse(false);
 		}
-	} else if (message.type === 'focus-fields') {
+	} else if (message.code === 'focus-fields') {
 		const field = activeFields.get(message.connectionId);
 		if (field) {
 			console.log('Focusing field:', field);
@@ -574,7 +572,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		} else {
 			sendResponse(false);
 		}
-	} else if (message.type === 'focus-editor') {
+	} else if (message.code === 'focus-editor') {
 		console.log('Focusing editor:', message);
 		const field = activeFields.get(message.connectionId);
 		if (field) {
@@ -583,6 +581,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		} else {
 			sendResponse(false);
 		}
+	} else {
+		throw new Error('Unknown message code: ' + message.code);
 	}
 	return true; // 保持消息通道开放
 });
