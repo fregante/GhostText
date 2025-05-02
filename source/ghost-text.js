@@ -112,6 +112,146 @@ class GhostTextField {
 		this.connectionId = null;
 		this.title = document.title;
 		this.url = window.location.href;
+		this.toolbar = null;
+	}
+
+	createToolbar() {
+		if (this.toolbar) return;
+
+		// 计算当前 field 的编号
+		const index = Array.from(activeFields.keys()).indexOf(this.connectionId) + 1;
+
+		const toolbar = document.createElement('div');
+		toolbar.className = 'gt-toolbar';
+		toolbar.innerHTML = `
+			<span class="gt-connection-id">#${index}</span>
+			<button class="gt-btn" title="Focus Editor">
+				<svg viewBox="0 0 24 24" width="16" height="16">
+					<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+				</svg>
+			</button>
+			<button class="gt-btn" title="Disconnect">
+				<svg viewBox="0 0 24 24" width="16" height="16">
+					<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+				</svg>
+			</button>
+		`;
+
+		const style = document.createElement('style');
+		style.textContent = `
+			.gt-toolbar {
+				position: fixed;
+				background: white;
+				padding: 8px;
+				border-radius: 4px;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 8px;
+				z-index: 999999;
+				transition: z-index 0.2s;
+			}
+			.gt-toolbar:hover {
+				z-index: 1000000;
+			}
+			.gt-connection-id {
+				font-family: monospace;
+				font-size: 12px;
+				color: #666;
+				white-space: nowrap;
+				font-weight: bold;
+			}
+			.gt-btn {
+				background: none;
+				border: none;
+				padding: 4px;
+				cursor: pointer;
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 24px;
+				height: 24px;
+			}
+			.gt-btn:hover {
+				background: #f0f0f0;
+			}
+			.gt-btn svg {
+				fill: #666;
+			}
+		`;
+		document.head.appendChild(style);
+
+		toolbar.querySelectorAll('.gt-btn').forEach((btn, index) => {
+			btn.addEventListener('click', () => {
+				if (index === 0) {
+					this.bringEditorToFront();
+				} else if (index === 1) {
+					this.deactivate();
+				}
+			});
+		});
+
+		// 将工具栏添加到 body
+		document.body.appendChild(toolbar);
+		this.toolbar = toolbar;
+
+		// 计算并设置工具栏位置
+		const updatePosition = () => {
+			if (!this.field.el.isConnected) {
+				this.deactivate();
+				return;
+			}
+			const rect = this.field.el.getBoundingClientRect();
+			toolbar.style.left = `${rect.left - toolbar.offsetWidth - 10}px`;
+			toolbar.style.top = `${rect.top}px`;
+		};
+
+		// 初始位置
+		updatePosition();
+
+		// 监听滚动和窗口大小变化
+		window.addEventListener('scroll', updatePosition);
+		window.addEventListener('resize', updatePosition);
+
+		// 监听 field 的位置变化
+		const observer = new MutationObserver(updatePosition);
+		observer.observe(this.field.el, {
+			attributes: true,
+			attributeFilter: ['style', 'class'],
+			childList: false,
+			subtree: false
+		});
+
+		// 监听 field 的父元素变化
+		const parentObserver = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				for (const node of mutation.removedNodes) {
+					if (node === this.field.el || node.contains(this.field.el)) {
+						this.deactivate();
+						return;
+					}
+				}
+			}
+		});
+		parentObserver.observe(document.body, {
+			childList: true,
+			subtree: true
+		});
+
+		// 监听滚动容器的变化
+		const scrollObserver = new MutationObserver(updatePosition);
+		let currentParent = this.field.el.parentElement;
+		while (currentParent) {
+			if (currentParent.scrollHeight > currentParent.clientHeight) {
+				currentParent.addEventListener('scroll', updatePosition);
+			}
+			currentParent = currentParent.parentElement;
+		}
+
+		this.observers = [observer, parentObserver, scrollObserver];
+		this.updatePosition = updatePosition;
 	}
 
 	async activate() {
@@ -141,6 +281,7 @@ class GhostTextField {
 
 				this.field.addEventListener('input', this.send);
 				this.field.dataset.gtField = 'enabled';
+				this.createToolbar();
 
 				// Send first value to init tab
 				this.send();
@@ -225,11 +366,27 @@ class GhostTextField {
 		}
 		this.port.disconnect();
 		this.field.removeEventListener('input', this.send);
-		// catwang01: Not sure why we need to kill the field
-		// But I realized that if we kill the field, the editor will not be able to be activated again (at least for cm6)
-		// disabling this works
-		// this.field.kill?.();
 		this.field.dataset.gtField = '';
+
+		if (this.toolbar) {
+			window.removeEventListener('scroll', this.updatePosition);
+			window.removeEventListener('resize', this.updatePosition);
+			
+			// 移除滚动容器的监听
+			let currentParent = this.field.el.parentElement;
+			while (currentParent) {
+				if (currentParent.scrollHeight > currentParent.clientHeight) {
+					currentParent.removeEventListener('scroll', this.updatePosition);
+				}
+				currentParent = currentParent.parentElement;
+			}
+
+			if (this.observers) {
+				this.observers.forEach(observer => observer.disconnect());
+			}
+			this.toolbar.remove();
+			this.toolbar = null;
+		}
 
 		const options = await optionsPromise;
 		if (options.focusOnDisconnect) {
