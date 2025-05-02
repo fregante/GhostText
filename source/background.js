@@ -60,23 +60,25 @@ async function injectScripts() {
 
 	const virginFrames = frames.filter(({result}) => !result).map(({frameId}) => frameId);
 
+	console.log(`Get ${virginFrames.length} virgin frames`);
+
 	if (virginFrames.length === 0) {
 		return;
 	}
 
 	// Firefox won't resolve this Promise, so don't await it
-	chrome.scripting.insertCSS({
+	await chrome.scripting.insertCSS({
 		files: ['/ghost-text.css'],
 		target: {tabId, frameIds: virginFrames},
 	});
 
-	chrome.scripting.executeScript({
+	await chrome.scripting.executeScript({
 		files: ['/ghost-text.js'],
 		target: {tabId, frameIds: virginFrames},
 		injectImmediately: true,
 	});
 
-	chrome.scripting.executeScript({
+	await chrome.scripting.executeScript({
 		files: ['/advanced-editors-messenger.js'],
 		target: {tabId, frameIds: virginFrames},
 		world: 'MAIN',
