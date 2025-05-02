@@ -549,10 +549,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	console.log('Received message in content script:', message);
 	if (message.type === 'get-connections') {
 		console.log(activeFields);
-		const connections = Array.from(activeFields.entries()).map(([id, field]) => ({
+		const connections = Array.from(activeFields.entries()).map(([id, field], index) => ({
 			id,
 			url: field.url,
-			title: field.title
+			title: field.title,
+			index: index + 1
 		}));
 		console.log('Sending connections:', connections);
 		sendResponse(connections);
