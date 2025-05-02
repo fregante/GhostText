@@ -225,7 +225,10 @@ class GhostTextField {
 		}
 		this.port.disconnect();
 		this.field.removeEventListener('input', this.send);
-		this.field.kill?.();
+		// catwang01: Not sure why we need to kill the field
+		// But I realized that if we kill the field, the editor will not be able to be activated again (at least for cm6)
+		// disabling this works
+		// this.field.kill?.();
 		this.field.dataset.gtField = '';
 
 		const options = await optionsPromise;
