@@ -27,6 +27,7 @@ Visit the [ghosttext.fregante.com](https://ghosttext.fregante.com) for more deta
 	[<img src="https://ghosttext.fregante.com/icons/emacs.svg" width="48" height="48" alt="Emacs">](https://melpa.org/#/atomic-chrome)
 	[<img src="https://ghosttext.fregante.com/icons/vim.svg" width="48" height="48" alt="Vim">](https://github.com/raghur/vim-ghost)
 	[<img src="https://ghosttext.fregante.com/icons/neovim.svg" width="48" height="48" alt="Neovim">](https://github.com/subnut/nvim-ghost.nvim)
+	[<img src="https://github.com/user-attachments/assets/b0ca34ed-5508-458f-b7af-2642824bf7f7" width="48" height="48" alt="Helix">](https://github.com/rahji/helix-ghost)
 	[<img src="https://ghosttext.fregante.com/icons/acme.png" width="48" height="48" alt="Acme">](https://github.com/fhs/Ghost)
 
 ## Troubleshooting
