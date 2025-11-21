@@ -152,13 +152,27 @@ class GhostTextField {
 			return;
 		}
 
+		// For advanced editors, request fresh value before sending
+		if (this.field instanceof AdvancedTextWrapper) {
+			console.log('DEBUG: Requesting fresh value from advanced editor');
+			this.field.el.dispatchEvent(new CustomEvent('gt:get', {bubbles: true}));
+			// Wait a bit for the gt:input response to update this.field._value
+			setTimeout(() => this._doSend(), 50);
+			return;
+		}
+
+		this._doSend();
+	}
+
+	_doSend() {
 		if (this.field.value === undefined) {
 			console.log('field value is undefined');
 			console.log(this.field);
 			return;
 		}
 
-		console.info('sending', this.field.value.length, 'characters');
+		console.info('DEBUG: GhostText sending', this.field.value.length, 'characters');
+		console.log('DEBUG: GhostText sent: text=[' + this.field.value + '], title=[' + document.title + ']');
 		this.port.postMessage(
 			JSON.stringify({
 				title: document.title, // TODO: move to first fetch
