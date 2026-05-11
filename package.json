@@ -32,7 +32,7 @@
 		"xo": "^2.0.2"
 	},
 	"engines": {
-		"node": ">=20"
+		"node": ">=24"
 	},
 	"@parcel/resolver-default": {
 		"packageExports": true

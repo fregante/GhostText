@@ -30,7 +30,7 @@ jobs:
         run: npx dot-json@1 "$DIRECTORY/manifest.json" version "$DAILY_VERSION"
       - name: Ready for "submit" jobs
         if: env.DAILY_VERSION_CREATED
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           path: ${{ env.DIRECTORY }}
       - name: Create release
@@ -49,8 +49,8 @@ jobs:
     environment: Chrome
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v8
-      - run: npx chrome-webstore-upload-cli@3
+      - uses: actions/download-artifact@v4
+      - run: npx chrome-webstore-upload-cli@4.0.0-1
         working-directory: artifact
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
@@ -65,9 +65,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@v4
       - run: git archive --output source.zip HEAD ":!test" ":!.github" && unzip -l source.zip
-      - run: npx web-ext@8 sign --channel listed --upload-source-code ../source.zip
+      - run: npx web-ext@10 sign --channel listed --upload-source-code ../source.zip
         working-directory: artifact
         env:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
