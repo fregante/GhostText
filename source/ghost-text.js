@@ -35,11 +35,9 @@ class AdvancedTextWrapper {
 		this.el.addEventListener('gt:input', event => {
 			this._value = event.detail.value;
 		});
-		this.el.dispatchEvent(
-			new CustomEvent('gt:get', {
-				bubbles: true,
-			}),
-		);
+		this.el.dispatchEvent(new CustomEvent('gt:get', {
+			bubbles: true,
+		}));
 	}
 
 	addEventListener(type, callback) {
@@ -159,20 +157,18 @@ class GhostTextField {
 		}
 
 		console.info('sending', this.field.value.length, 'characters');
-		this.port.postMessage(
-			JSON.stringify({
-				title: document.title, // TODO: move to first fetch
-				url: location.host, // TODO: move to first fetch
-				syntax: '', // TODO: move to first fetch
-				text: this.field.value,
-				selections: [
-					{
-						start: this.field.selectionStart || 0,
-						end: this.field.selectionEnd || 0,
-					},
-				],
-			}),
-		);
+		this.port.postMessage(JSON.stringify({
+			title: document.title, // TODO: move to first fetch
+			url: location.host, // TODO: move to first fetch
+			syntax: '', // TODO: move to first fetch
+			text: this.field.value,
+			selections: [
+				{
+					start: this.field.selectionStart || 0,
+					end: this.field.selectionEnd || 0,
+				},
+			],
+		}));
 	}
 
 	receive(event) {
@@ -289,7 +285,7 @@ function notify(type, message, timeout = getMessageDisplayTime(message)) {
 	});
 	document.addEventListener('click', () => {
 		// Allow selections
-		if (!window.getSelection().isCollapsed) {
+		if (!globalThis.getSelection().isCollapsed) {
 			return;
 		}
 
@@ -345,13 +341,13 @@ function stopGT() {
 	document.body.classList.remove('GT--waiting');
 }
 
-window.startGT = startGT;
-window.stopGT = stopGT;
+globalThis.startGT = startGT;
+globalThis.stopGT = stopGT;
 
 setTimeout(startGT, 100);
 
 // https://github.com/fregante/GhostText/pull/324
-window.gtInterval ??= setInterval(() => {
+globalThis.gtInterval ??= setInterval(() => {
 	chrome.runtime.sendMessage({
 		code: 'Keep alive',
 	});
