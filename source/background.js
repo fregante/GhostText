@@ -1,5 +1,4 @@
 import addDomainPermissionToggle from 'webext-permission-toggle';
-import oneEvent from 'one-event';
 import optionsStorage from './options-storage.js';
 
 const browser = globalThis.chrome ?? globalThis.chrome;
@@ -97,10 +96,10 @@ chrome.runtime.onConnect.addListener(handlePortListenerErrors(async port => {
 
 	console.log('will open socket');
 	const socket = new WebSocket('ws://localhost:' + WebSocketPort);
-	await Promise.race([
-		oneEvent(socket, 'open'),
-		oneEvent(socket, 'error'),
-	]);
+	await new Promise((resolve, reject) => {
+		socket.addEventListener('open', resolve, {once: true});
+		socket.addEventListener('error', reject, {once: true});
+	});
 
 	const onSocketClose = () => {
 		port.postMessage({close: true});
